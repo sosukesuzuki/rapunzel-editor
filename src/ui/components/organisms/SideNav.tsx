@@ -4,6 +4,7 @@ import { grape } from '../../../lib/colors'
 import { inject, observer } from 'mobx-react'
 import { DirectoriesStore } from '../../../lib/stores/DirectoriesStore'
 import FileTree from '../molecules/FileTree'
+import FileTreeControl from '../molecules/FileTreeControl'
 
 const Container = styled.div`
   background-color: ${grape[0]};
@@ -20,7 +21,7 @@ export default class SideNav extends React.Component<SideNavProps> {
     const { directories } = this.props.directoriesStore
     return (
       <Container>
-        <h2>File Tree</h2>
+        <FileTreeControl />
         <FileTree directories={directories} />
       </Container>
     )
