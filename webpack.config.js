@@ -7,6 +7,9 @@ module.exports = {
   mode: MODE,
   devtool: DEV ? 'inline-source-map' : 'source-map',
   resolve: {
+    alias: {
+      fs: __dirname + "/src/lib/fs.ts"
+    },
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   module: {
@@ -40,6 +43,10 @@ module.exports = {
       {
         from: __dirname + '/src/index.html',
         to: __dirname + '/dist/index.html'
+      },
+      {
+        from: __dirname + '/assets/**',
+        to: __dirname + '/dist'
       }
     ])
   ]

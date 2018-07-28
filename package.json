@@ -9,6 +9,7 @@
     "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'"
   },
   "dependencies": {
+    "browserfs": "^1.4.3",
     "normalize.css": "^8.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"

@@ -8,11 +8,37 @@
   <body>
     <div class='root'>
       <div>
-        Rapunzel Editor
       </div>
     </div>
     <script nomodule type=text/javascript>
       document.body.innerHTML = "Please use modern browser. (I checked to work only latest chrome)"
+    </script>
+    <script type='text/javascript' src='/assets/browserfs.min.js'></script>
+    <script type='module'>
+import '/main.js'
+
+function setupBrowserFS() {
+  return new Promise(resolve => {
+    BrowserFS.configure({ fs: "IndexedDB", options: {} }, err => {
+      if (err) {
+        throw err
+      }
+      resolve()
+    })
+  })
+}
+
+;(async () => {
+  if (window.location.hostname !== 'localhost' && window.location.protocol === 'http:') {
+    window.location.href = `https://${location.host}/${window.location.search}`
+  }
+
+  try {
+    await setupBrowserFS()
+  } catch (e) {
+    console.error(e)
+  }
+})
     </script>
   </body>
 </html>
