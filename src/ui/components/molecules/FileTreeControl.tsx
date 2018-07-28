@@ -1,7 +1,12 @@
 import React from 'react'
+import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 import AddFileButton from '../atoms/AddFileButton'
 import { isMd } from '../../../lib/utils/isMd'
+import { writeFile } from '../../../lib/filesystem/commands/writeFile'
+import { readDirectories } from '../../../lib/utils/readDirectories'
+import { DirectoriesStore } from '../../../lib/stores/DirectoriesStore'
+import { Directories } from '../../../lib/types'
 
 const Container = styled.div`
   .flexContainer {
@@ -12,12 +17,18 @@ const Container = styled.div`
   }
 `
 
+interface FileTreeControlProps {
+  directoriesStore?: DirectoriesStore
+}
+
 interface FileTreeControlState {
   isInputting: boolean
   inputContent: string
 }
 
-export default class FileTreeControl extends React.Component<{}, FileTreeControlState> {
+@inject('directoriesStore')
+@observer
+export default class FileTreeControl extends React.Component<FileTreeControlProps, FileTreeControlState> {
   constructor (props) {
     super(props)
     this.state = {
@@ -37,11 +48,14 @@ export default class FileTreeControl extends React.Component<{}, FileTreeControl
     this.submitInput()
   }
 
-  submitInput = () => {
-    if (isMd(this.state.inputContent)) {
+  submitInput = async () => {
+    const { inputContent } = this.state
+    if (isMd(inputContent)) {
       this.setInputContent('')
       this.setIsInputting(false)
-      console.log('SubmitInput')
+      await writeFile(`./${inputContent}`, '')
+      const directories: Directories = await readDirectories('.')
+      this.props.directoriesStore.setDirectories(directories)
     } else {
       throw Error('The file extension must be ".md".')
     }
