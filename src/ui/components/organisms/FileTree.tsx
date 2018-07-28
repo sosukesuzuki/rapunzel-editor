@@ -5,7 +5,6 @@ import { grape } from '../../../lib/colors'
 const Container = styled.div`
   background-color: ${grape[0]};
 `
-
 export default class FileTree extends React.Component {
   render () {
     return (

@@ -1,13 +1,13 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
+import { Provider, observer } from 'mobx-react'
 import styled from 'styled-components'
 import Header from './organisms/Header'
 import FileTree from './organisms/FileTree'
 import Detail from './organisms/Detail'
-import { Directories } from '../../lib/types'
+import { DirectoriesStore } from '../../lib/stores/DirectoriesStore'
 
 interface AppProps {
-  directories: Directories
+  directoriesStore: DirectoriesStore
 }
 
 const Container = styled.div`
@@ -19,14 +19,15 @@ const Container = styled.div`
 }
 `
 
+@observer
 export default class App extends React.Component<AppProps> {
   render () {
     const {
-      directories
+      directoriesStore
     } = this.props
 
     return (
-      <Provider directories={directories}>
+      <Provider directoriesStore={directoriesStore}>
         <Container>
           <Header />
           <FileTree />

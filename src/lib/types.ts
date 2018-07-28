@@ -1,11 +1,6 @@
-export interface Directory {
+export interface DirectoryOrFile {
   name: string
-  files?: File[]
+  files?: DirectoryOrFile[]
 }
 
-export interface File {
-  name: string
-  content: string
-}
-
-export type Directories = (Directory | File)[]
+export type Directories = DirectoryOrFile[]

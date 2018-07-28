@@ -4,10 +4,18 @@ import 'normalize.css'
 import App from './ui/components/App'
 import fs from 'fs'
 import { readdir } from './lib/filesystem/queries/readdir'
+import { Directories } from './lib/types';
+import { DirectoriesStore } from './lib/stores/DirectoriesStore'
 
 const g: any = global
 g.fs = fs
 
-console.log(readdir('.').then(h => console.log(h)))
+;(async () => {
+ const directories: Directories = (await readdir('.')).map(dir => ({
+   name: dir
+ }))
 
-ReactDOM.render(<App directories={[]}/>, document.querySelector('.root'))
+ const directoriesStore = new DirectoriesStore(directories)
+
+  ReactDOM.render(<App directoriesStore={directoriesStore}/>, document.querySelector('.root'))
+})()
