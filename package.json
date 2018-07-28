@@ -1,0 +1,33 @@
+{
+  "name": "rapunzel-editor",
+  "version": "1.0.0",
+  "description": "markdown editor on browser.",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack-serve --no-reload --port 3333",
+    "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'"
+  },
+  "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.54",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.54",
+    "@babel/plugin-syntax-object-rest-spread": "^7.0.0-beta.54",
+    "@babel/preset-env": "^7.0.0-beta.54",
+    "@babel/preset-react": "^7.0.0-beta.54",
+    "@types/react": "^16.4.7",
+    "@types/react-dom": "^16.0.6",
+    "babel-loader": "^7.1.5",
+    "copy-webpack-plugin": "^4.5.2",
+    "file-loader": "^1.1.11",
+    "style-loader": "^0.21.0",
+    "ts-loader": "^4.4.2",
+    "typescript": "^2.9.2",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0",
+    "webpack-serve": "^2.0.2"
+  }
+}
