@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider, observer } from 'mobx-react'
 import styled from 'styled-components'
 import Header from './organisms/Header'
-import FileTree from './organisms/FileTree'
+import SideNav from './organisms/SideNav'
 import Detail from './organisms/Detail'
 import { DirectoriesStore } from '../../lib/stores/DirectoriesStore'
 
@@ -30,7 +30,7 @@ export default class App extends React.Component<AppProps> {
       <Provider directoriesStore={directoriesStore}>
         <Container>
           <Header />
-          <FileTree />
+          <SideNav />
           <Detail />
         </Container>
       </Provider>
