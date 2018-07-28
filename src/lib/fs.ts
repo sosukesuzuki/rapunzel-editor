@@ -1,1 +1,1 @@
-module.exports = BrowserFS.BFSRequire("fs")
+module.exports = BrowserFS.BFSRequire('fs')

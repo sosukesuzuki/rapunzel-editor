@@ -15,7 +15,6 @@
     </script>
     <script type='text/javascript' src='/assets/browserfs.min.js'></script>
     <script type='module'>
-import '/main.js'
 
 function setupBrowserFS() {
   return new Promise(resolve => {
@@ -28,17 +27,18 @@ function setupBrowserFS() {
   })
 }
 
-;(async () => {
+(async () => {
   if (window.location.hostname !== 'localhost' && window.location.protocol === 'http:') {
     window.location.href = `https://${location.host}/${window.location.search}`
   }
 
   try {
     await setupBrowserFS()
+    await import('./main.js')
   } catch (e) {
     console.error(e)
   }
-})
+})()
     </script>
   </body>
 </html>
