@@ -17,12 +17,14 @@ const Container = styled.div`
 export default class Detail extends React.Component<DetaiProps> {
   render () {
     const { currentFileStore } = this.props
-
-    if (currentFileStore.currentFile != null) console.log(currentFileStore.currentFile.path)
+    const { currentFile } = currentFileStore
 
     return (
       <Container>
-        <h2>Detail</h2>
+        <h3>{currentFile == null
+          ? 'File is not selected.'
+          : `${currentFile.path}`
+        }</h3>
       </Container>
     )
   }
