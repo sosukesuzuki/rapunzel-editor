@@ -1,7 +1,7 @@
 import * as ReactDOM from 'react-dom'
 import * as React from 'react'
 import 'normalize.css'
-import App from './components/App'
+import App from './ui/components/App'
 import fs from 'fs'
 
 const g: any = global
