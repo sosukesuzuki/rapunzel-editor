@@ -10,7 +10,14 @@ import { Directories } from '../../../lib/types'
 
 const Container = styled.div`
   .flexContainer {
+    height: 30px;
     display: flex;
+    span {
+      padding: 0 7px;
+      line-height: 30px;
+      flex: 1;
+      font-weight: bold;
+    }
   }
   input {
     width: 100%;
@@ -69,7 +76,7 @@ export default class FileTreeControl extends React.Component<FileTreeControlProp
     return (
       <Container>
         <div className='flexContainer'>
-          <h2>File Tree</h2>
+          <span>File Tree</span>
           <div>
             <AddFileButton onClick={() => this.setIsInputting(true)} />
           </div>

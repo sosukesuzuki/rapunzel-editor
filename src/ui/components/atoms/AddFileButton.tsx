@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.button`
+  height: 100%;
 `
 
 interface AddFileButtonProps {
@@ -13,7 +14,7 @@ export default class AddFileButton extends React.Component<AddFileButtonProps> {
     const { onClick } = this.props
     return (
       <Container onClick={onClick}>
-        <span>Add a file</span>
+        Add a file
       </Container>
     )
   }
