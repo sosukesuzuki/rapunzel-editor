@@ -12,7 +12,8 @@
     "browserfs": "^1.4.3",
     "normalize.css": "^8.0.0",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "styled-components": "^3.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.54",
