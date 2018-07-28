@@ -5,9 +5,11 @@ import Header from './organisms/Header'
 import SideNav from './organisms/SideNav'
 import Detail from './organisms/Detail'
 import { DirectoriesStore } from '../../lib/stores/DirectoriesStore'
+import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 
 interface AppProps {
   directoriesStore: DirectoriesStore
+  currentFileStore: CurrentFileStore
 }
 
 const Container = styled.div`
@@ -23,11 +25,14 @@ const Container = styled.div`
 export default class App extends React.Component<AppProps> {
   render () {
     const {
-      directoriesStore
+      directoriesStore,
+      currentFileStore
     } = this.props
 
     return (
-      <Provider directoriesStore={directoriesStore}>
+      <Provider
+        directoriesStore={directoriesStore}
+        currentFileStore={currentFileStore}>
         <Container>
           <Header />
           <SideNav />

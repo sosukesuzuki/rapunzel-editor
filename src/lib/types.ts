@@ -4,3 +4,8 @@ export interface DirectoryOrFile {
 }
 
 export type Directories = DirectoryOrFile[]
+
+export interface File {
+  path: string
+  content: string
+}

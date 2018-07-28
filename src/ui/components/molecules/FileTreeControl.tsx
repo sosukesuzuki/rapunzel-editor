@@ -7,6 +7,7 @@ import { writeFile } from '../../../lib/filesystem/commands/writeFile'
 import { readDirectories } from '../../../lib/utils/readDirectories'
 import { DirectoriesStore } from '../../../lib/stores/DirectoriesStore'
 import { Directories } from '../../../lib/types'
+import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore';
 
 const Container = styled.div`
   .flexContainer {
@@ -26,6 +27,7 @@ const Container = styled.div`
 
 interface FileTreeControlProps {
   directoriesStore?: DirectoriesStore
+  currentFileStore?: CurrentFileStore
 }
 
 interface FileTreeControlState {
@@ -34,6 +36,7 @@ interface FileTreeControlState {
 }
 
 @inject('directoriesStore')
+@inject('currentFileStore')
 @observer
 export default class FileTreeControl extends React.Component<FileTreeControlProps, FileTreeControlState> {
   constructor (props) {

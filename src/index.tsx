@@ -6,6 +6,7 @@ import fs from 'fs'
 import { readDirectories } from './lib/utils/readDirectories'
 import { Directories } from './lib/types';
 import { DirectoriesStore } from './lib/stores/DirectoriesStore'
+import { CurrentFileStore } from './lib/stores/CurrentFileStore'
 
 const g: any = global
 g.fs = fs
@@ -13,6 +14,7 @@ g.fs = fs
 ;(async () => {
  const directories: Directories = await readDirectories('.')
  const directoriesStore = new DirectoriesStore(directories)
+ const currentFileStore = new CurrentFileStore(null)
 
-  ReactDOM.render(<App directoriesStore={directoriesStore}/>, document.querySelector('.root'))
+  ReactDOM.render(<App directoriesStore={directoriesStore} currentFileStore={currentFileStore} />, document.querySelector('.root'))
 })()

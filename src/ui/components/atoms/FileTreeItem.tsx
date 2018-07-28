@@ -6,6 +6,7 @@ import { grape } from '../../../lib/colors'
 
 interface FileTreeItemProps {
   directory: DirectoryOrFile
+  onClick: () => void
 }
 
 const Container = styled.div`
@@ -20,9 +21,10 @@ const Container = styled.div`
 @observer
 export default class FileTreeItem extends React.Component<FileTreeItemProps> {
   render () {
-    const { name } = this.props.directory
+    const { directory, onClick } = this.props
+    const { name } = directory
     return (
-      <Container>
+      <Container onClick={onClick}>
         <span>{name}</span>
       </Container>
     )
