@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { observer, inject } from 'mobx-react'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
-import DirectoryLine from '../atoms/DirectoryLine'
+import DirectoryList from './DirectoryList'
 
 interface FileTreeProps {
   fileTreeStore?: FileTreeStore
@@ -23,7 +23,7 @@ export default class FileTree extends React.Component<FileTreeProps> {
     return (
       <Container>
         {fileTree.type === 'dir' &&
-          <DirectoryLine directory={fileTree} /> }
+          <DirectoryList directory={fileTree} /> }
       </Container>
     )
   }
