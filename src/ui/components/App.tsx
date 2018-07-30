@@ -4,11 +4,11 @@ import styled from 'styled-components'
 import Header from './organisms/Header'
 import SideNav from './organisms/SideNav'
 import Detail from './organisms/Detail'
-import { DirectoriesStore } from '../../lib/stores/DirectoriesStore'
+import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 
 interface AppProps {
-  directoriesStore: DirectoriesStore
+  fileTreeStore: FileTreeStore 
   currentFileStore: CurrentFileStore
 }
 
@@ -25,13 +25,13 @@ const Container = styled.div`
 export default class App extends React.Component<AppProps> {
   render () {
     const {
-      directoriesStore,
+      fileTreeStore,
       currentFileStore
     } = this.props
 
     return (
       <Provider
-        directoriesStore={directoriesStore}
+        fileTreeStore={fileTreeStore}
         currentFileStore={currentFileStore}>
         <Container>
           <Header />

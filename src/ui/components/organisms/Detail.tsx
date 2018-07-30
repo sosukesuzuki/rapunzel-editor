@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
 
 interface DetaiProps {
-  currentFileStore: CurrentFileStore
+  currentFileStore?: CurrentFileStore
 }
 
 const Container = styled.div`
@@ -16,15 +16,8 @@ const Container = styled.div`
 @observer
 export default class Detail extends React.Component<DetaiProps> {
   render () {
-    const { currentFileStore } = this.props
-    const { currentFile } = currentFileStore
-
     return (
       <Container>
-        <h3>{currentFile == null
-          ? 'File is not selected.'
-          : `${currentFile.path}`
-        }</h3>
       </Container>
     )
   }

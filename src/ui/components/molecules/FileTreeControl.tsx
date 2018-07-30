@@ -1,12 +1,7 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
-import AddFileButton from '../atoms/AddFileButton'
-import { isMd } from '../../../lib/utils/isMd'
-import { writeFile } from '../../../lib/filesystem/commands/writeFile'
-import { readDirectories } from '../../../lib/utils/readDirectories'
-import { DirectoriesStore } from '../../../lib/stores/DirectoriesStore'
-import { Directories } from '../../../lib/types'
+import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore';
 
 const Container = styled.div`
@@ -26,76 +21,18 @@ const Container = styled.div`
 `
 
 interface FileTreeControlProps {
-  directoriesStore?: DirectoriesStore
+  fileTreeStore?: FileTreeStore 
   currentFileStore?: CurrentFileStore
 }
 
-interface FileTreeControlState {
-  isInputting: boolean
-  inputContent: string
-}
-
-@inject('directoriesStore')
+@inject('fileTreeStore')
 @inject('currentFileStore')
 @observer
-export default class FileTreeControl extends React.Component<FileTreeControlProps, FileTreeControlState> {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isInputting: false,
-      inputContent: ''
-    }
-  }
-  
-  input: HTMLInputElement = null
-
-  setIsInputting = (isInputting: boolean) => this.setState({ isInputting })
-
-  setInputContent = (inputContent: string) => this.setState({ inputContent })
-
-  handleKeydown = (e: React.KeyboardEvent) => {
-    if (e.key !== 'Enter') return
-    this.submitInput()
-  }
-
-  submitInput = async () => {
-    const { inputContent } = this.state
-    if (isMd(inputContent)) {
-      this.setInputContent('')
-      this.setIsInputting(false)
-      await writeFile(`./${inputContent}`, '')
-      const directories: Directories = await readDirectories('.')
-      this.props.directoriesStore.setDirectories(directories)
-    } else {
-      throw Error('The file extension must be ".md".')
-    }
-  }
-
+export default class FileTreeControl extends React.Component<FileTreeControlProps> {
   render () {
-    const {
-      isInputting,
-      inputContent
-    } = this.state
+    console.log(this.props.fileTreeStore)
     return (
       <Container>
-        <div className='flexContainer'>
-          <span>File Tree</span>
-          <div>
-            <AddFileButton onClick={() => this.setIsInputting(true)} />
-          </div>
-        </div>
-        { isInputting &&
-          <input
-            ref={input => {
-              this.input = input
-              if (input != null) this.input.focus()
-            }}
-            value={inputContent}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setInputContent(e.target.value)}
-            onKeyDown={(e: React.KeyboardEvent) => this.handleKeydown(e)}
-            onBlur={() => this.setIsInputting(false)}
-          />
-        }
       </Container>
     )
   }

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { grape } from '../../../lib/colors'
 import { inject, observer } from 'mobx-react'
-import { DirectoriesStore } from '../../../lib/stores/DirectoriesStore'
+import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 import FileTree from '../molecules/FileTree'
 import FileTreeControl from '../molecules/FileTreeControl'
 
@@ -11,18 +11,18 @@ const Container = styled.div`
 `
 
 interface SideNavProps {
-  directoriesStore?: DirectoriesStore
+  fileTreeStore?: FileTreeStore
 }
 
-@inject('directoriesStore')
+@inject('fileTreeStore')
 @observer
 export default class SideNav extends React.Component<SideNavProps> {
   render () {
-    const { directories } = this.props.directoriesStore
+    const { fileTreeStore } = this.props
     return (
       <Container>
         <FileTreeControl />
-        <FileTree directories={directories} />
+        <FileTree fileTree={fileTreeStore.fileTree} />
       </Container>
     )
   }
