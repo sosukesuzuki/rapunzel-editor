@@ -9,9 +9,13 @@ interface FileLineProps {
   file: FileNode
 }
 
+interface ContainerProps {
+  paddingLeft: number
+}
+
 const Container = styled.div`
+  padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
   background-color: transparent;
-  margin-left: 5px;
   &:hover {
     background-color: ${grey[2]};
   }
@@ -21,8 +25,9 @@ const Container = styled.div`
 export default class FileLine extends React.Component<FileLineProps> {
   render () {
     const { file } = this.props
+    const paddingLeft = (file.pathname.split('/').length - 1) * 5
     return (
-      <Container>
+      <Container paddingLeft={paddingLeft}>
         {path.basename(file.pathname)}
       </Container>
     )

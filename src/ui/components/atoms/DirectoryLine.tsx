@@ -22,7 +22,12 @@ interface DirectoryLineState {
   inputType: 'file' | 'dir'
 }
 
+interface ContainerProps {
+  paddingLeft: number
+}
+
 const Container = styled.div`
+  padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
   display: flex;
   &:hover {
     background-color: ${grey[2]}
@@ -120,9 +125,10 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   render () {
     const { onClick, directory } = this.props
     const { isOpen, inputContent } = this.state
+    const paddingLeft = (directory.pathname.split('/').length - 1) * 5
     return (
       <>
-        <Container>
+        <Container paddingLeft={paddingLeft}>
           <div className='folderName' onClick={onClick}>
             {directory.pathname}
           </div>
