@@ -15,6 +15,7 @@
     </script>
     <script type='text/javascript' src='/assets/browserfs.min.js'></script>
     <script type='module'>
+const el = document.querySelector('.root')
 
 function setupBrowserFS() {
   return new Promise(resolve => {
@@ -27,12 +28,22 @@ function setupBrowserFS() {
   })
 }
 
+const showLoadingMessage = (mes, loading = true) => {
+  el.innerHTML =`
+    <div style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 1.5em;">
+      <span>${mes}</span>
+      ${loading ? '<div id="__loader"></div>' : ''}
+    </div>
+  `
+}
+
 (async () => {
   if (window.location.hostname !== 'localhost' && window.location.protocol === 'http:') {
     window.location.href = `https://${location.host}/${window.location.search}`
   }
 
   try {
+    showLoadingMessage('Loading assets...')
     await setupBrowserFS()
     await import('./main.js')
   } catch (e) {
