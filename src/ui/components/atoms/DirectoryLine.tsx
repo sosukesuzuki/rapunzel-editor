@@ -8,6 +8,7 @@ import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 import { writeFile } from '../../../lib/filesystem/commands/writeFile'
 import { mkdir } from '../../../lib/filesystem/commands/mkdir'
 import { readFileNode } from '../../../lib/utils/getFileTree'
+import { isMd } from '../../../lib/utils/isMd'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -100,6 +101,9 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   handleSubmitFile = async () => {
     const { directory, fileTreeStore } = this.props
     const { inputContent } = this.state
+    if (!isMd(inputContent)) {
+      throw Error('File extension must be "md".')
+    }
     await writeFile(`${directory.pathname}/${inputContent}`, '')
     const fileTree = await readFileNode('.')
     fileTreeStore.setDirectories(fileTree)
