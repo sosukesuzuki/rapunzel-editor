@@ -30,7 +30,6 @@ interface FileTreeControlProps {
 @observer
 export default class FileTreeControl extends React.Component<FileTreeControlProps> {
   render () {
-    console.log(this.props.fileTreeStore)
     return (
       <Container>
       </Container>
