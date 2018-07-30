@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FileNode } from '../../../lib/types'
 import { observer } from 'mobx-react';
 import FileLine from './FileLine'
+import { grey } from '../../../lib/colors'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -16,6 +17,13 @@ const Container = styled.div`
   div {
     width: 100%;
     padding: 7px;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  .dir {
+    &:hover {
+      background-color: ${grey[2]}
+    }
   }
 `
 
@@ -41,7 +49,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
     return (
       <Container>
         {directory.type === 'dir' &&
-          <div onClick={(e: React.MouseEvent<HTMLDivElement>) => this.handleClick(e, !isOpen)}>{directory.pathname}</div>
+          <div className='dir' onClick={(e: React.MouseEvent<HTMLDivElement>) => this.handleClick(e, !isOpen)}>{directory.pathname}</div>
         }
         { isOpen && directory.type === 'dir' &&
           directory.children.map((fileNode: FileNode) => {

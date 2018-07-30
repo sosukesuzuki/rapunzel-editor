@@ -2,12 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 import { FileNode } from '../../../lib/types'
 import { observer } from 'mobx-react'
+import { grey } from '../../../lib/colors'
 
 interface FileLineProps {
   file: FileNode
 }
 
-const Container = styled.div``
+const Container = styled.div`
+  background-color: transparent;
+  &:hover {
+    background-color: ${grey[2]};
+  }
+`
 
 @observer
 export default class FileLine extends React.Component<FileLineProps> {
@@ -15,7 +21,7 @@ export default class FileLine extends React.Component<FileLineProps> {
     const { file } = this.props
     return (
       <Container>
-        <span>{file.pathname}</span>
+        {file.pathname}
       </Container>
     )
   }
