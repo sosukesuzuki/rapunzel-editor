@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FileNode } from '../../../lib/types'
 import { observer, inject } from 'mobx-react';
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
+import { writeFile } from '../../../lib/filesystem/commands/writeFile'
+import { mkdir } from '../../../lib/filesystem/commands/mkdir'
+import { readFileNode } from '../../../lib/utils/getFileTree'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -82,10 +85,32 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   }
 
   handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { inputType } = this.state
     if (e.key === 'Enter') {
       this.setIsOpen(false)
       this.setInputContent('')
+      if (inputType === 'file') {
+        this.handleSubmitFile()
+      } else if (inputType === 'dir') {
+        this.handleSubmitDir()
+      }
     }
+  }
+
+  handleSubmitFile = async () => {
+    const { directory, fileTreeStore } = this.props
+    const { inputContent } = this.state
+    await writeFile(`${directory.pathname}/${inputContent}`, '')
+    const fileTree = await readFileNode('.')
+    fileTreeStore.setDirectories(fileTree)
+  }
+
+  handleSubmitDir = async () => {
+    const { directory, fileTreeStore } = this.props  
+    const { inputContent } = this.state 
+    await mkdir(`${directory.pathname}/${inputContent}`)
+    const fileTree = await readFileNode('.')
+    fileTreeStore.setDirectories(fileTree)
   }
 
   render () {
