@@ -18,7 +18,7 @@ export default class Header extends React.Component {
   render () {
     return (
       <Container>
-        <h1>Header</h1>
+        <h1>Rapunzel</h1>
       </Container>
     )
   }
