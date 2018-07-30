@@ -1,23 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
 import { observer, inject } from 'mobx-react'
-import { FileNode } from '../../../lib/types'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
+import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 
 interface FileTreeProps {
-  fileTree: FileNode
+  fileTreeStore?: FileTreeStore
   currentFileStore?: CurrentFileStore
 }
 
 const Container = styled.div`
 `
 
+@inject('fileTreeStore')
 @inject('currentFileStore')
 @observer
 export default class FileTree extends React.Component<FileTreeProps> {
   render () {
-    const { fileTree } = this.props
-    console.log(fileTree)
+    const { currentFileStore } = this.props
+    console.log(currentFileStore.currentFile)
     return (
       <Container>
       </Container>

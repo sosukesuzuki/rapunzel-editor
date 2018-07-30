@@ -5,13 +5,13 @@ import App from './ui/components/App'
 import fs from 'fs'
 import { FileTreeStore } from './lib/stores/FileTreeStore'
 import { CurrentFileStore } from './lib/stores/CurrentFileStore'
-import { getFilesTree, readFileNode } from './lib/utils/getFileTree'
+import { readFileNode } from './lib/utils/getFileTree'
 
 const g: any = global
 g.fs = fs
 
 ;(async () => {
-const fileTreeStore = new FileTreeStore(await readFileNode('.'))
+ const fileTreeStore = new FileTreeStore(await readFileNode('.'))
  const currentFileStore = new CurrentFileStore(null)
 
   ReactDOM.render(<App fileTreeStore={fileTreeStore} currentFileStore={currentFileStore} />, document.querySelector('.root'))
