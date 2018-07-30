@@ -6,9 +6,14 @@ import fs from 'fs'
 import { FileTreeStore } from './lib/stores/FileTreeStore'
 import { CurrentFileStore } from './lib/stores/CurrentFileStore'
 import { readFileNode } from './lib/utils/getFileTree'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faFile } from '@fortawesome/free-solid-svg-icons'
+import { faFolder } from '@fortawesome/free-solid-svg-icons'
 
 const g: any = global
 g.fs = fs
+
+library.add(faFile, faFolder)
 
 ;(async () => {
  const fileTreeStore = new FileTreeStore(await readFileNode('.'))
