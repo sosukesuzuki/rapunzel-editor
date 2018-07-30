@@ -31,8 +31,11 @@ const Container = styled.div`
 export default class DirectoryLine extends React.Component<DirectoryLineProps, DirectoryLineState> {
   constructor (props) {
     super(props)
+    const { directory } = props
     this.state = {
-      isOpen: false
+      isOpen: directory.pathname === '.'
+        ? true
+        : false
     }
   }
 

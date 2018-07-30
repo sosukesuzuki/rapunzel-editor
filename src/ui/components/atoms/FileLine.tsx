@@ -10,6 +10,7 @@ interface FileLineProps {
 
 const Container = styled.div`
   background-color: transparent;
+  margin-left: 5px;
   &:hover {
     background-color: ${grey[2]};
   }
