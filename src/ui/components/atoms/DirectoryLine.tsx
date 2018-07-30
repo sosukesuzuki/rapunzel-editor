@@ -111,7 +111,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
     }
     await writeFile(`${directory.pathname}/${inputContent}`, '')
     const fileTree = await readFileNode('.')
-    fileTreeStore.setDirectories(fileTree)
+    fileTreeStore.setFileTree(fileTree)
   }
 
   handleSubmitDir = async () => {
@@ -119,7 +119,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
     const { inputContent } = this.state 
     await mkdir(`${directory.pathname}/${inputContent}`)
     const fileTree = await readFileNode('.')
-    fileTreeStore.setDirectories(fileTree)
+    fileTreeStore.setFileTree(fileTree)
   }
 
   render () {

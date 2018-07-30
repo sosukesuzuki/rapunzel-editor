@@ -8,7 +8,7 @@ export class FileTreeStore {
     this.fileTree = fileTree
   }
 
-  @action setDirectories = (fileTree: FileNode) => {
+  @action setFileTree = (fileTree: FileNode) => {
     this.fileTree = fileTree
   }
 }
