@@ -52,9 +52,8 @@ export default class DirectoryList extends React.Component<DirectoryListProps, D
       <Container>
         {directory.type === 'dir' &&
           <DirectoryLine
-            onClick={(e: React.MouseEvent<HTMLDivElement>) => this.handleClick(e, !isOpen)}>
-            {directory.pathname}
-          </DirectoryLine>
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => this.handleClick(e, !isOpen)}
+            directory={directory} />
         }
         { isOpen && directory.type === 'dir' &&
           directory.children.map((fileNode: FileNode) => {
