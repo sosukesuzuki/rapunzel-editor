@@ -15,8 +15,8 @@ interface AppProps {
 const Container = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-rows: 70px;
-  grid-template-columns: 300px 1fr;
+  grid-template-rows: 40px;
+  grid-template-columns: 250px 1fr;
   grid-auto-flow: dense;
 }
 `

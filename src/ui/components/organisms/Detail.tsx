@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { grape } from '../../../lib/colors'
+import { grey } from '../../../lib/colors'
 import { observer, inject } from 'mobx-react'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
 
@@ -9,7 +9,7 @@ interface DetaiProps {
 }
 
 const Container = styled.div`
-  background-color: ${grape[1]};
+  background-color: ${grey[0]};
 `
 
 @inject('currentFileStore')
