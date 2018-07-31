@@ -9,6 +9,7 @@ import { writeFile } from '../../../lib/filesystem/commands/writeFile'
 import { mkdir } from '../../../lib/filesystem/commands/mkdir'
 import { readFileNode } from '../../../lib/utils/getFileTree'
 import { isMd } from '../../../lib/utils/isMd'
+import { fileNodePadding } from '../../../lib/fileNodePadding'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -125,10 +126,9 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   render () {
     const { onClick, directory } = this.props
     const { isOpen, inputContent } = this.state
-    const paddingLeft = (directory.pathname.split('/').length - 1) * 5
     return (
       <>
-        <Container paddingLeft={paddingLeft}>
+        <Container paddingLeft={fileNodePadding(directory)}>
           <div className='folderName' onClick={onClick}>
             {directory.pathname}
           </div>

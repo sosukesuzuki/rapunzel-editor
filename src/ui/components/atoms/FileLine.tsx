@@ -4,6 +4,7 @@ import path from 'path'
 import { FileNode } from '../../../lib/types'
 import { observer } from 'mobx-react'
 import { grey } from '../../../lib/colors'
+import { fileNodePadding } from '../../../lib/fileNodePadding'
 
 interface FileLineProps {
   file: FileNode
@@ -25,9 +26,8 @@ const Container = styled.div`
 export default class FileLine extends React.Component<FileLineProps> {
   render () {
     const { file } = this.props
-    const paddingLeft = (file.pathname.split('/').length - 1) * 5
     return (
-      <Container paddingLeft={paddingLeft}>
+      <Container paddingLeft={fileNodePadding(file)}>
         {path.basename(file.pathname)}
       </Container>
     )
