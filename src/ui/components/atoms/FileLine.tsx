@@ -5,6 +5,7 @@ import { FileNode } from '../../../lib/types'
 import { observer } from 'mobx-react'
 import { grey } from '../../../lib/colors'
 import { fileNodePadding } from '../../../lib/fileNodePadding'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface FileLineProps {
   file: FileNode
@@ -17,6 +18,9 @@ interface ContainerProps {
 const Container = styled.div`
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
   background-color: transparent;
+  svg {
+    padding-right: 4px;
+  }
   &:hover {
     background-color: ${grey[2]};
   }
@@ -28,6 +32,7 @@ export default class FileLine extends React.Component<FileLineProps> {
     const { file } = this.props
     return (
       <Container paddingLeft={fileNodePadding(file)}>
+        <FontAwesomeIcon icon='file' />
         {path.basename(file.pathname)}
       </Container>
     )
