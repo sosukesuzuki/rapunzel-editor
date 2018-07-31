@@ -47,6 +47,7 @@ export default class DirectoryList extends React.Component<DirectoryListProps, D
         {directory.type === 'dir' &&
           <DirectoryLine
             isOpen={isOpen}
+            setIsOpen={this.setIsOpen}
             onClick={(e: React.MouseEvent<HTMLDivElement>) => this.handleClick(e, !isOpen)}
             directory={directory} />
         }

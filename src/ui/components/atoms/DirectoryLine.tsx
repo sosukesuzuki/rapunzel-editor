@@ -16,6 +16,7 @@ interface DirectoryLineProps {
   fileTreeStore?: FileTreeStore
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void
   isOpen: boolean
+  setIsOpen: (boolean) => void
 }
 
 interface DirectoryLineState {
@@ -96,10 +97,12 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   }
 
   handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { setIsOpen } = this.props
     const { inputType } = this.state
     if (e.key === 'Enter') {
       this.setisInputOpen(false)
       this.setInputContent('')
+      setIsOpen(true)
       if (inputType === 'file') {
         this.handleSubmitFile()
       } else if (inputType === 'dir') {
