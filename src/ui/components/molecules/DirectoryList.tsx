@@ -19,11 +19,6 @@ const Container = styled.div`
     background-color: transparent;
     cursor: pointer;
   }
-  .dir {
-    &:hover {
-      background-color: ${grey[2]}
-    }
-  }
 `
 
 @observer
