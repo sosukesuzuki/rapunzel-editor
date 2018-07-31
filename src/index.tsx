@@ -10,11 +10,12 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFile } from '@fortawesome/free-solid-svg-icons'
 import { faFolder } from '@fortawesome/free-solid-svg-icons'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const g: any = global
 g.fs = fs
 
-library.add(faFile, faFolder, faFolderOpen)
+library.add(faFile, faFolder, faFolderOpen, faTrash)
 
 ;(async () => {
  const fileTreeStore = new FileTreeStore(await readFileNode('.'))

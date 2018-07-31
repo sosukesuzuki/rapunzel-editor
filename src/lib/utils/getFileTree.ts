@@ -1,8 +1,7 @@
-import fs from 'fs'
 import path from 'path'
-import pify from 'pify'
 import { FileNode } from '../types'
 import { readdir } from '../filesystem/queries/readdir'
+import { stat } from '../filesystem/queries/stat'
 import flatten from 'lodash/flatten'
 
 export async function getFilesTree (rootPath: string): Promise<string[]> {
@@ -11,8 +10,8 @@ export async function getFilesTree (rootPath: string): Promise<string[]> {
 }
 
 export async function readFileNode (pathname: string): Promise<FileNode> {
-  const stat = await pify(fs.stat)(pathname)
-  if (stat.isDirectory()) {
+  const stats = await stat(pathname)
+  if (stats.isDirectory()) {
     const pathList: string[] = await readdir(pathname)
     const children = await Promise.all(
       pathList.map(childPath => readFileNode(path.join(pathname, childPath)))

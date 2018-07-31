@@ -5,18 +5,18 @@ import { unlink } from '../filesystem/commands/unlink'
 import { join } from 'path'
 
 export async function removeDirectory (dirpath: string): Promise<void> {
+  if (dirpath === '.') throw Error('You cannot remove root directory.')
   const fileList = await readdir(dirpath)
-  fileList.forEach(async file => {
-    const filename = join(dirpath, file)
-    const stats = await stat(filename)
-
-    if (filename === '.' || filename === '..') {
-      return
-    } else if (stats.isDirectory()) {
-      removeDirectory(filename)
-    } else {
-      await unlink(filename)
-    }
-  })
-  rmdir(dirpath)
+  await Promise.all(
+    fileList.map(async file => {
+      const filename = join(dirpath, file)
+      const stats = await stat(filename)
+      if (stats.isDirectory()) {
+        await removeDirectory(filename)
+      } else {
+        await unlink(filename)
+      }
+    })
+  )
+  await rmdir(dirpath)
 }

@@ -10,6 +10,7 @@ import { mkdir } from '../../../lib/filesystem/commands/mkdir'
 import { readFileNode } from '../../../lib/utils/getFileTree'
 import { isMd } from '../../../lib/utils/isMd'
 import { fileNodePadding } from '../../../lib/fileNodePadding'
+import { removeDirectory } from '../../../lib/utils/removeDirectory'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -92,6 +93,16 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
     this.setInputType('dir')
   }
 
+  handleClickTrashButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { directory, fileTreeStore } = this.props
+    const result = window.confirm(`Remove ${directory.pathname}.`)
+    if (result) {
+      await removeDirectory(directory.pathname)
+      const fileTree = await readFileNode('.')
+      fileTreeStore.setFileTree(fileTree)
+    }
+  }
+
   handleInputChange = (value: string) => {
     this.setInputContent(value)
   }
@@ -146,6 +157,9 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
             </button>
             <button onClick={this.handleClickNewFolderButton}>
               <FontAwesomeIcon icon='folder' />
+            </button>
+            <button onClick={this.handleClickTrashButton}>
+              <FontAwesomeIcon icon='trash' />
             </button>
           </div>
         </Container>
