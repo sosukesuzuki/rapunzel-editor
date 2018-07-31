@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { FileNode } from '../../../lib/types'
 import { observer } from 'mobx-react';
 import FileLine from '../atoms/FileLine'
-import { grey } from '../../../lib/colors'
 import DirectoryLine  from '../atoms/DirectoryLine'
 
 interface DirectoryListProps {
@@ -47,6 +46,7 @@ export default class DirectoryList extends React.Component<DirectoryListProps, D
       <Container>
         {directory.type === 'dir' &&
           <DirectoryLine
+            isOpen={isOpen}
             onClick={(e: React.MouseEvent<HTMLDivElement>) => this.handleClick(e, !isOpen)}
             directory={directory} />
         }

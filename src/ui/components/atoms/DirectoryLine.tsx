@@ -15,10 +15,11 @@ interface DirectoryLineProps {
   directory: FileNode
   fileTreeStore?: FileTreeStore
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void
+  isOpen: boolean
 }
 
 interface DirectoryLineState {
-  isOpen: boolean
+  isInputOpen: boolean
   inputContent: string
   inputType: 'file' | 'dir'
 }
@@ -35,10 +36,13 @@ const Container = styled.div`
   }
   .folderName {
     flex: 1;
+    svg {
+      padding-right: 4px;
+    }
   }
   .icons {
     svg {
-      padding: 0 1p;
+      padding: 0 1px;
       &:hover {
         color: ${grey[5]}
       }
@@ -61,7 +65,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   constructor (props) {
     super(props)
     this.state = {
-      isOpen: false,
+      isInputOpen: false,
       inputContent: '',
       inputType: 'file'
     }
@@ -71,19 +75,19 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
 
   setInputContent = (inputContent: string) => this.setState({inputContent})
 
-  setIsOpen = (isOpen: boolean) => this.setState({isOpen})
+  setisInputOpen = (isInputOpen: boolean) => this.setState({isInputOpen})
 
   setInputType = (inputType: 'file' | 'dir') => this.setState({inputType})
 
   handleClickNewFileButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    this.setIsOpen(true)
+    this.setisInputOpen(true)
     this.setInputType('file')
   }
 
   handleClickNewFolderButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    this.setIsOpen(true)
+    this.setisInputOpen(true)
     this.setInputType('dir')
   }
 
@@ -94,7 +98,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { inputType } = this.state
     if (e.key === 'Enter') {
-      this.setIsOpen(false)
+      this.setisInputOpen(false)
       this.setInputContent('')
       if (inputType === 'file') {
         this.handleSubmitFile()
@@ -124,12 +128,13 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   }
 
   render () {
-    const { onClick, directory } = this.props
-    const { isOpen, inputContent } = this.state
+    const { onClick, directory, isOpen } = this.props
+    const { isInputOpen, inputContent } = this.state
     return (
       <>
         <Container paddingLeft={fileNodePadding(directory)}>
           <div className='folderName' onClick={onClick}>
+            <FontAwesomeIcon icon={isOpen ? 'folder-open' : 'folder'} />
             {directory.pathname}
           </div>
           <div className='icons'>
@@ -141,7 +146,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
             </button>
           </div>
         </Container>
-        { isOpen &&
+        { isInputOpen &&
           <StyledInput
             innerRef={(element: HTMLInputElement) => {
               this.input = element
@@ -150,7 +155,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
             value={inputContent}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.handleInputChange(e.target.value)}
             onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleKeydown(e)}
-            onBlur={() => this.setIsOpen(false)} />
+            onBlur={() => this.setisInputOpen(false)} />
           }
       </>
     )
