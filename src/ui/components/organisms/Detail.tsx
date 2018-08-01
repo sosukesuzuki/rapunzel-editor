@@ -4,6 +4,7 @@ import { grey } from '../../../lib/colors'
 import { observer, inject } from 'mobx-react'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
 import MarkdownRenderer from '../atoms/MarkdownRenderer'
+import DetailHeader from '../molecules/DetailHeader'
 
 interface DetaiProps {
   currentFileStore?: CurrentFileStore
@@ -20,9 +21,12 @@ export default class Detail extends React.Component<DetaiProps> {
     const { currentFileStore } = this.props
     return (
       <Container>
-        <h1>{currentFileStore.currentFile == null
-          ? ''
-          : currentFileStore.currentFile.pathname}</h1>
+        {currentFileStore.currentFile != null &&
+          <DetailHeader
+            pathname={currentFileStore.currentFile == null
+              ? ''
+              : currentFileStore.currentFile.pathname} />
+        }
         <MarkdownRenderer
           content={currentFileStore.currentFile == null
             ? ''
