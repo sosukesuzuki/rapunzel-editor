@@ -9,10 +9,13 @@ import { fileNodePadding } from '../../../lib/fileNodePadding'
 import { unlink } from '../../../lib/filesystem/commands/unlink'
 import { readFileNode } from '../../../lib/utils/getFileTree';
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
+import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore';
+import { readFile } from '../../../lib/filesystem/queries/readFile'
 
 interface FileLineProps {
   file: FileNode
   fileTreeStore?: FileTreeStore
+  currentFileStore?: CurrentFileStore
 }
 
 interface ContainerProps {
@@ -47,9 +50,20 @@ const Container = styled.div`
   }
 `
 
+@inject('currentFileStore')
 @inject('fileTreeStore')
 @observer
 export default class FileLine extends React.Component<FileLineProps> {
+  handleClickFileLine = async (e: React.MouseEvent<HTMLDivElement>) => {
+    const { currentFileStore, file } = this.props
+    const { pathname } = file
+    const fileContent = await readFile(pathname)
+    currentFileStore.setCurrentFile({
+      pathname,
+      content: fileContent
+    })
+  }
+
   handleClickTrashButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const { file, fileTreeStore } = this.props
     e.preventDefault()
@@ -62,7 +76,9 @@ export default class FileLine extends React.Component<FileLineProps> {
     const { file } = this.props
     return (
       <Container paddingLeft={fileNodePadding(file)}>
-        <div className='names'>
+        <div
+          className='names'
+          onClick={this.handleClickFileLine}>
           <FontAwesomeIcon icon='file' />
           {path.basename(file.pathname)}
         </div>

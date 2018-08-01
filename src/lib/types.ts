@@ -10,6 +10,6 @@ export type FileNode =
   }
 
 export interface File {
-  path: string
+  pathname: string
   content: string
 }

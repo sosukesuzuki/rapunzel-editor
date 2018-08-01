@@ -16,8 +16,12 @@ const Container = styled.div`
 @observer
 export default class Detail extends React.Component<DetaiProps> {
   render () {
+    const { currentFileStore } = this.props
     return (
       <Container>
+        <h1>{currentFileStore.currentFile == null
+          ? ''
+          : currentFileStore.currentFile.pathname}</h1>
       </Container>
     )
   }
