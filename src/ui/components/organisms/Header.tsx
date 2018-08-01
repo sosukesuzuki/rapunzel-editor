@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import { grape } from '../../../lib/colors'
+import { grey } from '../../../lib/colors'
 
 const Container = styled.div`
-  background: ${grape[3]};
+  background: ${grey[0]};
   grid-column: 1 / 4;
-  color: white;
+  color: black;
+  border-bottom: 0.5px solid black;
   h1 {
     margin: 0;
     line-height: 40px;
