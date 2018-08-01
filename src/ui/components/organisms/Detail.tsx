@@ -28,6 +28,7 @@ const Container = styled.div`
     }
   }
   .preview {
+    padding: 0 10px;
     pre code {
       font-family: 'mono';
     }

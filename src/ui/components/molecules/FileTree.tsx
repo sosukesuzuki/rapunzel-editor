@@ -11,7 +11,6 @@ interface FileTreeProps {
 }
 
 const Container = styled.div`
-  padding: 4px;
 `
 
 @inject('fileTreeStore')

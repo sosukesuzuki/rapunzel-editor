@@ -12,14 +12,19 @@ interface DetailHeaderProps {
 
 const Container = styled.div`
   display: flex;
-  background-color: ${grey[1]};
+  background-color: ${grey[0]};
+  border-bottom: 1px solid black;
+  padding: 0 10px;
   span {
     flex: 1;
+    line-height: 25px;
   }
   .icons {
     button {
+      padding: 0;
       background-color: transparent;
       border: none;
+      line-height: 25px;
       cursor: pointer;
       &:hover {
         color: ${grey[5]};

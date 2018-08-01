@@ -34,7 +34,13 @@ const Container = styled.div`
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
   display: flex;
   &:hover {
-    background-color: ${grey[2]}
+    background-color: black;
+    color: white;
+    .icons {
+      svg {
+        color: white;
+      }
+    }
   }
   .folderName {
     flex: 1;

@@ -33,7 +33,13 @@ const Container = styled.div`
     }
   }
   &:hover {
-    background-color: ${grey[2]};
+    background-color: black;
+    color: white;
+    .icons {
+      svg {
+        color: white;
+      }
+    }
   }
   .icons {
     svg {
