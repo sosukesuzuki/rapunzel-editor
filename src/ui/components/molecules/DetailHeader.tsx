@@ -6,7 +6,8 @@ import { grey } from '../../../lib/colors'
 
 interface DetailHeaderProps {
   pathname: string
-  handleClickEditorButton: () => void
+  handleClickEditorButton: () => void,
+  type: 'editor' | 'preview'
 }
 
 const Container = styled.div`
@@ -30,13 +31,17 @@ const Container = styled.div`
 @observer
 export default class DetailHeader extends React.Component<DetailHeaderProps> {
   render () {
-    const { pathname, handleClickEditorButton } = this.props
+    const { pathname, handleClickEditorButton, type } = this.props
     return (
       <Container>
         <span>{pathname}</span>
         <div className='icons'>
           <button onClick={handleClickEditorButton}>
-            <FontAwesomeIcon icon='edit' />
+            <FontAwesomeIcon icon={
+              type === 'editor'
+                ? 'eye'
+                : 'edit'
+            } />
           </button>
         </div>
       </Container>
