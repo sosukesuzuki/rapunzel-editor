@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-serve --no-reload --port 3333",
-    "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'"
+    "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'",
+    "deploy": "webpack && gh-pages -d dist -b master"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
@@ -14,6 +15,7 @@
     "@fortawesome/react-fontawesome": "^0.1.0-11",
     "browserfs": "^1.4.3",
     "codemirror": "^5.39.2",
+    "gh-pages": "^1.2.0",
     "highlight.js": "^9.12.0",
     "lodash": "^4.17.10",
     "marked": "^0.4.0",
