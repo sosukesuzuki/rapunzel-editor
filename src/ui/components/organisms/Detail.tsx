@@ -23,6 +23,7 @@ const Container = styled.div`
   grid-template-rows: 25px 1fr;
   .edit {
     .CodeMirror {
+      font-family: 'mono';
       height: 100%;
     }
   }

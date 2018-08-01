@@ -28,6 +28,16 @@ function setupBrowserFS() {
   })
 }
 
+async function loadFonts () {
+  const poppins = new FontFace('poppins', 'url(/assets/fonts/Poppins.ttf')
+  const mono = new FontFace('mono', 'url(/assets/fonts/RobotoMono.ttf')
+  const loadedPoppins = await poppins.load()
+  const loadedMono = await mono.load()
+  document.fonts.add(loadedPoppins)
+  document.fonts.add(loadedMono)
+  document.body.style.fontFamily = 'poppins'
+}
+
 const showLoadingMessage = (mes, loading = true) => {
   el.innerHTML =`
     <div style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 1.5em;">
@@ -45,6 +55,8 @@ const showLoadingMessage = (mes, loading = true) => {
   try {
     showLoadingMessage('Loading assets...')
     await setupBrowserFS()
+    await loadFonts()
+
     await import('./main.js')
   } catch (e) {
     console.error(e)
