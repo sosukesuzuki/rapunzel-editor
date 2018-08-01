@@ -19,6 +19,13 @@ interface DetailState {
 
 const Container = styled.div`
   background-color: ${grey[0]};
+  display: grid;
+  grid-template-rows: 25px 1fr;
+  .edit {
+    .CodeMirror {
+      height: 100%;
+    }
+  }
 `
 
 @inject('currentFileStore')
@@ -89,11 +96,13 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
                   content={currentFileStore.currentFile == null
                     ? ''
                     : currentFileStore.currentFile.content} />
-              : <CodeEditor
+              : <div className='edit'>
+                <CodeEditor
                   value={currentFileStore.currentFile == null
                     ? ''
                     : currentFileStore.currentFile.content}
                   onChange={(e: { target: any }) => this.handleOnChange(e)} />
+              </div>
             }
           </>
         }
