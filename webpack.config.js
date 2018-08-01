@@ -1,7 +1,19 @@
 const path = require('path')
 const CopyPlugin = require("copy-webpack-plugin")
+const WorkboxPlugin = require('workbox-webpack-plugin')
 const MODE = process.env.NODE_ENV || 'development'
 const DEV = MODE == "development"
+
+const copyRules = [
+  {
+    from: __dirname + '/src/index.html',
+    to: __dirname + '/dist/index.html'
+  },
+  {
+    from: __dirname + '/assets/**',
+    to: __dirname + '/dist'
+  }
+]
 
 module.exports = {
   mode: MODE,
@@ -38,16 +50,14 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new CopyPlugin([
-      {
-        from: __dirname + '/src/index.html',
-        to: __dirname + '/dist/index.html'
-      },
-      {
-        from: __dirname + '/assets/**',
-        to: __dirname + '/dist'
-      }
-    ])
-  ]
+  plugins: DEV
+    ? [new CopyPlugin(copyRules)]
+    : [
+      new CopyPlugin(copyRules),
+      new WorkboxPlugin.GenerateSW({
+        swDest: "sw.js",
+        clientsClaim: true,
+        skipWaiting: true
+      })
+    ]
 }

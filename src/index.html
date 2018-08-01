@@ -28,6 +28,57 @@ function setupBrowserFS() {
   })
 }
 
+async function setupServiceWorker() {
+  if (navigator.serviceWorker == null) {
+    throw new Error('Your browser can not use serviceWorker')
+  }
+  let isFirstInstall = navigator.serviceWorker.controller == null
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (isFirstInstall) {
+      isFirstInstall = false
+    } else {
+      const modal = document.createElement('div')
+      modal.innerHTML = `
+        <div style='position: absolute; outline: 1px solid black; right: 10px; bottom: 50px; width: 350px; height: 50px; background: white; padding: 10px;'>
+          <div>New version available!</div>
+          <span>It will be applied from the next</span> - <button onclick="location.reload()">Reload</button>
+        </div>
+      `
+      document.body.appendChild(modal)
+    }
+  })
+  const reg = await navigator.serviceWorker.register('/sw.js')
+  await Promise.race([
+    navigator.serviceWorker.ready,
+    // NOTE: Sometimes(development only?) navigator.serviceWorker.ready is never ready.
+    new Promise(resolve => {
+      if (navigator.serviceWorker.controller) {
+        return resolve()
+      }
+      navigator.serviceWorker.addEventListener('controllerchange', e => resolve())
+    }),
+    // NOTE: Start without service-worker after 3s
+    new Promise(resolve => {
+      setTimeout(() => {        
+        resolve()
+        if (navigator.serviceWorker.controller == null) {
+          console.warn('Start without service-worker')
+        }
+      }, 5000)
+    })
+  ])
+
+  if (location.href.indexOf('localhost') > -1 ) {
+    setInterval(() => {
+      reg.update()
+    }, 3 * 1000)
+  } else {
+    setInterval(() => {
+      reg.update()
+    }, 60 * 1000)
+  }
+}
+
 async function loadFonts () {
   const poppins = new FontFace('poppins', 'url(/assets/fonts/Poppins.ttf')
   const mono = new FontFace('mono', 'url(/assets/fonts/RobotoMono.ttf')
@@ -53,6 +104,11 @@ const showLoadingMessage = (mes, loading = true) => {
   }
 
   try {
+    if (location.hostname !== 'localhost') {
+      showLoadingMessage('Checking service-worker...')
+      await setupServiceWorker()
+    }
+
     showLoadingMessage('Loading assets...')
     await setupBrowserFS()
     await loadFonts()
