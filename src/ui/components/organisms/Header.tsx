@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { grape } from '../../../lib/colors'
 
 const Container = styled.div`
-  background-color: ${grape[8]};
+  background: ${grape[3]};
   grid-column: 1 / 4;
   color: white;
   h1 {
