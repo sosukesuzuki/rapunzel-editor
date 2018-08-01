@@ -27,6 +27,11 @@ const Container = styled.div`
       height: 100%;
     }
   }
+  .preview {
+    pre code {
+      font-family: 'mono';
+    }
+  }
 `
 
 @inject('currentFileStore')
@@ -93,10 +98,12 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
                 ? ''
                 : currentFileStore.currentFile.pathname} />
             { type === 'preview'
-              ? <MarkdownRenderer
+              ? <div className='preview'>
+                <MarkdownRenderer
                   content={currentFileStore.currentFile == null
                     ? ''
                     : currentFileStore.currentFile.content} />
+              </div>
               : <div className='edit'>
                 <CodeEditor
                   value={currentFileStore.currentFile == null
