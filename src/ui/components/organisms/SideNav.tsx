@@ -7,8 +7,8 @@ import FileTree from '../molecules/FileTree'
 import FileTreeControl from '../molecules/FileTreeControl'
 
 const Container = styled.div`
-  background-color: ${grey[0]};
-  border-right: 1px solid black;
+  background-color: white; 
+  border-right: 1px solid ${grey[3]};
 `
 
 interface SideNavProps {

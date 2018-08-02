@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { grey } from '../../../lib/colors'
 
 const Container = styled.div`
-  background: ${grey[0]};
+  background: white;
   grid-column: 1 / 4;
   color: black;
-  border-bottom: 0.5px solid black;
+  border-bottom: 0.5px solid ${grey[3]};
   h1 {
     margin: 0;
     line-height: 40px;

@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { grey } from '../../../lib/colors'
 import { observer, inject } from 'mobx-react'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
 import MarkdownRenderer from '../atoms/MarkdownRenderer'
@@ -18,7 +17,7 @@ interface DetailState {
 }
 
 const Container = styled.div`
-  background-color: ${grey[0]};
+  background-color: white;
   display: grid;
   grid-template-rows: 25px 1fr;
   .edit {
