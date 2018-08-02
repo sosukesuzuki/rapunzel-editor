@@ -12,8 +12,8 @@ interface DetailHeaderProps {
 
 const Container = styled.div`
   display: flex;
-  background-color: ${grey[0]};
-  border-bottom: 1px solid black;
+  background-color: white;
+  border-bottom: 1px solid ${grey[3]};
   padding: 0 10px;
   span {
     flex: 1;
