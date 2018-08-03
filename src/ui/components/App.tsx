@@ -12,30 +12,81 @@ interface AppProps {
   currentFileStore: CurrentFileStore
 }
 
+interface AppState {
+  isSliderFocused: boolean,
+  sideNavWidth: number
+}
+
+interface ContainerStyleProps {
+  sideNavWidth: number
+}
+
 const Container = styled.div`
   display: grid;
   height: 100vh;
   grid-template-rows: 40px;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: ${({ sideNavWidth }: ContainerStyleProps) => sideNavWidth}px 2px 1fr;
   grid-auto-flow: dense;
+  .resize {
+    cursor: col-resize;
+  }
 }
 `
 
 @observer
-export default class App extends React.Component<AppProps> {
+export default class App extends React.Component<AppProps, AppState> {
+  constructor (props) {
+    super(props)
+    this.state = {
+      isSliderFocused: false,
+      sideNavWidth: 250
+    }
+  }
+
+  setIsSliderFocused = (isSliderFocused: boolean) => this.setState({ isSliderFocused })
+
+  setSideNavWidth = (sideNavWidth: number) => this.setState({ sideNavWidth })
+
+  handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    this.setIsSliderFocused(true)
+  }
+
+  handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    this.setIsSliderFocused(false)
+  }
+
+  handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    if (!this.state.isSliderFocused) return
+    let newSideNavWidth = e.pageX
+    if (newSideNavWidth < 201) {
+      newSideNavWidth = 200
+    } else if (newSideNavWidth > 500){
+      newSideNavWidth = 500
+    }
+    this.setSideNavWidth(newSideNavWidth)
+  }
+
   render () {
     const {
       fileTreeStore,
       currentFileStore
     } = this.props
+    const { sideNavWidth } = this.state
 
     return (
       <Provider
         fileTreeStore={fileTreeStore}
         currentFileStore={currentFileStore}>
-        <Container>
+        <Container
+          sideNavWidth={sideNavWidth}
+          onMouseUp={this.handleMouseUp}
+          onMouseMove={this.handleMouseMove}>
           <Header />
           <SideNav />
+          <div className='resize' onMouseDown={this.handleMouseDown} />
           <Detail />
         </Container>
       </Provider>
