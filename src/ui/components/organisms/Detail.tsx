@@ -94,6 +94,9 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
             <DetailHeader
               type={type}
               handleClickEditorButton={this.switchType.bind(this)}
+              fileContent={currentFileStore.currentFile == null
+                ? ''
+                : currentFileStore.currentFile.content}
               pathname={currentFileStore.currentFile == null
                 ? ''
                 : currentFileStore.currentFile.pathname} />

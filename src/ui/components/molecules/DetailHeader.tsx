@@ -1,13 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
+import path from 'path'
 import { observer } from 'mobx-react'
-import { FontAwesomeIcon } from '../../../../node_modules/@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '../../../../node_modules/@fortawesome/react-fontawesome'
+import fileDownload from 'js-file-download'
 import { grey } from '../../../lib/colors'
 
 interface DetailHeaderProps {
   pathname: string
   handleClickEditorButton: () => void,
   type: 'editor' | 'preview'
+  fileContent: string
 }
 
 const Container = styled.div`
@@ -37,7 +40,8 @@ const Container = styled.div`
 @observer
 export default class DetailHeader extends React.Component<DetailHeaderProps> {
   handleClickDownloadButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(e)
+    const { pathname, fileContent } = this.props
+    fileDownload(fileContent, path.basename(pathname))
   }
 
   render () {
