@@ -71,11 +71,12 @@ export default class FileLine extends React.Component<FileLineProps> {
   }
 
   handleClickTrashButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { file, fileTreeStore } = this.props
+    const { file, fileTreeStore, currentFileStore } = this.props
     e.preventDefault()
     await unlink(file.pathname)
     const fileTree = await readFileNode('.')
     fileTreeStore.setFileTree(fileTree)
+    currentFileStore.setCurrentFile(null)
   }
 
   render () {
