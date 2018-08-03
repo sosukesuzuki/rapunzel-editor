@@ -76,7 +76,10 @@ export default class FileLine extends React.Component<FileLineProps> {
     await unlink(file.pathname)
     const fileTree = await readFileNode('.')
     fileTreeStore.setFileTree(fileTree)
-    currentFileStore.setCurrentFile(null)
+    const { currentFile } = currentFileStore
+    if (currentFile != null && currentFile.pathname === file.pathname) {
+      currentFileStore.setCurrentFile(null)
+    }
   }
 
   render () {
