@@ -28,7 +28,11 @@ const Container = styled.div`
   }
   .preview {
     padding: 0 10px;
+    p {
+      white-space: pre-wrap;
+    }
     pre code {
+      white-space: pre;
       font-family: 'mono';
     }
   }
