@@ -132,6 +132,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
     const { directory, fileTreeStore } = this.props
     const { inputContent } = this.state
     if (!isMd(inputContent)) {
+      alert('File extension must be "md".')
       throw Error('File extension must be "md".')
     }
     await writeFile(`${directory.pathname}/${inputContent}`, '')
