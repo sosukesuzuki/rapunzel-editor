@@ -118,7 +118,8 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { setIsOpen } = this.props
     const { inputType } = this.state
-    if (e.key === 'Enter') {
+    const ENTER = 13
+    if (e.keyCode === ENTER) {
       this.setisInputOpen(false)
       this.setInputContent('')
       setIsOpen(true)
