@@ -15,7 +15,6 @@ interface DirectoryListState {
 
 const Container = styled.div`
   div {
-    background-color: transparent;
     cursor: pointer;
   }
 `

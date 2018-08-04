@@ -20,12 +20,14 @@ interface FileLineProps {
 
 interface ContainerProps {
   paddingLeft: number
+  isSelected: boolean
 }
 
 const Container = styled.div`
   display: flex;
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
-  background-color: transparent;
+  background-color: ${({ isSelected }: ContainerProps) => isSelected ? 'black' : 'transparent'};
+  color: ${({ isSelected }: ContainerProps) => isSelected ? 'white' : 'black'};
   .names {
     flex: 1;
     svg {
@@ -44,8 +46,9 @@ const Container = styled.div`
   .icons {
     svg {
       padding: 0 1px;
+      color: ${({ isSelected }: ContainerProps) => isSelected ? 'white' : 'black'};
       &:hover {
-        color: ${grey[5]}
+        color: ${grey[3]}
       }
     }
     button {
@@ -83,9 +86,18 @@ export default class FileLine extends React.Component<FileLineProps> {
   }
 
   render () {
-    const { file } = this.props
+    const { file, currentFileStore } = this.props
+    const { currentFile } = currentFileStore
+    const isSelected = currentFile != null && file.pathname === currentFile.pathname
+      ? true
+      : false
+
+    console.log(isSelected)
+
     return (
-      <Container paddingLeft={fileNodePadding(file)}>
+      <Container
+        paddingLeft={fileNodePadding(file)}
+        isSelected={isSelected}>
         <div
           className='names'
           onClick={this.handleClickFileLine}>
