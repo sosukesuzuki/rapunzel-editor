@@ -33,8 +33,10 @@ interface ContainerProps {
 const Container = styled.div`
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
   display: flex;
+  height: 25px;
+  line-height: 25px;
   &:hover {
-    background-color: black;
+    background-color: black; 
     color: white;
     .icons {
       svg {
@@ -52,7 +54,7 @@ const Container = styled.div`
     svg {
       padding: 0 1px;
       &:hover {
-        color: ${grey[5]}
+        color: ${grey[3]}
       }
     }
     button {

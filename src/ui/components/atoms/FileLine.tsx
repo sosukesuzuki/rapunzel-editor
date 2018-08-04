@@ -28,6 +28,8 @@ const Container = styled.div`
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
   background-color: ${({ isSelected }: ContainerProps) => isSelected ? 'black' : 'transparent'};
   color: ${({ isSelected }: ContainerProps) => isSelected ? 'white' : 'black'};
+  height: 25px;
+  line-height: 25px;
   .names {
     flex: 1;
     svg {
