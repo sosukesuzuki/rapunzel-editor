@@ -25,7 +25,7 @@ const Container = styled.div`
   display: grid;
   height: 100vh;
   grid-template-rows: 40px;
-  grid-template-columns: ${({ sideNavWidth }: ContainerStyleProps) => sideNavWidth}px 2px 1fr;
+  grid-template-columns: ${({ sideNavWidth }: ContainerStyleProps) => sideNavWidth}px 1px 1fr;
   grid-auto-flow: dense;
   .resize {
     cursor: col-resize;
