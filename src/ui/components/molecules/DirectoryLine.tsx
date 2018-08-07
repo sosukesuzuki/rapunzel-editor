@@ -11,6 +11,8 @@ import { readFileNode } from '../../../lib/utils/getFileTree'
 import { isMd } from '../../../lib/utils/isMd'
 import { fileNodePadding } from '../../../lib/fileNodePadding'
 import { removeDirectory } from '../../../lib/utils/removeDirectory'
+import Button from '../atoms/Button'
+import Input from '../atoms/Input'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -39,7 +41,7 @@ const Container = styled.div`
     background-color: black; 
     color: white;
     .icons {
-      svg {
+      button {
         color: white;
       }
     }
@@ -57,16 +59,12 @@ const Container = styled.div`
         color: ${grey[3]}
       }
     }
-    button {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-    }
   }
 `
 
-const StyledInput = styled.input`
-  width: 100%;
+const StyledInput = styled(Input)`
+  margin: 0 auto;
+  width: 98%;
 `
 
 @inject('fileTreeStore')
@@ -162,15 +160,15 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
             {directory.pathname}
           </div>
           <div className='icons'>
-            <button onClick={this.handleClickNewFileButton}> 
+            <Button onClick={this.handleClickNewFileButton}> 
               <FontAwesomeIcon icon='file' />
-            </button>
-            <button onClick={this.handleClickNewFolderButton}>
+            </Button>
+            <Button onClick={this.handleClickNewFolderButton}>
               <FontAwesomeIcon icon='folder' />
-            </button>
-            <button onClick={this.handleClickTrashButton}>
+            </Button>
+            <Button onClick={this.handleClickTrashButton}>
               <FontAwesomeIcon icon='trash' />
-            </button>
+            </Button>
           </div>
         </Container>
         { isInputOpen &&

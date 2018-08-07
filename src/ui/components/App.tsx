@@ -1,9 +1,9 @@
 import React from 'react'
 import { Provider, observer } from 'mobx-react'
 import styled from 'styled-components'
-import Header from './organisms/Header'
-import SideNav from './organisms/SideNav'
-import Detail from './organisms/Detail'
+import Header from './templates/Header'
+import SideNav from './templates/SideNav'
+import Detail from './templates/Detail'
 import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 

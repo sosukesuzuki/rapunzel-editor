@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import path from 'path'
 import { observer } from 'mobx-react'
-import { FontAwesomeIcon } from '../../../../node_modules/@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import fileDownload from 'js-file-download'
 import { grey } from '../../../lib/colors'
+import Button from '../atoms/Button'
 
 interface DetailHeaderProps {
   pathname: string
@@ -26,13 +27,13 @@ const Container = styled.div`
     button {
       padding: 0;
       margin: 0 5px;
-      background-color: transparent;
-      border: none;
+      /* background-color: transparent;
+      border: none; */
       line-height: 25px;
-      cursor: pointer;
-      &:hover {
+      /* cursor: pointer; */
+      /* &:hover {
         color: ${grey[5]};
-      }
+      } */
     }
   }
 `
@@ -50,16 +51,16 @@ export default class DetailHeader extends React.Component<DetailHeaderProps> {
       <Container>
         <span>{pathname}</span>
         <div className='icons'>
-          <button onClick={this.handleClickDownloadButton}>
+          <Button onClick={this.handleClickDownloadButton}>
             <FontAwesomeIcon icon='download' />
-          </button>
-          <button onClick={handleClickEditorButton}>
+          </Button>
+          <Button onClick={handleClickEditorButton}>
             <FontAwesomeIcon icon={
               type === 'editor'
                 ? 'eye'
                 : 'edit'
             } />
-          </button>
+          </Button>
         </div>
       </Container>
     )
