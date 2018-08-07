@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { observer, inject } from 'mobx-react'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
-import DirectoryList from './DirectoryList'
+import DirectoryList from '../molecules/DirectoryList'
 
 interface FileTreeProps {
   fileTreeStore?: FileTreeStore

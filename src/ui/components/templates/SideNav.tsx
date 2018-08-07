@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { grey } from '../../../lib/colors'
 import { observer } from 'mobx-react'
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
-import FileTree from '../molecules/FileTree'
+import FileTree from '../organisms/FileTree'
 
 const Container = styled.div`
   background-color: white; 
