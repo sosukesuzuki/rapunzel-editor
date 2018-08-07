@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { FileNode } from '../../../lib/types'
 import { observer } from 'mobx-react';
-import FileLine from '../atoms/FileLine'
-import DirectoryLine  from '../atoms/DirectoryLine'
+import FileLine from './FileLine'
+import DirectoryLine  from './DirectoryLine'
 
 interface DirectoryListProps {
   directory: FileNode
