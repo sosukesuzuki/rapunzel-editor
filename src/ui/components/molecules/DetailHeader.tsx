@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import path from 'path'
 import { observer } from 'mobx-react'
-import { FontAwesomeIcon } from '../../../../node_modules/@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import fileDownload from 'js-file-download'
 import { grey } from '../../../lib/colors'
 
