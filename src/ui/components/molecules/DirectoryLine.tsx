@@ -12,6 +12,7 @@ import { isMd } from '../../../lib/utils/isMd'
 import { fileNodePadding } from '../../../lib/fileNodePadding'
 import { removeDirectory } from '../../../lib/utils/removeDirectory'
 import Button from '../atoms/Button'
+import Input from '../atoms/Input'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -61,8 +62,9 @@ const Container = styled.div`
   }
 `
 
-const StyledInput = styled.input`
-  width: 100%;
+const StyledInput = styled(Input)`
+  margin: 0 auto;
+  width: 98%;
 `
 
 @inject('fileTreeStore')
