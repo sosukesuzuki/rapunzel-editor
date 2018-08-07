@@ -11,6 +11,7 @@ import { readFileNode } from '../../../lib/utils/getFileTree';
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore';
 import { readFile } from '../../../lib/filesystem/queries/readFile'
+import Button from '../atoms/Button'
 
 interface FileLineProps {
   file: FileNode
@@ -52,11 +53,6 @@ const Container = styled.div`
       &:hover {
         color: ${grey[3]}
       }
-    }
-    button {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
     }
   }
 `
@@ -107,9 +103,9 @@ export default class FileLine extends React.Component<FileLineProps> {
           {path.basename(file.pathname)}
         </div>
         <div className='icons'>
-          <button onClick={this.handleClickTrashButton}>
+          <Button onClick={this.handleClickTrashButton}>
             <FontAwesomeIcon icon='trash' />
-          </button>
+          </Button>
         </div>
       </Container>
     )
