@@ -13,6 +13,7 @@ import { fileNodePadding } from '../../../lib/fileNodePadding'
 import { removeDirectory } from '../../../lib/utils/removeDirectory'
 import Button from '../atoms/Button'
 import Input from '../atoms/Input'
+import FileTreeLine from '../atoms/FileTreeLine'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -32,18 +33,11 @@ interface ContainerProps {
   paddingLeft: number
 }
 
-const Container = styled.div`
+const Container = styled(FileTreeLine)`
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
-  display: flex;
-  height: 25px;
-  line-height: 25px;
   &:hover {
-    background-color: black; 
-    color: white;
-    .icons {
-      button {
-        color: white;
-      }
+    svg {
+      color: white;
     }
   }
   .folderName {

@@ -12,6 +12,7 @@ import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore';
 import { readFile } from '../../../lib/filesystem/queries/readFile'
 import Button from '../atoms/Button'
+import FileTreeLine from '../atoms/FileTreeLine'
 
 interface FileLineProps {
   file: FileNode
@@ -24,13 +25,10 @@ interface ContainerProps {
   isSelected: boolean
 }
 
-const Container = styled.div`
-  display: flex;
+const Container = styled(FileTreeLine)`
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
   background-color: ${({ isSelected }: ContainerProps) => isSelected ? 'black' : 'transparent'};
   color: ${({ isSelected }: ContainerProps) => isSelected ? 'white' : 'black'};
-  height: 25px;
-  line-height: 25px;
   .names {
     flex: 1;
     svg {
@@ -38,8 +36,6 @@ const Container = styled.div`
     }
   }
   &:hover {
-    background-color: black;
-    color: white;
     .icons {
       svg {
         color: white;
