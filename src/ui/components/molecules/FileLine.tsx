@@ -31,7 +31,7 @@ const Container = styled(FileTreeLine)`
   color: ${({ isSelected }: ContainerProps) => isSelected ? 'white' : 'black'};
   .names {
     flex: 1;
-    text-overflow: hidden;
+    overflow: hidden;
     svg {
       padding-right: 4px;
     }

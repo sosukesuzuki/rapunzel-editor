@@ -42,7 +42,7 @@ const Container = styled(FileTreeLine)`
   }
   .folderName {
     flex: 1;
-    text-overflow: hidden;
+    overflow: hidden;
     svg {
       padding-right: 4px;
     }
