@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { grey } from '../../../lib/colors'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 import FileTree from '../organisms/FileTree'
 
@@ -14,12 +14,14 @@ interface SideNavProps {
   fileTreeStore?: FileTreeStore
 }
 
+@inject('fileTreeStore')
 @observer
 export default class SideNav extends React.Component<SideNavProps> {
   render () {
+    const { fileTree } = this.props.fileTreeStore
     return (
       <Container>
-        <FileTree />
+        <FileTree directory={fileTree} />
       </Container>
     )
   }
