@@ -48,9 +48,13 @@ const Container = styled(FileTreeLine)`
   }
 `
 
-const StyledInput = styled(Input)`
-  margin: 0 auto;
-  width: 98%;
+const InputContainer = styled.div`
+  padding: 0 2px;
+  input {
+    margin: 0 auto;
+    padding: 2px;
+    width: 100%;
+  }
 `
 
 @inject('fileTreeStore')
@@ -158,15 +162,17 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
           </div>
         </Container>
         { isInputOpen &&
-          <StyledInput
-            innerRef={(element: HTMLInputElement) => {
-              this.input = element
-              if (this.input != null) element.focus()
-            }}
-            value={inputContent}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.handleInputChange(e.target.value)}
-            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleKeydown(e)}
-            onBlur={() => this.setisInputOpen(false)} />
+          <InputContainer>
+            <Input
+              innerRef={(element: HTMLInputElement) => {
+                this.input = element
+                if (this.input != null) element.focus()
+              }}
+              value={inputContent}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.handleInputChange(e.target.value)}
+              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleKeydown(e)}
+              onBlur={() => this.setisInputOpen(false)} />
+          </InputContainer>
           }
       </>
     )
