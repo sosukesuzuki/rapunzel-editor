@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { grey } from '../../../lib/colors'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FileNode } from '../../../lib/types'
 import { observer, inject } from 'mobx-react';
@@ -35,11 +34,6 @@ interface ContainerProps {
 
 const Container = styled(FileTreeLine)`
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
-  &:hover {
-    svg {
-      color: white;
-    }
-  }
   .folderName {
     flex: 1;
     overflow: hidden;
@@ -50,9 +44,6 @@ const Container = styled(FileTreeLine)`
   .icons {
     svg {
       padding: 0 1px;
-      &:hover {
-        color: ${grey[3]}
-      }
     }
   }
 `

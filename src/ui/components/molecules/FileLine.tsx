@@ -27,8 +27,7 @@ interface ContainerProps {
 
 const Container = styled(FileTreeLine)`
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
-  background-color: ${({ isSelected }: ContainerProps) => isSelected ? 'black' : 'transparent'};
-  color: ${({ isSelected }: ContainerProps) => isSelected ? 'white' : 'black'};
+  background-color: ${({ isSelected }: ContainerProps) => isSelected ? grey[1] : 'transparent'};
   .names {
     flex: 1;
     overflow: hidden;
@@ -36,20 +35,9 @@ const Container = styled(FileTreeLine)`
       padding-right: 4px;
     }
   }
-  &:hover {
-    .icons {
-      svg {
-        color: white;
-      }
-    }
-  }
   .icons {
     svg {
       padding: 0 1px;
-      color: ${({ isSelected }: ContainerProps) => isSelected ? 'white' : 'black'};
-      &:hover {
-        color: ${grey[3]}
-      }
     }
   }
 `

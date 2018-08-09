@@ -3,8 +3,8 @@ import { FileNode } from './types'
 export function fileNodePadding (fileNode: FileNode): number {
   const { pathname } = fileNode
   if (pathname === '.') {
-    return 5 
+    return 13
   } else {
-    return (pathname.split('/').length - 1) * 5 + 6
+    return (pathname.split('/').length - 1) * 5 + 16
   }
 }
