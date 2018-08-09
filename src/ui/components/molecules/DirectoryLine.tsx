@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FileNode } from '../../../lib/types'
-import { observer, inject } from 'mobx-react';
+import { observer, inject } from 'mobx-react'
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 import { writeFile } from '../../../lib/filesystem/commands/writeFile'
 import { mkdir } from '../../../lib/filesystem/commands/mkdir'
@@ -71,11 +71,11 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
 
   input = null
 
-  setInputContent = (inputContent: string) => this.setState({inputContent})
+  setInputContent = (inputContent: string) => this.setState({ inputContent })
 
-  setisInputOpen = (isInputOpen: boolean) => this.setState({isInputOpen})
+  setisInputOpen = (isInputOpen: boolean) => this.setState({ isInputOpen })
 
-  setInputType = (inputType: 'file' | 'dir') => this.setState({inputType})
+  setInputType = (inputType: 'file' | 'dir') => this.setState({ inputType })
 
   handleClickNewFileButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -132,8 +132,8 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   }
 
   handleSubmitDir = async () => {
-    const { directory, fileTreeStore } = this.props  
-    const { inputContent } = this.state 
+    const { directory, fileTreeStore } = this.props
+    const { inputContent } = this.state
     await mkdir(`${directory.pathname}/${inputContent}`)
     const fileTree = await readFileNode('.')
     fileTreeStore.setFileTree(fileTree)
@@ -150,7 +150,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
             {directory.pathname}
           </div>
           <div className='icons'>
-            <Button onClick={this.handleClickNewFileButton}> 
+            <Button onClick={this.handleClickNewFileButton}>
               <FontAwesomeIcon icon='file' />
             </Button>
             <Button onClick={this.handleClickNewFolderButton}>

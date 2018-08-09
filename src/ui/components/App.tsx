@@ -8,7 +8,7 @@ import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 
 interface AppProps {
-  fileTreeStore: FileTreeStore 
+  fileTreeStore: FileTreeStore
   currentFileStore: CurrentFileStore
 }
 
@@ -63,7 +63,7 @@ export default class App extends React.Component<AppProps, AppState> {
     let newSideNavWidth = e.pageX
     if (newSideNavWidth < 201) {
       newSideNavWidth = 200
-    } else if (newSideNavWidth > 500){
+    } else if (newSideNavWidth > 500) {
       newSideNavWidth = 500
     }
     this.setSideNavWidth(newSideNavWidth)

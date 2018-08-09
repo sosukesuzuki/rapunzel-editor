@@ -79,10 +79,10 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
   }
 
   setType = (type: 'editor' | 'preview') => {
-    this.setState({type})
+    this.setState({ type })
   }
 
-  setContent = (content: string) => this.setState({content})
+  setContent = (content: string) => this.setState({ content })
 
   switchType = () => {
     const { type } = this.state

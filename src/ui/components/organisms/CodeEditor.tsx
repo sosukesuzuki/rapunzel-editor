@@ -8,7 +8,7 @@ const options = {
   lineNumbers: true,
   mode: 'markdown',
   theme: 'github-light',
-  lineWrapping: true,
+  lineWrapping: true
 }
 
 interface CodeEditorProps {

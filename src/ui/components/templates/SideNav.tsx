@@ -6,7 +6,7 @@ import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 import FileTree from '../organisms/FileTree'
 
 const Container = styled.div`
-  background-color: white; 
+  background-color: white;
   border-right: 1px solid ${grey[3]};
 `
 

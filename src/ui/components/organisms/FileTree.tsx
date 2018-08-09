@@ -12,7 +12,7 @@ interface FileTreeProps {
 }
 
 interface FileTreeState {
-  isOpen: boolean  
+  isOpen: boolean
 }
 
 const Container = styled.div`
@@ -31,7 +31,7 @@ export default class FileTree extends React.Component<FileTreeProps, FileTreeSta
     }
   }
 
-  setIsOpen = (isOpen: boolean) => this.setState({isOpen})
+  setIsOpen = (isOpen: boolean) => this.setState({ isOpen })
 
   handleClick = (e: React.MouseEvent<HTMLDivElement>, isOpen: boolean) => {
     e.preventDefault()
@@ -58,7 +58,7 @@ export default class FileTree extends React.Component<FileTreeProps, FileTreeSta
             } else if (fileNode.type === 'file') {
               return (<FileLine key={`${fileNode.pathname}`} file={fileNode} />)
             }
-        })}
+          })}
       </Container>
     )
   }

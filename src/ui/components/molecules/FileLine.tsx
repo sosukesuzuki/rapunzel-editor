@@ -7,9 +7,9 @@ import { grey } from '../../../lib/colors'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fileNodePadding } from '../../../lib/fileNodePadding'
 import { unlink } from '../../../lib/filesystem/commands/unlink'
-import { readFileNode } from '../../../lib/utils/getFileTree';
+import { readFileNode } from '../../../lib/utils/getFileTree'
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
-import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore';
+import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
 import { readFile } from '../../../lib/filesystem/queries/readFile'
 import Button from '../atoms/Button'
 import FileTreeLine from '../atoms/FileTreeLine'

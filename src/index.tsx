@@ -23,8 +23,8 @@ g.fs = fs
 library.add(faFile, faFolder, faFolderOpen, faTrash, faEdit, faEye, faDownload)
 
 ;(async () => {
- const fileTreeStore = new FileTreeStore(await readFileNode('.'))
- const currentFileStore = new CurrentFileStore(null)
+  const fileTreeStore = new FileTreeStore(await readFileNode('.'))
+  const currentFileStore = new CurrentFileStore(null)
 
   ReactDOM.render(<App fileTreeStore={fileTreeStore} currentFileStore={currentFileStore} />, document.querySelector('.root'))
 })()
