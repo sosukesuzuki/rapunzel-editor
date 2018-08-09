@@ -28,6 +28,8 @@ const Container = styled.div`
   }
   .preview {
     padding: 0 10px;
+    max-height: calc(100vh - 65px);
+    overflow-y: auto;
     .markdown-body {
       padding: 45px;
       p {
