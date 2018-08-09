@@ -2,6 +2,7 @@ import React from 'react'
 import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/default.css'
+import 'github-markdown-css'
 
 interface MarkdownRendererProps {
   content: string
@@ -42,6 +43,7 @@ export default class MarkdownRenderer extends React.Component<MarkdownRendererPr
 
     return (
       <div
+        className='markdown-body'
         ref={this.setElement}
         dangerouslySetInnerHTML={{
           __html: html
