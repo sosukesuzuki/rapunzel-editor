@@ -102,12 +102,13 @@ export default class SearchModal extends React.Component<SearchModalProps, Searc
   }
 
   handleClickFileLine = async (filePath: string) => {
-    const { currentFileStore } = this.props
+    const { currentFileStore, closeModal } = this.props
     const fileContent = await readFile(filePath)
     currentFileStore.setCurrentFile({
       pathname: filePath,
       content: fileContent
     })
+    closeModal()
   }
 
   render () {
