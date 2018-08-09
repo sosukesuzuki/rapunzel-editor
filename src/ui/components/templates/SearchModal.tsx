@@ -43,6 +43,7 @@ const Modal = styled.div`
   border-radius: 5px;
   padding: 20px;
   z-index: 1;
+  box-shadow: 0 0 15px rgba(0,0,0,.3);
   input {
     border: 1px solid ${grey[3]};
     padding: 5px;
