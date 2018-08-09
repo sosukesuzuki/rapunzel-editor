@@ -31,13 +31,13 @@ const Container = styled.div`
 
 const Modal = styled.div`
   position: absolute;
-  top: 0;
+  top: 40px;
   bottom: 0;
   right: 0;
   left: 0;
   height: 600px;
   width: 700px;
-  margin: auto;
+  margin: 0 auto;
   background-color: white;
   border: 1px solid ${grey[3]};
   border-radius: 5px;
