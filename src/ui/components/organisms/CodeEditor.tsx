@@ -1,5 +1,4 @@
 import React from 'react'
-import 'codemirror'
 import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/gfm/gfm'

@@ -27,4 +27,4 @@ library.add(faFile, faFolder, faFolderOpen, faTrash, faEdit, faEye, faDownload)
   const currentFileStore = new CurrentFileStore(null)
 
   ReactDOM.render(<App fileTreeStore={fileTreeStore} currentFileStore={currentFileStore} />, document.querySelector('.root'))
-})()
+})().catch(err => console.error(err))
