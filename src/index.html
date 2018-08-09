@@ -47,7 +47,7 @@ async function setupServiceWorker() {
     } else {
       const modal = document.createElement('div')
       modal.innerHTML = `
-        <div style='position: absolute; outline: 1px solid black; right: 10px; bottom: 50px; width: 350px; height: 50px; background: white; padding: 10px;'>
+        <div style='position: absolute; border: 1px solid #e9ecef; right: 10px; bottom: 50px; width: 350px; height: 50px; background: white; padding: 10px; border-radius: 5px;'>
           <div>New version available!</div>
           <span>It will be applied from the next</span> - <button onclick="location.reload()">Reload</button>
         </div>
