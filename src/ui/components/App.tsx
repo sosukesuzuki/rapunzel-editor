@@ -16,6 +16,7 @@ interface AppProps {
 interface AppState {
   isSliderFocused: boolean,
   sideNavWidth: number
+  isSearchModalShow: boolean
 }
 
 interface ContainerStyleProps {
@@ -40,13 +41,16 @@ export default class App extends React.Component<AppProps, AppState> {
     super(props)
     this.state = {
       isSliderFocused: false,
-      sideNavWidth: 250
+      sideNavWidth: 250,
+      isSearchModalShow: false
     }
   }
 
   setIsSliderFocused = (isSliderFocused: boolean) => this.setState({ isSliderFocused })
 
   setSideNavWidth = (sideNavWidth: number) => this.setState({ sideNavWidth })
+
+  setIsSearchModalShow = (isSearchModalShow: boolean) => this.setState({ isSearchModalShow })
 
   handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -75,7 +79,7 @@ export default class App extends React.Component<AppProps, AppState> {
       fileTreeStore,
       currentFileStore
     } = this.props
-    const { sideNavWidth } = this.state
+    const { sideNavWidth, isSearchModalShow } = this.state
 
     return (
       <Provider
@@ -86,12 +90,14 @@ export default class App extends React.Component<AppProps, AppState> {
             sideNavWidth={sideNavWidth}
             onMouseUp={this.handleMouseUp}
             onMouseMove={this.handleMouseMove}>
-            <Header />
+            <Header showModal={() => this.setIsSearchModalShow(true)} />
             <SideNav />
             <div className='resize' onMouseDown={this.handleMouseDown} />
             <Detail />
           </Container>
-          <SearchModal />
+          {isSearchModalShow &&
+            <SearchModal closeModal={() => this.setIsSearchModalShow(false)}/>
+          }
         </>
       </Provider>
     )

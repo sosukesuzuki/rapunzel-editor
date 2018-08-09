@@ -10,6 +10,7 @@ import { readFile } from '../../../lib/filesystem/queries/readFile'
 
 interface SearchModalProps {
   currentFileStore?: CurrentFileStore
+  closeModal: () => void
 }
 
 interface SearchModalState {
@@ -25,32 +26,35 @@ const Container = styled.div`
   left: 0;
   height: 100vh;
   width: 100vw;
-  .modalMain {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    height: 600px;
-    width: 700px;
-    margin: auto;
-    background-color: white;
+  z-inde: 0;
+`
+
+const Modal = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 600px;
+  width: 700px;
+  margin: auto;
+  background-color: white;
+  border: 1px solid ${grey[3]};
+  border-radius: 5px;
+  padding: 20px;
+  z-index: 1;
+  input {
     border: 1px solid ${grey[3]};
-    border-radius: 5px;
-    padding: 20px;
-    input {
-      border: 1px solid ${grey[3]};
-      padding: 5px;
-      width: 690px;
-    }
-    .fileList {
-      margin-top: 20px;
-      border-radius: 2px;
-      border: 1px solid ${grey[3]}
-      width: 700px;
-      height: 545px;
-      overflow-y: auto;
-    }
+    padding: 5px;
+    width: 690px;
+  }
+  .fileList {
+    margin-top: 20px;
+    border-radius: 2px;
+    border: 1px solid ${grey[3]}
+    width: 700px;
+    height: 545px;
+    overflow-y: auto;
   }
 `
 
@@ -107,23 +111,28 @@ export default class SearchModal extends React.Component<SearchModalProps, Searc
 
   render () {
     const { filePaths, searchQuery } = this.state
+    const { closeModal } = this.props
     return (
-      <Container>
-        <div className='modalMain'>
+      <>
+        <Container onClick={closeModal} />
+        <Modal>
           <Input
+            innerRef={el => el != null && el.focus()}
             placeholder='Please type the name of the file you are looking for.'
             value={searchQuery}
             onChange={this.handleChangeInput}
           />
           <div className='fileList'>
             {filePaths.map(filePath => (
-              <StyledFileTreeLine onClick={() => this.handleClickFileLine(filePath)}>
+              <StyledFileTreeLine
+                key={filePath}
+                onClick={() => this.handleClickFileLine(filePath)}>
                 {filePath}
               </StyledFileTreeLine>
             ))}
           </div>
-        </div>
-      </Container>
+        </Modal>
+      </>
     )
   }
 }
