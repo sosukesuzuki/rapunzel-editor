@@ -19,6 +19,7 @@ const Container = styled.div`
   background-color: white;
   border-bottom: 1px solid ${grey[3]};
   padding: 0 10px;
+  font-size: 14px;
   span {
     flex: 1;
     line-height: 25px;
