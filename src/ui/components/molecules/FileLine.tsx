@@ -75,8 +75,6 @@ export default class FileLine extends React.Component<FileLineProps> {
       ? true
       : false
 
-    console.log(isSelected)
-
     return (
       <Container
         paddingLeft={fileNodePadding(file)}

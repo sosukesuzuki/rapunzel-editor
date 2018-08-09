@@ -23,7 +23,6 @@ export default class MarkdownRenderer extends React.Component<MarkdownRendererPr
   highlightCode = () => {
     const nodes = this.element.querySelectorAll('pre code')
     for (let i = 0; i < nodes.length; i++) {
-      console.log(nodes[i])
       hljs.highlightBlock(nodes[i])
     }
   }
