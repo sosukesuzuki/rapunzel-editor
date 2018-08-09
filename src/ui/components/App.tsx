@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Header from './templates/Header'
 import SideNav from './templates/SideNav'
 import Detail from './templates/Detail'
+import SearchModal from './templates/SearchModal'
 import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 
@@ -80,15 +81,18 @@ export default class App extends React.Component<AppProps, AppState> {
       <Provider
         fileTreeStore={fileTreeStore}
         currentFileStore={currentFileStore}>
-        <Container
-          sideNavWidth={sideNavWidth}
-          onMouseUp={this.handleMouseUp}
-          onMouseMove={this.handleMouseMove}>
-          <Header />
-          <SideNav />
-          <div className='resize' onMouseDown={this.handleMouseDown} />
-          <Detail />
-        </Container>
+        <>
+          <Container
+            sideNavWidth={sideNavWidth}
+            onMouseUp={this.handleMouseUp}
+            onMouseMove={this.handleMouseMove}>
+            <Header />
+            <SideNav />
+            <div className='resize' onMouseDown={this.handleMouseDown} />
+            <Detail />
+          </Container>
+          <SearchModal />
+        </>
       </Provider>
     )
   }
