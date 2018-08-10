@@ -7,6 +7,7 @@ import Detail from './templates/Detail'
 import SearchModal from './templates/SearchModal'
 import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
+import key from 'keymaster'
 
 interface AppProps {
   fileTreeStore: FileTreeStore
@@ -44,6 +45,8 @@ export default class App extends React.Component<AppProps, AppState> {
       sideNavWidth: 250,
       isSearchModalShow: false
     }
+
+    key('ctrl+p', this.handlePushCtrlP)
   }
 
   setIsSliderFocused = (isSliderFocused: boolean) => this.setState({ isSliderFocused })
@@ -51,6 +54,10 @@ export default class App extends React.Component<AppProps, AppState> {
   setSideNavWidth = (sideNavWidth: number) => this.setState({ sideNavWidth })
 
   setIsSearchModalShow = (isSearchModalShow: boolean) => this.setState({ isSearchModalShow })
+
+  handlePushCtrlP = () => {
+    this.setIsSearchModalShow(true)
+  }
 
   handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()

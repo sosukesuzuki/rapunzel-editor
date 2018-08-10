@@ -7,6 +7,7 @@ import { grey } from '../../../lib/colors'
 import { getFilesTree } from '../../../lib/utils/getFileTree'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
 import { readFile } from '../../../lib/filesystem/queries/readFile'
+import key from 'keymaster'
 
 interface SearchModalProps {
   currentFileStore?: CurrentFileStore
@@ -74,9 +75,12 @@ export default class SearchModal extends React.Component<SearchModalProps, Searc
       filePaths: [],
       searchQuery: ''
     }
+
+    key('escape', this.handlePushEsc)
   }
 
   timer: NodeJS.Timer
+  input: HTMLInputElement
 
   async componentDidMount () {
     const filePaths = await getFilesTree('.')
@@ -86,6 +90,10 @@ export default class SearchModal extends React.Component<SearchModalProps, Searc
   setFilePaths = (filePaths: string[]) => this.setState({ filePaths })
 
   setSearchQuery = (searchQuery: string) => this.setState({ searchQuery })
+
+  handlePushEsc = () => {
+    this.props.closeModal()
+  }
 
   handleChangeInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -111,6 +119,13 @@ export default class SearchModal extends React.Component<SearchModalProps, Searc
     closeModal()
   }
 
+  handleKeydownInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Escape') {
+      this.input.blur()
+      this.props.closeModal()
+    }
+  }
+
   render () {
     const { filePaths, searchQuery } = this.state
     const { closeModal } = this.props
@@ -119,10 +134,16 @@ export default class SearchModal extends React.Component<SearchModalProps, Searc
         <Container onClick={closeModal} />
         <Modal>
           <Input
-            innerRef={el => el != null && el.focus()}
+            innerRef={el => {
+              el != null && (() => {
+                el.focus()
+                this.input = el
+              })()
+            }}
             placeholder='Please type the name of the file you are looking for.'
             value={searchQuery}
             onChange={this.handleChangeInput}
+            onKeyDown={this.handleKeydownInput}
           />
           <div className='fileList'>
             {filePaths.map(filePath => (
