@@ -31,6 +31,7 @@ const Container = styled.div`
   .preview {
     padding: 0 10px;
     overflow-y: auto;
+    max-height: calc(100vh - 65px);
     .markdown-body {
       padding: 45px;
       p {
