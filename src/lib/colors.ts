@@ -1,4 +1,4 @@
-export const brandColor = '#f64df9'
+export const brandColor = '#74c0fc'
 
 export const grape = [
   '#f8f0fc',
