@@ -24,11 +24,12 @@ const Container = styled.div`
     .CodeMirror {
       font-family: 'mono';
       height: 100%;
+      max-height: calc(100vh - 65px);
+      overflow-y: auto;
     }
   }
   .preview {
     padding: 0 10px;
-    max-height: calc(100vh - 65px);
     overflow-y: auto;
     .markdown-body {
       padding: 45px;
