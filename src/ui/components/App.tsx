@@ -40,20 +40,25 @@ const Container = styled.div`
 export default class App extends React.Component<AppProps, AppState> {
   constructor (props) {
     super(props)
+    const sideNavWidth = parseInt(localStorage.getItem('sideNavWidth'), 10)
     this.state = {
       isSliderFocused: false,
-      sideNavWidth: 250,
+      sideNavWidth: sideNavWidth || 250,
       isSearchModalShow: false
     }
 
     key('ctrl+p', this.handlePushCtrlP)
   }
 
+  timer: NodeJS.Timer
+
   setIsSliderFocused = (isSliderFocused: boolean) => this.setState({ isSliderFocused })
 
   setSideNavWidth = (sideNavWidth: number) => this.setState({ sideNavWidth })
 
   setIsSearchModalShow = (isSearchModalShow: boolean) => this.setState({ isSearchModalShow })
+
+  setSideNavWithToLocalstorage = (sideNavWidth: number) => localStorage.setItem('sideNavWidth', sideNavWidth.toString())
 
   handlePushCtrlP = () => {
     this.setIsSearchModalShow(true)
@@ -79,6 +84,9 @@ export default class App extends React.Component<AppProps, AppState> {
       newSideNavWidth = 500
     }
     this.setSideNavWidth(newSideNavWidth)
+
+    clearTimeout(this.timer)
+    this.timer = setTimeout(() => this.setSideNavWithToLocalstorage(newSideNavWidth), 100)
   }
 
   render () {
