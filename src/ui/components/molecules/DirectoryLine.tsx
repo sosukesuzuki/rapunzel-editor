@@ -148,7 +148,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
       <>
         <Container paddingLeft={fileNodePadding(directory)}>
           <div className='folderName' onClick={onClick}>
-            <FontAwesomeIcon icon={isOpen ? 'caret-right' : 'caret-down'} />
+            <FontAwesomeIcon icon={isOpen ? 'caret-down' : 'caret-right'} />
             {directory.pathname}
           </div>
           <div className='icons'>
