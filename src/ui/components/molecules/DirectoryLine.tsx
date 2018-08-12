@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import path from 'path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FileNode } from '../../../lib/types'
 import { observer, inject } from 'mobx-react'
@@ -149,7 +150,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
         <Container paddingLeft={fileNodePadding(directory)}>
           <div className='folderName' onClick={onClick}>
             <FontAwesomeIcon icon={isOpen ? 'caret-down' : 'caret-right'} />
-            {directory.pathname}
+            {path.basename(directory.pathname)}
           </div>
           { directory.pathname !== '.' &&
             <div className='icons'>
