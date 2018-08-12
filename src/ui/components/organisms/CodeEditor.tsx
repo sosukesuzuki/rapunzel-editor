@@ -1,13 +1,17 @@
 import React from 'react'
 import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
+import 'codemirror/addon/edit/continuelist'
 import 'codemirror/mode/gfm/gfm'
 
 const options = {
   lineNumbers: true,
   mode: 'markdown',
   theme: 'github-light',
-  lineWrapping: true
+  lineWrapping: true,
+  extraKeys: {
+    'Enter': 'newlineAndIndentContinueMarkdownList'
+  }
 }
 
 interface CodeEditorProps {
