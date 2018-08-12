@@ -151,17 +151,19 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
             <FontAwesomeIcon icon={isOpen ? 'caret-down' : 'caret-right'} />
             {directory.pathname}
           </div>
-          <div className='icons'>
-            <Button onClick={this.handleClickNewFileButton}>
-              <FontAwesomeIcon icon='file' />
-            </Button>
-            <Button onClick={this.handleClickNewFolderButton}>
-              <FontAwesomeIcon icon='folder' />
-            </Button>
-            <Button onClick={this.handleClickTrashButton}>
-              <FontAwesomeIcon icon='trash' />
-            </Button>
-          </div>
+          { directory.pathname !== '.' &&
+            <div className='icons'>
+              <Button onClick={this.handleClickNewFileButton}>
+                <FontAwesomeIcon icon='file' />
+              </Button>
+              <Button onClick={this.handleClickNewFolderButton}>
+                <FontAwesomeIcon icon='folder' />
+              </Button>
+              <Button onClick={this.handleClickTrashButton}>
+                <FontAwesomeIcon icon='trash' />
+              </Button>
+            </div>
+          }
         </Container>
         { isInputOpen &&
           <InputContainer>
