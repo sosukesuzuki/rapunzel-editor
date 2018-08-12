@@ -23,12 +23,13 @@ const Container = styled.div`
   grid-template-rows: 25px 1fr;
   .edit {
     max-width: calc(100vw - ${getSideNavWidth()}px - 1px);
+    max-height: calc(100vh - 65px);
+    overflow-y: auto;
     .CodeMirror {
+      bottom: 0;
       z-index: 0;
       font-family: 'mono';
-      height: 100%;
-      max-height: calc(100vh - 65px);
-      overflow-y: auto;
+      height: auto;
     }
   }
   .preview {
