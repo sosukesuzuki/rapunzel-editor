@@ -1,12 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import Button from '../atoms/Button'
 import { grey } from '../../../lib/colors'
-import { FontAwesomeIcon } from '../../../../node_modules/@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
-interface HeaderProps {
-  showModal: () => void
-}
+interface HeaderProps {}
 
 const Container = styled.div`
   background: white;
@@ -22,21 +20,31 @@ const Container = styled.div`
     flex: 1;
   }
   .icons {
+    display: flex;
     line-height: 40px;
     padding-right: 30px;
+    a {
+      font-size: 30px;
+      cursor: pointer;
+      svg {
+        color: black;
+        &:hover {
+          color: ${grey[6]}
+        }
+      }
+    }
   }
 `
 
 export default class Header extends React.Component<HeaderProps> {
   render () {
-    const { showModal } = this.props
     return (
       <Container>
         <h1>Rapunzel</h1>
         <div className='icons'>
-          <Button onClick={showModal}>
-            <FontAwesomeIcon icon='search' />
-          </Button>
+          <a href='https://github.com/sosukesuzuki/rapunzel-editor' target='_blank'>
+            <FontAwesomeIcon icon={ faGithub } />
+          </a>
         </div>
       </Container>
     )

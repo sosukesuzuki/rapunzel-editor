@@ -107,7 +107,7 @@ export default class App extends React.Component<AppProps, AppState> {
             sideNavWidth={sideNavWidth}
             onMouseUp={this.handleMouseUp}
             onMouseMove={this.handleMouseMove}>
-            <Header showModal={() => this.setIsSearchModalShow(true)} />
+            <Header />
             <SideNav />
             <div className='resize' onMouseDown={this.handleMouseDown} />
             <Detail />
