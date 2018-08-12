@@ -5,6 +5,6 @@ export function fileNodePadding (fileNode: FileNode): number {
   if (pathname === '.') {
     return 13
   } else {
-    return (pathname.split('/').length - 1) * 5 + 16
+    return (pathname.split('/').length - 1) * 5 + 25
   }
 }
