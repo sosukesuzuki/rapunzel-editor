@@ -15,13 +15,26 @@ import {
   faEdit,
   faEye,
   faDownload,
-  faSearch
+  faSearch,
+  faCaretDown,
+  faCaretRight
 } from '@fortawesome/free-solid-svg-icons'
 
 const g: any = global
 g.fs = fs
 
-library.add(faFile, faFolder, faFolderOpen, faTrash, faEdit, faEye, faDownload, faSearch)
+library.add(
+  faFile,
+  faFolder,
+  faFolderOpen,
+  faTrash,
+  faEdit,
+  faEye,
+  faDownload,
+  faSearch,
+  faCaretDown,
+  faCaretRight
+)
 
 ;(async () => {
   const fileTreeStore = new FileTreeStore(await readFileNode('.'))

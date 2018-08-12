@@ -39,6 +39,8 @@ const Container = styled(FileTreeLine)`
     overflow: hidden;
     svg {
       padding-right: 4px;
+      width: 15px;
+      height: 15px;
     }
   }
   .icons {
@@ -146,7 +148,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
       <>
         <Container paddingLeft={fileNodePadding(directory)}>
           <div className='folderName' onClick={onClick}>
-            <FontAwesomeIcon icon={isOpen ? 'folder-open' : 'folder'} />
+            <FontAwesomeIcon icon={isOpen ? 'caret-right' : 'caret-down'} />
             {directory.pathname}
           </div>
           <div className='icons'>
