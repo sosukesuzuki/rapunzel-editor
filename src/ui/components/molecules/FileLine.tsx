@@ -32,7 +32,7 @@ const Container = styled(FileTreeLine)`
     flex: 1;
     overflow: hidden;
     svg {
-      padding-right: 4px;
+      padding-right: 10px;
     }
   }
   .icons {
