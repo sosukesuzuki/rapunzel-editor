@@ -24,7 +24,6 @@ const Container = styled.div`
   .edit {
     max-width: calc(100vw - ${getSideNavWidth()}px - 1px);
     .CodeMirror {
-      max-width: calc(100vw - ${getSideNavWidth()});
       z-index: 0;
       font-family: 'mono';
       height: 100%;
@@ -36,6 +35,7 @@ const Container = styled.div`
     padding: 0 10px;
     overflow-y: auto;
     max-height: calc(100vh - 65px);
+    max-width: calc(100vw - ${getSideNavWidth()}px - 1px);
     .markdown-body {
       padding: 45px;
       p {
