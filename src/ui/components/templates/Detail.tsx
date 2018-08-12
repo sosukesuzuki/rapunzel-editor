@@ -6,6 +6,7 @@ import MarkdownRenderer from '../organisms/MarkdownRenderer'
 import DetailHeader from '../molecules/DetailHeader'
 import { writeFile } from '../../../lib/filesystem/commands/writeFile'
 import CodeEditor from '../organisms/CodeEditor'
+import { getSideNavWidth } from '../../../lib/getSideNavWidth'
 
 interface DetaiProps {
   currentFileStore?: CurrentFileStore
@@ -21,7 +22,10 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 25px 1fr;
   .edit {
+    max-width: calc(100vw - ${getSideNavWidth()}px - 1px);
     .CodeMirror {
+      max-width: calc(100vw - ${getSideNavWidth()});
+      z-index: 0;
       font-family: 'mono';
       height: 100%;
       max-height: calc(100vh - 65px);

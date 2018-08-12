@@ -8,6 +8,7 @@ import SearchModal from './templates/SearchModal'
 import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 import key from 'keymaster'
+import { getSideNavWidth } from '../../lib/getSideNavWidth'
 
 interface AppProps {
   fileTreeStore: FileTreeStore
@@ -27,6 +28,7 @@ interface ContainerStyleProps {
 const Container = styled.div`
   display: grid;
   height: 100vh;
+  width: 100vw;
   grid-template-rows: 40px;
   grid-template-columns: ${({ sideNavWidth }: ContainerStyleProps) => sideNavWidth}px 1px 1fr;
   grid-auto-flow: dense;
@@ -40,7 +42,7 @@ const Container = styled.div`
 export default class App extends React.Component<AppProps, AppState> {
   constructor (props) {
     super(props)
-    const sideNavWidth = parseInt(localStorage.getItem('sideNavWidth'), 10)
+    const sideNavWidth = getSideNavWidth()
     this.state = {
       isSliderFocused: false,
       sideNavWidth: sideNavWidth || 250,
