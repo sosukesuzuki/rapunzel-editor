@@ -29,7 +29,7 @@ const Container = styled.div`
       bottom: 0;
       z-index: 0;
       font-family: 'mono';
-      height: auto;
+      min-height: calc(100vh - 65px);
     }
   }
   .preview {
