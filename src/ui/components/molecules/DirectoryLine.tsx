@@ -120,7 +120,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
     this.setAddInputContent(value)
   }
 
-  handleKeydown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  handleAddKeydown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { setIsOpen } = this.props
     const { inputType } = this.state
     const ENTER = 13
@@ -243,7 +243,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
               }}
               value={addInputContent}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.handleInputChange(e.target.value)}
-              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleKeydown(e)}
+              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleAddKeydown(e)}
               onBlur={() => this.setisInputOpen(false)} />
           </InputContainer>
           }
