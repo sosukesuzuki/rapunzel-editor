@@ -75,8 +75,6 @@ export default class FileLine extends React.Component<FileLineProps> {
     const { file, currentFileStore } = this.props
     const { currentFile } = currentFileStore
     const isSelected = currentFile != null && file.pathname === currentFile.pathname
-      ? true
-      : false
 
     return (
       <Container
