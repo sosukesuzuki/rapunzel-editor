@@ -206,22 +206,20 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                   </>
                 )
               : (
-                <>
-                  <InputContainer>
-                    <Input
-                      innerRef={
-                        (element: HTMLInputElement) => {
-                          this.renameInput = element
-                          if (this.renameInput != null) element.focus()
-                        }
+                <InputContainer>
+                  <Input
+                    innerRef={
+                      (element: HTMLInputElement) => {
+                        this.renameInput = element
+                        if (this.renameInput != null) element.focus()
                       }
-                      value={renameInputContent}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setRenameInputContent(e.target.value)}
-                      onBlur={() => this.setIsRenaming(false)}
-                      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleRenameKeydown(e)}
-                    />
-                  </InputContainer>
-                </>
+                    }
+                    value={renameInputContent}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setRenameInputContent(e.target.value)}
+                    onBlur={() => this.setIsRenaming(false)}
+                    onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleRenameKeydown(e)}
+                  />
+                </InputContainer>
               )
             }
           </Container>
