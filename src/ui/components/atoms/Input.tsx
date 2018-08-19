@@ -6,7 +6,7 @@ const Input = styled.input`
   border: none;
   border-radius: 2px;
   &:focus {
-    outline: 1px solid ${brandColor};
+    outline: 2px solid ${brandColor};
   }
 `
 
