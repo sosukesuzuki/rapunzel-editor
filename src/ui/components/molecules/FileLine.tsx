@@ -166,7 +166,10 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
                     value={renameInputContent}
                     onChange={(e) => this.setRenameInputContent(e.target.value)}
                     onKeyDown={this.handleRenameKeyDown}
-                    onBlur={() => this.setIsRenaming(false)}
+                    onBlur={() => {
+                      this.setRenameInputContent(path.basename(file.pathname))
+                      this.setIsRenaming(false)
+                    }}
                   />
                 </InputContainer>
               )

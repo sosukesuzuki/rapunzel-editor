@@ -211,12 +211,15 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                     innerRef={
                       (element: HTMLInputElement) => {
                         this.renameInput = element
-                        if (this.renameInput != null) element.focus()
+                        this.renameInput != null && element.focus()
                       }
                     }
                     value={renameInputContent}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setRenameInputContent(e.target.value)}
-                    onBlur={() => this.setIsRenaming(false)}
+                    onBlur={() => {
+                      this.setRenameInputContent(path.basename(directory.pathname))
+                      this.setIsRenaming(false)
+                    }}
                     onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleRenameKeydown(e)}
                   />
                 </InputContainer>
@@ -233,12 +236,16 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
             <Input
               innerRef={(element: HTMLInputElement) => {
                 this.addDirInput = element
-                if (this.addDirInput != null) element.focus()
+                if (this.addDirInput != null) {
+                  element.focus()
+                }
               }}
               value={addInputContent}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.handleInputChange(e.target.value)}
               onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleAddKeydown(e)}
-              onBlur={() => this.setisInputOpen(false)} />
+              onBlur={() => {
+                this.setisInputOpen(false)
+              }} />
           </InputContainer>
           }
       </>
