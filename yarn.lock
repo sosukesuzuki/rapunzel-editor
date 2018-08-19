@@ -632,6 +632,10 @@
   version "9.12.3"
   resolved "https://registry.yarnpkg.com/@types/highlight.js/-/highlight.js-9.12.3.tgz#b672cfaac25cbbc634a0fd92c515f66faa18dbca"
 
+"@types/katex@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@types/katex/-/katex-0.5.0.tgz#a7dbb981f1bc89c8b1b5e7fa8a1ce2617ab2f358"
+
 "@types/keymaster@^1.6.28":
   version "1.6.28"
   resolved "https://registry.yarnpkg.com/@types/keymaster/-/keymaster-1.6.28.tgz#093fc6fe49deff4ee17d36935a49230edb1c935f"
@@ -1416,6 +1420,10 @@ commander@2.15.1:
 commander@^2.12.1:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.16.0.tgz#f16390593996ceb4f3eeb020b31d78528f7f8a50"
+
+commander@^2.16.0:
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
 
 commander@~2.13.0:
   version "2.13.0"
@@ -2751,6 +2759,12 @@ jsonfile@^4.0.0:
 jsonify@~0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
+
+katex@^0.10.0-rc:
+  version "0.10.0-rc"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.10.0-rc.tgz#e1828ca1f08ec0ea30979b8e0f7eb43a60c0adfb"
+  dependencies:
+    commander "^2.16.0"
 
 keygrip@~1.0.2:
   version "1.0.2"
