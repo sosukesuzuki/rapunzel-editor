@@ -14,8 +14,8 @@ import { removeDirectory } from '../../../lib/utils/removeDirectory'
 import Button from '../atoms/Button'
 import Input from '../atoms/Input'
 import FileTreeLine from '../atoms/FileTreeLine'
-import { ContextMenu, ContextMenuProvider, Item } from 'react-contexify'
-import 'react-contexify/dist/ReactContexify.min.css'
+import { ContextMenuProvider } from 'react-contexify'
+import FileTreeLineContextMenu from './FileTreeLineContextMenu'
 import { rename } from '../../../lib/filesystem/commands/rename'
 
 interface DirectoryLineProps {
@@ -106,7 +106,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
     this.setInputType('dir')
   }
 
-  handleRemove = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  handleRemove = async () => {
     const { directory, fileTreeStore } = this.props
     const result = window.confirm(`Remove ${directory.pathname}.`)
     if (result) {
@@ -140,11 +140,11 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
     const ENTER = 13
     if (e.keyCode === ENTER) {
       this.setIsRenaming(false)
-      await this.handleRename()
+      await this.rename()
     }
   }
 
-  handleRename = async () => {
+  rename = async () => {
     const { renameInputContent } = this.state
     const { directory, fileTreeStore } = this.props
     const newPathname = `${path.dirname(directory.pathname)}/${renameInputContent}`
@@ -224,14 +224,10 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
             }
           </Container>
         </ContextMenuProvider>
-        <ContextMenu id={identifier}>
-          <Item onClick={this.handleClickRename}>
-            Rename
-          </Item>
-          <Item onClick={this.handleRemove}>
-            Delete
-          </Item>
-        </ContextMenu>
+        <FileTreeLineContextMenu
+          identifier={identifier}
+          onRenameClick={this.handleClickRename}
+          onDeleteClick={this.handleRemove} />
         { isInputOpen &&
           <InputContainer>
             <Input

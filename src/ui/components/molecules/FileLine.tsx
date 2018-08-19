@@ -11,8 +11,12 @@ import { readFileNode } from '../../../lib/utils/getFileTree'
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
 import { readFile } from '../../../lib/filesystem/queries/readFile'
+import { ContextMenuProvider } from 'react-contexify'
+import { rename } from '../../../lib/filesystem/commands/rename'
+import FileTreeLineContextMenu from './FileTreeLineContextMenu'
 import Button from '../atoms/Button'
 import FileTreeLine from '../atoms/FileTreeLine'
+import Input from '../atoms/Input'
 
 interface FileLineProps {
   file: FileNode
@@ -20,10 +24,25 @@ interface FileLineProps {
   currentFileStore?: CurrentFileStore
 }
 
+interface FileLineState {
+  isRenaming: boolean
+  renameInputContent: string
+}
+
 interface ContainerProps {
   paddingLeft: number
   isSelected: boolean
 }
+
+const InputContainer = styled.div`
+  padding: 0 2px;
+  width: 100%;
+  input {
+    margin: 0 auto;
+    padding: 2px;
+    width: 100%;
+  }
+`
 
 const Container = styled(FileTreeLine)`
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
@@ -45,7 +64,22 @@ const Container = styled(FileTreeLine)`
 @inject('currentFileStore')
 @inject('fileTreeStore')
 @observer
-export default class FileLine extends React.Component<FileLineProps> {
+export default class FileLine extends React.Component<FileLineProps, FileLineState> {
+  constructor (props: FileLineProps) {
+    super(props)
+
+    this.state = {
+      isRenaming: false,
+      renameInputContent: path.basename(props.file.pathname)
+    }
+  }
+
+  renameInput: HTMLInputElement
+
+  setIsRenaming = (isRenaming: boolean) => this.setState({ isRenaming })
+
+  setRenameInputContent = (renameInputContent: string) => this.setState({ renameInputContent })
+
   handleClickFileLine = async (e: React.MouseEvent<HTMLDivElement>) => {
     const { currentFileStore, file } = this.props
     const { pathname } = file
@@ -56,9 +90,8 @@ export default class FileLine extends React.Component<FileLineProps> {
     })
   }
 
-  handleClickTrashButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  handleClickTrashButton = async () => {
     const { file, fileTreeStore, currentFileStore } = this.props
-    e.preventDefault()
     const result = window.confirm(`Remove ${file.pathname}.`)
     if (result) {
       await unlink(file.pathname)
@@ -71,27 +104,80 @@ export default class FileLine extends React.Component<FileLineProps> {
     }
   }
 
+  handleRenameClick = () => {
+    this.setIsRenaming(true)
+  }
+
+  handleRenameKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const ENTER = 13
+    if (e.keyCode === ENTER) {
+      this.setIsRenaming(false)
+      await this.rename()
+    }
+  }
+
+  rename = async () => {
+    const { renameInputContent } = this.state
+    const { file, fileTreeStore } = this.props
+    const newPathname = `${path.dirname(file.pathname)}/${renameInputContent}`
+    await rename(file.pathname, newPathname)
+    const fileTree = await readFileNode('.')
+    fileTreeStore.setFileTree(fileTree)
+  }
+
   render () {
     const { file, currentFileStore } = this.props
+    const { isRenaming, renameInputContent } = this.state
     const { currentFile } = currentFileStore
     const isSelected = currentFile != null && file.pathname === currentFile.pathname
+    const identifier = `${file.pathname}_context_menu`
 
     return (
-      <Container
-        paddingLeft={fileNodePadding(file)}
-        isSelected={isSelected}>
-        <div
-          className='names'
-          onClick={this.handleClickFileLine}>
-          <FontAwesomeIcon icon='file' />
-          {path.basename(file.pathname)}
-        </div>
-        <div className='icons'>
-          <Button onClick={this.handleClickTrashButton}>
-            <FontAwesomeIcon icon='trash' />
-          </Button>
-        </div>
-      </Container>
+      <>
+        <ContextMenuProvider id={identifier}>
+          <Container
+            paddingLeft={fileNodePadding(file)}
+            isSelected={isSelected}>
+            { !isRenaming
+              ? (
+                <>
+                  <div
+                    className='names'
+                    onClick={this.handleClickFileLine}>
+                    <FontAwesomeIcon icon='file' />
+                    {path.basename(file.pathname)}
+                  </div>
+                  <div className='icons'>
+                    <Button onClick={this.handleClickTrashButton}>
+                      <FontAwesomeIcon icon='trash' />
+                    </Button>
+                  </div>
+                </>
+              )
+              : (
+                <InputContainer>
+                  <Input
+                    innerRef={
+                      (e: HTMLInputElement) => {
+                        this.renameInput = e
+                        this.renameInput && e.focus()
+                      }
+                    }
+                    value={renameInputContent}
+                    onChange={(e) => this.setRenameInputContent(e.target.value)}
+                    onKeyDown={this.handleRenameKeyDown}
+                    onBlur={() => this.setIsRenaming(false)}
+                  />
+                </InputContainer>
+              )
+            }
+          </Container>
+        </ContextMenuProvider>
+        <FileTreeLineContextMenu
+          identifier={identifier}
+          onRenameClick={this.handleRenameClick}
+          onDeleteClick={this.handleClickTrashButton} />
+      </>
     )
   }
 }
