@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import path from 'path'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FileNode } from '../../../lib/types'
 import { observer, inject } from 'mobx-react'
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
@@ -11,12 +10,12 @@ import { readFileNode } from '../../../lib/utils/getFileTree'
 import { isMd } from '../../../lib/utils/isMd'
 import { fileNodePadding } from '../../../lib/fileNodePadding'
 import { removeDirectory } from '../../../lib/utils/removeDirectory'
-import Button from '../atoms/Button'
 import Input from '../atoms/Input'
 import FileTreeLine from '../atoms/FileTreeLine'
 import { ContextMenuProvider } from 'react-contexify'
 import FileTreeLineContextMenu from './FileTreeLineContextMenu'
 import { rename } from '../../../lib/filesystem/commands/rename'
+import { IconButton } from 'office-ui-fabric-react/lib/Button'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -43,10 +42,8 @@ const Container = styled(FileTreeLine)`
   .folderName {
     flex: 1;
     overflow: hidden;
-    svg {
-      padding-right: 4px;
-      width: 15px;
-      height: 15px;
+    i {
+      font-size: 5px;
     }
   }
   .icons {
@@ -189,19 +186,44 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                 ? (
                   <>
                     <div className='folderName' onClick={onClick}>
-                      <FontAwesomeIcon icon={isOpen ? 'caret-down' : 'caret-right'} />
+                      {/* <FontAwesomeIcon icon={isOpen ? 'caret-down' : 'caret-right'} /> */}
+                      { isOpen
+                        ? (
+                          <IconButton
+                            iconProps={{ iconName: 'CaretBottomRightCenter8' }}
+                            ariaLabel='FolderOpen'
+                            title='FolderOpen'
+                          />
+                        )
+                        : (
+                          <IconButton
+                            iconProps={{ iconName: 'CaretRightSolid8' }}
+                            ariaLabel='FolderClose'
+                            title='FolderClose'
+                          />
+                        )
+                      }
                       {path.basename(directory.pathname)}
                     </div>
                     <div className='icons'>
-                      <Button onClick={this.handleClickNewFileButton}>
-                        <FontAwesomeIcon icon='file' />
-                      </Button>
-                      <Button onClick={this.handleClickNewFolderButton}>
-                        <FontAwesomeIcon icon='folder' />
-                      </Button>
-                      <Button onClick={this.handleRemove}>
-                        <FontAwesomeIcon icon='trash' />
-                      </Button>
+                      <IconButton
+                        iconProps={{ iconName: 'FileCode' }}
+                        ariaLabel='File'
+                        title='File'
+                        onClick={this.handleClickNewFileButton}
+                      />
+                      <IconButton
+                        iconProps={{ iconName: 'FabricFolder' }}
+                        ariaLabel='Folder'
+                        title='Folder'
+                        onClick={this.handleClickNewFolderButton}
+                      />
+                      <IconButton
+                        iconProps={{ iconName: 'Delete' }}
+                        ariaLabel='Trash'
+                        title='Trash'
+                        onClick={this.handleRemove}
+                      />
                     </div>
                   </>
                 )

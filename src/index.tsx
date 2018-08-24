@@ -6,38 +6,15 @@ import fs from 'fs'
 import { FileTreeStore } from './lib/stores/FileTreeStore'
 import { CurrentFileStore } from './lib/stores/CurrentFileStore'
 import { readFileNode } from './lib/utils/getFileTree'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-  faFile,
-  faFolder,
-  faFolderOpen,
-  faTrash,
-  faEdit,
-  faEye,
-  faDownload,
-  faSearch,
-  faCaretDown,
-  faCaretRight
-} from '@fortawesome/free-solid-svg-icons'
 import { writeFile } from './lib/filesystem/commands/writeFile'
 import { readFile } from './lib/filesystem/queries/readFile'
 import { File } from './lib/types'
+import { initializeIcons } from '@uifabric/icons'
 
 const g: any = global
 g.fs = fs
 
-library.add(
-  faFile,
-  faFolder,
-  faFolderOpen,
-  faTrash,
-  faEdit,
-  faEye,
-  faDownload,
-  faSearch,
-  faCaretDown,
-  faCaretRight
-)
+initializeIcons()
 
 ;(async () => {
   const hasVisited = !!localStorage.getItem('hasVisited')

@@ -20,7 +20,7 @@ interface DetailState {
 const Container = styled.div`
   background-color: white;
   display: grid;
-  grid-template-rows: 25px 1fr;
+  grid-template-rows: 32px 1fr;
   .edit {
     max-width: calc(100vw - ${getSideNavWidth()}px - 1px);
     max-height: calc(100vh - 65px);

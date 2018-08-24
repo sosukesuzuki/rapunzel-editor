@@ -4,7 +4,6 @@ import path from 'path'
 import { FileNode } from '../../../lib/types'
 import { observer, inject } from 'mobx-react'
 import { grey } from '../../../lib/colors'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fileNodePadding } from '../../../lib/fileNodePadding'
 import { unlink } from '../../../lib/filesystem/commands/unlink'
 import { readFileNode } from '../../../lib/utils/getFileTree'
@@ -14,9 +13,10 @@ import { readFile } from '../../../lib/filesystem/queries/readFile'
 import { ContextMenuProvider } from 'react-contexify'
 import { rename } from '../../../lib/filesystem/commands/rename'
 import FileTreeLineContextMenu from './FileTreeLineContextMenu'
-import Button from '../atoms/Button'
 import FileTreeLine from '../atoms/FileTreeLine'
 import Input from '../atoms/Input'
+import { IconButton } from 'office-ui-fabric-react/lib/Button'
+import { Icon } from 'office-ui-fabric-react/lib/Icon'
 
 interface FileLineProps {
   file: FileNode
@@ -50,8 +50,8 @@ const Container = styled(FileTreeLine)`
   .names {
     flex: 1;
     overflow: hidden;
-    svg {
-      padding-right: 10px;
+    i {
+      padding-right: 7px;
     }
   }
   .icons {
@@ -144,13 +144,16 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
                   <div
                     className='names'
                     onClick={this.handleClickFileLine}>
-                    <FontAwesomeIcon icon='file' />
+                    <Icon iconName='FileCode' />
                     {path.basename(file.pathname)}
                   </div>
                   <div className='icons'>
-                    <Button onClick={this.handleClickTrashButton}>
-                      <FontAwesomeIcon icon='trash' />
-                    </Button>
+                    <IconButton
+                      iconProps={{ iconName: 'Delete' }}
+                      ariaLabel='Trash'
+                      title='Trash'
+                      onClick={this.handleClickTrashButton}
+                    />
                   </div>
                 </>
               )
