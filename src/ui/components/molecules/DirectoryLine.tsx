@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import path from 'path'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FileNode } from '../../../lib/types'
 import { observer, inject } from 'mobx-react'
 import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
@@ -43,10 +42,8 @@ const Container = styled(FileTreeLine)`
   .folderName {
     flex: 1;
     overflow: hidden;
-    svg {
-      padding-right: 4px;
-      width: 15px;
-      height: 15px;
+    i {
+      font-size: 5px;
     }
   }
   .icons {
@@ -189,7 +186,23 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                 ? (
                   <>
                     <div className='folderName' onClick={onClick}>
-                      <FontAwesomeIcon icon={isOpen ? 'caret-down' : 'caret-right'} />
+                      {/* <FontAwesomeIcon icon={isOpen ? 'caret-down' : 'caret-right'} /> */}
+                      { isOpen
+                        ? (
+                          <IconButton
+                            iconProps={{ iconName: 'CaretBottomRightCenter8' }}
+                            ariaLabel='FolderOpen'
+                            title='FolderOpen'
+                          />
+                        )
+                        : (
+                          <IconButton
+                            iconProps={{ iconName: 'CaretRightSolid8' }}
+                            ariaLabel='FolderClose'
+                            title='FolderClose'
+                          />
+                        )
+                      }
                       {path.basename(directory.pathname)}
                     </div>
                     <div className='icons'>
