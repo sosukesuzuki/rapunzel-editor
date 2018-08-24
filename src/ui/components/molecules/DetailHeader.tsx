@@ -50,7 +50,7 @@ export default class DetailHeader extends React.Component<DetailHeaderProps> {
             title='Download'
             onClick={this.handleClickDownloadButton}
           />
-          {type === 'editor'
+          {type === 'preview'
             ? (
               <IconButton
                 iconProps={{ iconName: 'EditNote' }}
