@@ -26,6 +26,7 @@
     "mobx": "^5.0.3",
     "mobx-react": "^5.2.3",
     "normalize.css": "^8.0.0",
+    "office-ui-fabric-react": "^6.54.0",
     "pify": "^3.0.0",
     "react": "^16.4.1",
     "react-contexify": "^3.0.3",

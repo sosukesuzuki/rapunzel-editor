@@ -9,6 +9,7 @@ import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 import key from 'keymaster'
 import { getSideNavWidth } from '../../lib/getSideNavWidth'
+import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
 
 interface AppProps {
   fileTreeStore: FileTreeStore
@@ -99,24 +100,26 @@ export default class App extends React.Component<AppProps, AppState> {
     const { sideNavWidth, isSearchModalShow } = this.state
 
     return (
-      <Provider
-        fileTreeStore={fileTreeStore}
-        currentFileStore={currentFileStore}>
-        <>
-          <Container
-            sideNavWidth={sideNavWidth}
-            onMouseUp={this.handleMouseUp}
-            onMouseMove={this.handleMouseMove}>
-            <Header />
-            <SideNav />
-            <div className='resize' onMouseDown={this.handleMouseDown} />
-            <Detail />
-          </Container>
-          {isSearchModalShow &&
-            <SearchModal closeModal={() => this.setIsSearchModalShow(false)}/>
-          }
-        </>
-      </Provider>
+      <Fabric>
+        <Provider
+          fileTreeStore={fileTreeStore}
+          currentFileStore={currentFileStore}>
+          <>
+            <Container
+              sideNavWidth={sideNavWidth}
+              onMouseUp={this.handleMouseUp}
+              onMouseMove={this.handleMouseMove}>
+              <Header />
+              <SideNav />
+              <div className='resize' onMouseDown={this.handleMouseDown} />
+              <Detail />
+            </Container>
+            {isSearchModalShow &&
+              <SearchModal closeModal={() => this.setIsSearchModalShow(false)}/>
+            }
+          </>
+        </Provider>
+      </Fabric>
     )
   }
 }
