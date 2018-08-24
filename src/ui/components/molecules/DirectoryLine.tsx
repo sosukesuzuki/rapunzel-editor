@@ -10,12 +10,12 @@ import { readFileNode } from '../../../lib/utils/getFileTree'
 import { isMd } from '../../../lib/utils/isMd'
 import { fileNodePadding } from '../../../lib/fileNodePadding'
 import { removeDirectory } from '../../../lib/utils/removeDirectory'
-import Input from '../atoms/Input'
 import FileTreeLine from '../atoms/FileTreeLine'
 import { ContextMenuProvider } from 'react-contexify'
 import FileTreeLineContextMenu from './FileTreeLineContextMenu'
 import { rename } from '../../../lib/filesystem/commands/rename'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
+import { TextField, ITextField } from 'office-ui-fabric-react/lib/TextField'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -54,13 +54,8 @@ const Container = styled(FileTreeLine)`
 `
 
 const InputContainer = styled.div`
-  padding: 0 2px;
-  width: 100%;
-  input {
-    margin: 0 auto;
-    padding: 2px;
-    width: 100%;
-  }
+  padding: 0 10px;
+  margin-left: ${(props: ContainerProps) => props.paddingLeft}px;
 `
 
 @inject('fileTreeStore')
@@ -77,9 +72,9 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
     }
   }
 
-  addDirInput: HTMLInputElement = null
+  addDirInput: ITextField = null
 
-  renameInput: HTMLInputElement = null
+  renameInput: ITextField = null
 
   setAddInputContent = (addInputContent: string) => this.setState({ addInputContent })
 
@@ -228,10 +223,10 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                   </>
                 )
               : (
-                <InputContainer>
-                  <Input
-                    innerRef={
-                      (element: HTMLInputElement) => {
+                <InputContainer paddingLeft={0}>
+                  <TextField
+                    componentRef={
+                      (element) => {
                         this.renameInput = element
                         this.renameInput != null && element.focus()
                       }
@@ -254,9 +249,9 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
           onRenameClick={this.handleClickRename}
           onDeleteClick={this.handleRemove} />
         { isInputOpen &&
-          <InputContainer>
-            <Input
-              innerRef={(element: HTMLInputElement) => {
+          <InputContainer paddingLeft={fileNodePadding(directory)}>
+            <TextField
+              componentRef={(element) => {
                 this.addDirInput = element
                 if (this.addDirInput != null) {
                   element.focus()
@@ -267,9 +262,10 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
               onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleAddKeydown(e)}
               onBlur={() => {
                 this.setisInputOpen(false)
-              }} />
+              }}
+            />
           </InputContainer>
-          }
+        }
       </>
     )
   }
