@@ -11,12 +11,12 @@ import { readFileNode } from '../../../lib/utils/getFileTree'
 import { isMd } from '../../../lib/utils/isMd'
 import { fileNodePadding } from '../../../lib/fileNodePadding'
 import { removeDirectory } from '../../../lib/utils/removeDirectory'
-import Button from '../atoms/Button'
 import Input from '../atoms/Input'
 import FileTreeLine from '../atoms/FileTreeLine'
 import { ContextMenuProvider } from 'react-contexify'
 import FileTreeLineContextMenu from './FileTreeLineContextMenu'
 import { rename } from '../../../lib/filesystem/commands/rename'
+import { IconButton } from 'office-ui-fabric-react/lib/Button'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -193,15 +193,24 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                       {path.basename(directory.pathname)}
                     </div>
                     <div className='icons'>
-                      <Button onClick={this.handleClickNewFileButton}>
-                        <FontAwesomeIcon icon='file' />
-                      </Button>
-                      <Button onClick={this.handleClickNewFolderButton}>
-                        <FontAwesomeIcon icon='folder' />
-                      </Button>
-                      <Button onClick={this.handleRemove}>
-                        <FontAwesomeIcon icon='trash' />
-                      </Button>
+                      <IconButton
+                        iconProps={{ iconName: 'FileCode' }}
+                        ariaLabel='File'
+                        title='File'
+                        onClick={this.handleClickNewFileButton}
+                      />
+                      <IconButton
+                        iconProps={{ iconName: 'FabricFolder' }}
+                        ariaLabel='Folder'
+                        title='Folder'
+                        onClick={this.handleClickNewFolderButton}
+                      />
+                      <IconButton
+                        iconProps={{ iconName: 'Delete' }}
+                        ariaLabel='Trash'
+                        title='Trash'
+                        onClick={this.handleRemove}
+                      />
                     </div>
                   </>
                 )

@@ -22,6 +22,7 @@ import {
 import { writeFile } from './lib/filesystem/commands/writeFile'
 import { readFile } from './lib/filesystem/queries/readFile'
 import { File } from './lib/types'
+import { initializeIcons } from '@uifabric/icons'
 
 const g: any = global
 g.fs = fs
@@ -38,6 +39,8 @@ library.add(
   faCaretDown,
   faCaretRight
 )
+
+initializeIcons()
 
 ;(async () => {
   const hasVisited = !!localStorage.getItem('hasVisited')

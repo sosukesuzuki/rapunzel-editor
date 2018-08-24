@@ -14,9 +14,10 @@ import { readFile } from '../../../lib/filesystem/queries/readFile'
 import { ContextMenuProvider } from 'react-contexify'
 import { rename } from '../../../lib/filesystem/commands/rename'
 import FileTreeLineContextMenu from './FileTreeLineContextMenu'
-import Button from '../atoms/Button'
 import FileTreeLine from '../atoms/FileTreeLine'
 import Input from '../atoms/Input'
+import { IconButton } from 'office-ui-fabric-react/lib/Button'
+import { Icon } from 'office-ui-fabric-react/lib/Icon'
 
 interface FileLineProps {
   file: FileNode
@@ -144,13 +145,16 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
                   <div
                     className='names'
                     onClick={this.handleClickFileLine}>
-                    <FontAwesomeIcon icon='file' />
-                    {path.basename(file.pathname)}
+                    <Icon iconName='FileCode' />
+                    {`  ${path.basename(file.pathname)}`}
                   </div>
                   <div className='icons'>
-                    <Button onClick={this.handleClickTrashButton}>
-                      <FontAwesomeIcon icon='trash' />
-                    </Button>
+                    <IconButton
+                      iconProps={{ iconName: 'Delete' }}
+                      ariaLabel='Trash'
+                      title='Trash'
+                      onClick={this.handleClickTrashButton}
+                    />
                   </div>
                 </>
               )
