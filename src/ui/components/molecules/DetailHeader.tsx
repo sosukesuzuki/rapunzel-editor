@@ -2,10 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import path from 'path'
 import { observer } from 'mobx-react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import fileDownload from 'js-file-download'
 import { grey } from '../../../lib/colors'
-import Button from '../atoms/Button'
+import { IconButton } from 'office-ui-fabric-react/lib/Button'
 
 interface DetailHeaderProps {
   pathname: string
@@ -22,13 +21,12 @@ const Container = styled.div`
   font-size: 14px;
   span {
     flex: 1;
-    line-height: 25px;
+    line-height: 32px;
   }
   .icons {
     button {
       padding: 0;
-      margin: 0 5px;
-      line-height: 25px;
+      line-height: 32px;
     }
   }
 `
@@ -46,16 +44,30 @@ export default class DetailHeader extends React.Component<DetailHeaderProps> {
       <Container>
         <span>{pathname}</span>
         <div className='icons'>
-          <Button onClick={this.handleClickDownloadButton}>
-            <FontAwesomeIcon icon='download' />
-          </Button>
-          <Button onClick={handleClickEditorButton}>
-            <FontAwesomeIcon icon={
-              type === 'editor'
-                ? 'eye'
-                : 'edit'
-            } />
-          </Button>
+          <IconButton
+            iconProps={{ iconName: 'Download' }}
+            ariaLabel='Download'
+            title='Download'
+            onClick={this.handleClickDownloadButton}
+          />
+          {type === 'editor'
+            ? (
+              <IconButton
+                iconProps={{ iconName: 'EditNote' }}
+                ariaLabel='Edit'
+                title='Edit'
+                onClick={handleClickEditorButton}
+              />
+            )
+            : (
+              <IconButton
+                iconProps={{ iconName: 'RedEye' }}
+                ariaLabel='Eye'
+                title='Eye'
+                onClick={handleClickEditorButton}
+              />
+            )
+          }
         </div>
       </Container>
     )

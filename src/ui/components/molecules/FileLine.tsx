@@ -4,7 +4,6 @@ import path from 'path'
 import { FileNode } from '../../../lib/types'
 import { observer, inject } from 'mobx-react'
 import { grey } from '../../../lib/colors'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fileNodePadding } from '../../../lib/fileNodePadding'
 import { unlink } from '../../../lib/filesystem/commands/unlink'
 import { readFileNode } from '../../../lib/utils/getFileTree'
@@ -51,8 +50,8 @@ const Container = styled(FileTreeLine)`
   .names {
     flex: 1;
     overflow: hidden;
-    svg {
-      padding-right: 10px;
+    i {
+      padding-right: 7px;
     }
   }
   .icons {
@@ -146,7 +145,7 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
                     className='names'
                     onClick={this.handleClickFileLine}>
                     <Icon iconName='FileCode' />
-                    {`  ${path.basename(file.pathname)}`}
+                    {path.basename(file.pathname)}
                   </div>
                   <div className='icons'>
                     <IconButton

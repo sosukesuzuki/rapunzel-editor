@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { grey } from '../../../lib/colors'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { IconButton } from 'office-ui-fabric-react/lib/Button'
 
-interface HeaderProps {}
+interface HeaderProps {
+  openSearchModal: () => void
+}
 
 const Container = styled.div`
   background: white;
@@ -23,28 +24,25 @@ const Container = styled.div`
     display: flex;
     line-height: 40px;
     padding-right: 30px;
-    a {
-      font-size: 30px;
-      cursor: pointer;
-      svg {
-        color: black;
-        &:hover {
-          color: ${grey[6]}
-        }
-      }
+    button {
+      height: 40px;
     }
   }
 `
 
 export default class Header extends React.Component<HeaderProps> {
   render () {
+    const { openSearchModal } = this.props
     return (
       <Container>
         <h1>Rapunzel</h1>
         <div className='icons'>
-          <a href='https://github.com/sosukesuzuki/rapunzel-editor' target='_blank'>
-            <FontAwesomeIcon icon={ faGithub } />
-          </a>
+          <IconButton
+            iconProps={{ iconName: 'Search' }}
+            ariaLabel='Search'
+            title='Search'
+            onClick={openSearchModal}
+          />
         </div>
       </Container>
     )

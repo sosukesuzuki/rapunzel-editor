@@ -5,8 +5,8 @@ const FileTreeLine = styled.div`
   padding: 0 10px;
   margin: 0 auto;
   display: flex;
-  height: 25px;
-  line-height: 25px;
+  height: 32px;
+  line-height: 32px;
   background-color: white;
   color: black;
   cursor: pointer;
