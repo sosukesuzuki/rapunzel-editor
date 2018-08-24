@@ -116,9 +116,10 @@ export default class App extends React.Component<AppProps, AppState> {
               <div className='resize' onMouseDown={this.handleMouseDown} />
               <Detail />
             </Container>
-            {isSearchModalShow &&
-              <SearchModal closeModal={() => this.setIsSearchModalShow(false)}/>
-            }
+            <SearchModal
+              isOpen={isSearchModalShow}
+              closeModal={() => this.setIsSearchModalShow(false)}
+            />
           </>
         </Provider>
       </Fabric>
