@@ -14,6 +14,7 @@ import FileTreeLine from '../atoms/FileTreeLine'
 import { ContextMenuProvider } from 'react-contexify'
 import FileTreeLineContextMenu from './FileTreeLineContextMenu'
 import { rename } from '../../../lib/filesystem/commands/rename'
+import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
 import { TextField, ITextField } from 'office-ui-fabric-react/lib/TextField'
 
@@ -44,6 +45,7 @@ const Container = styled(FileTreeLine)`
     overflow: hidden;
     i {
       font-size: 5px;
+      margin-right: 7px;
     }
   }
   .icons {
@@ -184,17 +186,13 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                       {/* <FontAwesomeIcon icon={isOpen ? 'caret-down' : 'caret-right'} /> */}
                       { isOpen
                         ? (
-                          <IconButton
-                            iconProps={{ iconName: 'CaretBottomRightCenter8' }}
-                            ariaLabel='FolderOpen'
-                            title='FolderOpen'
+                          <Icon
+                            iconName='CaretBottomRightCenter8'
                           />
                         )
                         : (
-                          <IconButton
-                            iconProps={{ iconName: 'CaretRightSolid8' }}
-                            ariaLabel='FolderClose'
-                            title='FolderClose'
+                          <Icon
+                            iconName='CaretRightSolid8'
                           />
                         )
                       }
