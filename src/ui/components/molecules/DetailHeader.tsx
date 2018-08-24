@@ -28,13 +28,7 @@ const Container = styled.div`
     button {
       padding: 0;
       margin: 0 5px;
-      /* background-color: transparent;
-      border: none; */
       line-height: 25px;
-      /* cursor: pointer; */
-      /* &:hover {
-        color: ${grey[5]};
-      } */
     }
   }
 `
