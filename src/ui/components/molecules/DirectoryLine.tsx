@@ -60,6 +60,15 @@ const InputContainer = styled.div`
   margin-left: ${(props: ContainerProps) => props.paddingLeft}px;
 `
 
+const RenameInputContainer = styled(InputContainer)``
+
+const AddFileNodeContainer = styled(InputContainer)`
+  width: 100%;
+  .addFileNodeInput {
+    width: 100%''
+  }
+`
+
 @inject('fileTreeStore')
 @observer
 export default class DirectoryLine extends React.Component<DirectoryLineProps, DirectoryLineState> {
@@ -221,8 +230,9 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                   </>
                 )
               : (
-                <InputContainer paddingLeft={0}>
+                <AddFileNodeContainer paddingLeft={0}>
                   <TextField
+                    className='addFilenodeInput'
                     componentRef={
                       (element) => {
                         this.renameInput = element
@@ -237,7 +247,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                     }}
                     onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => this.handleRenameKeydown(e)}
                   />
-                </InputContainer>
+                </AddFileNodeContainer>
               )
             }
           </Container>
@@ -247,7 +257,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
           onRenameClick={this.handleClickRename}
           onDeleteClick={this.handleRemove} />
         { isInputOpen &&
-          <InputContainer paddingLeft={fileNodePadding(directory)}>
+          <RenameInputContainer paddingLeft={fileNodePadding(directory)}>
             <TextField
               componentRef={(element) => {
                 this.addDirInput = element
@@ -262,7 +272,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                 this.setisInputOpen(false)
               }}
             />
-          </InputContainer>
+          </RenameInputContainer>
         }
       </>
     )

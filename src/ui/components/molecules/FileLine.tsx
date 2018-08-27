@@ -14,9 +14,9 @@ import { ContextMenuProvider } from 'react-contexify'
 import { rename } from '../../../lib/filesystem/commands/rename'
 import FileTreeLineContextMenu from './FileTreeLineContextMenu'
 import FileTreeLine from '../atoms/FileTreeLine'
-import Input from '../atoms/Input'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
+import { TextField, ITextField } from 'office-ui-fabric-react/lib/TextField'
 
 interface FileLineProps {
   file: FileNode
@@ -35,12 +35,9 @@ interface ContainerProps {
 }
 
 const InputContainer = styled.div`
-  padding: 0 2px;
   width: 100%;
-  input {
-    margin: 0 auto;
-    padding: 2px;
-    width: 100%;
+  .addFileNodeInput {
+    width: 100%''
   }
 `
 
@@ -74,7 +71,7 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
     }
   }
 
-  renameInput: HTMLInputElement
+  renameInput: ITextField
 
   setIsRenaming = (isRenaming: boolean) => this.setState({ isRenaming })
 
@@ -159,15 +156,16 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
               )
               : (
                 <InputContainer>
-                  <Input
-                    innerRef={
-                      (e: HTMLInputElement) => {
+                  <TextField
+                    className='addFileNodeInput'
+                    componentRef={
+                      (e) => {
                         this.renameInput = e
                         this.renameInput && e.focus()
                       }
                     }
                     value={renameInputContent}
-                    onChange={(e) => this.setRenameInputContent(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setRenameInputContent(e.target.value)}
                     onKeyDown={this.handleRenameKeyDown}
                     onBlur={() => {
                       this.setRenameInputContent(path.basename(file.pathname))
