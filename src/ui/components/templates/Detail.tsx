@@ -6,10 +6,10 @@ import MarkdownRenderer from '../organisms/MarkdownRenderer'
 import DetailHeader from '../molecules/DetailHeader'
 import { writeFile } from '../../../lib/filesystem/commands/writeFile'
 import CodeEditor from '../organisms/CodeEditor'
-import { getSideNavWidth } from '../../../lib/getSideNavWidth'
 
 interface DetaiProps {
   currentFileStore?: CurrentFileStore
+  sideNavWidth: number
 }
 
 interface DetailState {
@@ -17,12 +17,16 @@ interface DetailState {
   content: string
 }
 
+interface ContainerProps {
+  sideNavWidth: number
+}
+
 const Container = styled.div`
   background-color: white;
   display: grid;
   grid-template-rows: 32px 1fr;
   .edit {
-    max-width: calc(100vw - ${getSideNavWidth()}px - 1px);
+    max-width: calc(100vw - ${({ sideNavWidth }: ContainerProps) => sideNavWidth}px - 1px);
     max-height: calc(100vh - 65px);
     overflow-y: auto;
     .CodeMirror {
@@ -36,7 +40,7 @@ const Container = styled.div`
     padding: 0 10px;
     overflow-y: auto;
     max-height: calc(100vh - 65px);
-    max-width: calc(100vw - ${getSideNavWidth()}px - 1px);
+    max-width: calc(100vw - ${({ sideNavWidth }: ContainerProps) => sideNavWidth}pxpx - 1px);
     .markdown-body {
       padding: 45px;
       p {
@@ -101,10 +105,10 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
   }
 
   render () {
-    const { currentFileStore } = this.props
+    const { currentFileStore, sideNavWidth } = this.props
     const { type } = this.state
     return (
-      <Container>
+      <Container sideNavWidth={sideNavWidth}>
         {currentFileStore.currentFile != null &&
           <>
             <DetailHeader
