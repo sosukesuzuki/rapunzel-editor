@@ -14,7 +14,7 @@ import { initializeIcons } from '@uifabric/icons'
 const g: any = global
 g.fs = fs
 
-initializeIcons('../assets/fonts/')
+initializeIcons('../assets/fonts/office-ui-fabric/')
 
 ;(async () => {
   const hasVisited = !!localStorage.getItem('hasVisited')
