@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { grey } from '../../../lib/colors'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip'
 
 interface HeaderProps {
   openSearchModal: () => void
@@ -33,16 +34,19 @@ const Container = styled.div`
 export default class Header extends React.Component<HeaderProps> {
   render () {
     const { openSearchModal } = this.props
+    const searchTooltipIdentifier = `search_tooltip`
     return (
       <Container>
         <h1>Rapunzel</h1>
         <div className='icons'>
-          <IconButton
-            iconProps={{ iconName: 'Search' }}
-            ariaLabel='Search'
-            title='Search'
-            onClick={openSearchModal}
-          />
+          <TooltipHost content='search' id={searchTooltipIdentifier}>
+            <IconButton
+              iconProps={{ iconName: 'Search' }}
+              ariaLabel='Search'
+              title='Search'
+              onClick={openSearchModal}
+            />
+          </TooltipHost>
         </div>
       </Container>
     )
