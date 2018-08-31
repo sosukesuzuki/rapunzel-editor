@@ -17,6 +17,7 @@ import FileTreeLine from '../atoms/FileTreeLine'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { TextField, ITextField } from 'office-ui-fabric-react/lib/TextField'
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip'
 
 interface FileLineProps {
   file: FileNode
@@ -127,11 +128,12 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
     const { isRenaming, renameInputContent } = this.state
     const { currentFile } = currentFileStore
     const isSelected = currentFile != null && file.pathname === currentFile.pathname
-    const identifier = `${file.pathname}_context_menu`
+    const contextIdentifier = `${file.pathname}_context_menu`
+    const fileDeleteIdentifier = `${file.pathname}_delete_tooltop`
 
     return (
       <>
-        <ContextMenuProvider id={identifier}>
+        <ContextMenuProvider id={contextIdentifier}>
           <Container
             paddingLeft={fileNodePadding(file)}
             isSelected={isSelected}>
@@ -145,12 +147,15 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
                     {path.basename(file.pathname)}
                   </div>
                   <div className='icons'>
-                    <IconButton
-                      iconProps={{ iconName: 'Delete' }}
-                      ariaLabel='Trash'
-                      title='Trash'
-                      onClick={this.handleClickTrashButton}
-                    />
+                    <TooltipHost content='Delete' id={fileDeleteIdentifier}>
+                      <IconButton
+                        iconProps={{ iconName: 'Delete' }}
+                        ariaLabel='Trash'
+                        title='Trash'
+                        onClick={this.handleClickTrashButton}
+                        aria-describedby={fileDeleteIdentifier}
+                      />
+                    </TooltipHost>
                   </div>
                 </>
               )
@@ -178,7 +183,7 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
           </Container>
         </ContextMenuProvider>
         <FileTreeLineContextMenu
-          identifier={identifier}
+          identifier={contextIdentifier}
           onRenameClick={this.handleRenameClick}
           onDeleteClick={this.handleClickTrashButton} />
       </>

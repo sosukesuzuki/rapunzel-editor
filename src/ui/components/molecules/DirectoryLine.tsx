@@ -17,6 +17,7 @@ import { rename } from '../../../lib/filesystem/commands/rename'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
 import { TextField, ITextField } from 'office-ui-fabric-react/lib/TextField'
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip'
 
 interface DirectoryLineProps {
   directory: FileNode
@@ -183,10 +184,14 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   render () {
     const { onClick, directory, isOpen } = this.props
     const { isInputOpen, addInputContent, isRenaming, renameInputContent } = this.state
-    const identifier = `${directory.pathname}_context_menu`
+    const contextIdentifier = `${directory.pathname}_context_menu`
+    const directoryDeleteIdentifier = `${directory.pathname}_delete_tooltip`
+    const newDirectoryIdentifier = `${directory.pathname}_new_dir_tooltip`
+    const newFileIdentifier = `${directory.pathname}_new_file_tooltip`
+
     return (
       <>
-        <ContextMenuProvider id={identifier}>
+        <ContextMenuProvider id={contextIdentifier}>
           <Container paddingLeft={fileNodePadding(directory)}>
             { !isRenaming
                 ? (
@@ -208,24 +213,33 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                       {path.basename(directory.pathname)}
                     </div>
                     <div className='icons'>
-                      <IconButton
-                        iconProps={{ iconName: 'FileCode' }}
-                        ariaLabel='File'
-                        title='File'
-                        onClick={this.handleClickNewFileButton}
-                      />
-                      <IconButton
-                        iconProps={{ iconName: 'FabricFolder' }}
-                        ariaLabel='Folder'
-                        title='Folder'
-                        onClick={this.handleClickNewFolderButton}
-                      />
-                      <IconButton
-                        iconProps={{ iconName: 'Delete' }}
-                        ariaLabel='Trash'
-                        title='Trash'
-                        onClick={this.handleRemove}
-                      />
+                      <TooltipHost content='new file' id={newFileIdentifier}>
+                        <IconButton
+                          aria-describedby={newFileIdentifier}
+                          iconProps={{ iconName: 'FileCode' }}
+                          ariaLabel='File'
+                          title='File'
+                          onClick={this.handleClickNewFileButton}
+                        />
+                      </TooltipHost>
+                      <TooltipHost content='new directory' id={newDirectoryIdentifier}>
+                        <IconButton
+                          iconProps={{ iconName: 'FabricFolder' }}
+                          ariaLabel='Folder'
+                          title='Folder'
+                          onClick={this.handleClickNewFolderButton}
+                          aria-describedby={newDirectoryIdentifier}
+                        />
+                      </TooltipHost>
+                      <TooltipHost content='delete' id={directoryDeleteIdentifier}>
+                        <IconButton
+                          iconProps={{ iconName: 'Delete' }}
+                          ariaLabel='Trash'
+                          title='Trash'
+                          onClick={this.handleRemove}
+                          aria-describedby={directoryDeleteIdentifier}
+                        />
+                      </TooltipHost>
                     </div>
                   </>
                 )
@@ -253,7 +267,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
           </Container>
         </ContextMenuProvider>
         <FileTreeLineContextMenu
-          identifier={identifier}
+          identifier={contextIdentifier}
           onRenameClick={this.handleClickRename}
           onDeleteClick={this.handleRemove} />
         { isInputOpen &&
