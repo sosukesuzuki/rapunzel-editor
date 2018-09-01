@@ -197,19 +197,9 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                 ? (
                   <>
                     <div className='folderName' onClick={onClick}>
-                      {/* <FontAwesomeIcon icon={isOpen ? 'caret-down' : 'caret-right'} /> */}
-                      { isOpen
-                        ? (
-                          <Icon
-                            iconName='CaretBottomRightCenter8'
-                          />
-                        )
-                        : (
-                          <Icon
-                            iconName='CaretRightSolid8'
-                          />
-                        )
-                      }
+                      <Icon
+                        iconName={isOpen ? 'CaretBottomRightCenter8' : 'CaretRightSolid8'}
+                      />
                       {path.basename(directory.pathname)}
                     </div>
                     <div className='icons'>
