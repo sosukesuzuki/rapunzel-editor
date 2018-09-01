@@ -104,6 +104,11 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
     }
   }
 
+  hanldeOnContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    this.switchType()
+  }
+
   render () {
     const { currentFileStore, sideNavWidth } = this.props
     const { type } = this.state
@@ -121,13 +126,13 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
                 ? ''
                 : currentFileStore.currentFile.pathname} />
             { type === 'preview'
-              ? <div className='preview'>
+              ? <div className='preview' onContextMenu={this.hanldeOnContextMenu}>
                 <MarkdownRenderer
                   content={currentFileStore.currentFile == null
                     ? ''
                     : currentFileStore.currentFile.content} />
               </div>
-              : <div className='edit'>
+              : <div className='edit' onContextMenu={this.hanldeOnContextMenu}>
                 <CodeEditor
                   value={currentFileStore.currentFile == null
                     ? ''
