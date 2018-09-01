@@ -3,12 +3,14 @@ import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/edit/continuelist'
 import 'codemirror/mode/gfm/gfm'
+import 'codemirror/keymap/vim'
 
 const options = {
   lineNumbers: true,
   mode: 'markdown',
   theme: 'github-light',
   lineWrapping: true,
+  keyMap: 'vim',
   extraKeys: {
     'Enter': 'newlineAndIndentContinueMarkdownList'
   }
