@@ -8,7 +8,7 @@ import SearchModal from './templates/SearchModal'
 import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 import key from 'keymaster'
-import { getSideNavWidth } from '../../lib/getSideNavWidth'
+import { getSideNavWidth } from '../../lib/localStorage'
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
 
 interface AppProps {
