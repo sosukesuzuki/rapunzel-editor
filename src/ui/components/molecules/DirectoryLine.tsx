@@ -231,15 +231,17 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                           aria-describedby={newDirectoryIdentifier}
                         />
                       </TooltipHost>
-                      <TooltipHost content='delete' id={directoryDeleteIdentifier}>
-                        <IconButton
-                          iconProps={{ iconName: 'Delete' }}
-                          ariaLabel='Trash'
-                          title='Trash'
-                          onClick={this.handleRemove}
-                          aria-describedby={directoryDeleteIdentifier}
-                        />
-                      </TooltipHost>
+                      {directory.pathname !== '.' &&
+                        <TooltipHost content='delete' id={directoryDeleteIdentifier}>
+                          <IconButton
+                            iconProps={{ iconName: 'Delete' }}
+                            ariaLabel='Trash'
+                            title='Trash'
+                            onClick={this.handleRemove}
+                            aria-describedby={directoryDeleteIdentifier}
+                          />
+                        </TooltipHost>
+                      }
                     </div>
                   </>
                 )
