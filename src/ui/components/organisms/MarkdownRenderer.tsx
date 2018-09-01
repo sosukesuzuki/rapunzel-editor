@@ -3,6 +3,7 @@ import marked from 'marked'
 import katex from 'katex'
 import 'github-markdown-css'
 import 'katex/dist/katex.min.css'
+import '../../katex-fonts.css'
 
 interface MarkdownRendererProps {
   content: string
