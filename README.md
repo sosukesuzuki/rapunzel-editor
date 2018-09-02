@@ -2,6 +2,8 @@
 
 The fs based note-taking app focuses markdown.
 
+![Rapunzel ScreenShot](./resources/rapunzel.jpg)
+
 ## How to develop?
 
 ```
