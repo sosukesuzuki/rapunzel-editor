@@ -1,4 +1,4 @@
-import { FileNode } from './types'
+import { FileNode } from '../types'
 
 export function fileNodePadding (fileNode: FileNode): number {
   const { pathname } = fileNode
