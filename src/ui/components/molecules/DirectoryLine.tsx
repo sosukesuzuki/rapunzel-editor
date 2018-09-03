@@ -206,7 +206,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                       <TooltipHost content='new file' id={newFileIdentifier}>
                         <IconButton
                           aria-describedby={newFileIdentifier}
-                          iconProps={{ iconName: 'FileCode' }}
+                          iconProps={{ iconName: 'AddNotes' }}
                           ariaLabel='File'
                           title='File'
                           onClick={this.handleClickNewFileButton}
@@ -214,7 +214,7 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
                       </TooltipHost>
                       <TooltipHost content='new directory' id={newDirectoryIdentifier}>
                         <IconButton
-                          iconProps={{ iconName: 'FabricFolder' }}
+                          iconProps={{ iconName: 'FabricNewFolder' }}
                           ariaLabel='Folder'
                           title='Folder'
                           onClick={this.handleClickNewFolderButton}

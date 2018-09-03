@@ -143,7 +143,7 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
                   <div
                     className='names'
                     onClick={this.handleClickFileLine}>
-                    <Icon iconName='FileCode' />
+                    <Icon iconName='QuickNote' />
                     {path.basename(file.pathname)}
                   </div>
                   <div className='icons'>
