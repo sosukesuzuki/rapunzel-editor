@@ -46,7 +46,8 @@ const InputContainer = styled.div`
 
 const Container = styled(FileTreeLine)`
   padding-left: ${(props: ContainerProps) => props.paddingLeft}px;
-  background-color: ${({ isSelected }: ContainerProps) => isSelected ? grey[1] : 'transparent'};
+  background-color: ${({ isSelected }: ContainerProps) => isSelected ? grey[0] : 'transparent'};
+  color: ${({ isSelected }: ContainerProps) => isSelected ? 'black' : grey[6]};
   .names {
     flex: 1;
     overflow: hidden;

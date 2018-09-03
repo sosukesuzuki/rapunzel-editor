@@ -10,6 +10,7 @@ import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 import key from 'keymaster'
 import { getSideNavWidth } from '../../lib/localStorage'
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
+import { grey } from '../../lib/colors'
 
 interface AppProps {
   fileTreeStore: FileTreeStore
@@ -35,6 +36,10 @@ const Container = styled.div`
   grid-auto-flow: dense;
   .resize {
     cursor: col-resize;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: ${grey[3]}
+    }
   }
 }
 `
