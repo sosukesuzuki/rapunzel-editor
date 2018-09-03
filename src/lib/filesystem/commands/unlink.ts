@@ -1,6 +1,6 @@
 import fs from 'fs'
 import pify from 'pify'
-import { existsPath } from '../../utils/existsPath'
+import { existsPath } from '../utils'
 
 export async function unlink (pathname: string) {
   if (await existsPath(pathname)) {
