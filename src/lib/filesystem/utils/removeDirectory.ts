@@ -1,7 +1,5 @@
-import { rmdir } from '../commands/rmdir'
-import { readdir } from '../queries/readdir'
-import { stat } from '../queries/stat'
-import { unlink } from '../commands/unlink'
+import { rmdir, unlink } from '../commands'
+import { readdir, stat } from '../queries'
 import { join } from 'path'
 
 export async function removeDirectory (dirpath: string): Promise<void> {
