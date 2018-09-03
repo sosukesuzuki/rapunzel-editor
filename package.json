@@ -10,10 +10,6 @@
     "build": "rimraf dist && NODE_ENV=production webpack"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
-    "@fortawesome/free-brands-svg-icons": "^5.2.0",
-    "@fortawesome/free-solid-svg-icons": "^5.1.0-11",
-    "@fortawesome/react-fontawesome": "^0.1.0-11",
     "browserfs": "^1.4.3",
     "codemirror": "^5.39.2",
     "gh-pages": "^1.2.0",
