@@ -23,7 +23,7 @@ interface CodeEditorProps {
 
 export default class CodeEditor extends React.Component<CodeEditorProps> {
   cm: CodeMirror.EditorFromTextArea = null
-  textarea = null
+  textarea: HTMLTextAreaElement = null
   disableHandleChange: boolean = false
 
   get value () {
