@@ -1,0 +1,8 @@
+{
+  "name": "Rapunzel",
+  "short_name": "Rapunzel",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "The fs based note-taking app focuses markdown."
+}
