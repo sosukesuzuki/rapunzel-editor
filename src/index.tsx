@@ -7,7 +7,7 @@ import { FileTreeStore } from './lib/stores/FileTreeStore'
 import { CurrentFileStore } from './lib/stores/CurrentFileStore'
 import { readFileNode } from './lib/filesystem/utils'
 import { writeFile } from './lib/filesystem/commands/writeFile'
-import { readFile } from './lib/filesystem/queries/readFile'
+import { readFile } from './lib/filesystem/queries'
 import { File } from './lib/types'
 import { initializeIcons } from '@uifabric/icons'
 

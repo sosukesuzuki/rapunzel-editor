@@ -1,6 +1,5 @@
 import { rmdir } from '../commands/rmdir'
-import { readdir } from '../queries/readdir'
-import { stat } from '../queries/stat'
+import { readdir, stat } from '../queries'
 import { unlink } from '../commands/unlink'
 import { join } from 'path'
 
