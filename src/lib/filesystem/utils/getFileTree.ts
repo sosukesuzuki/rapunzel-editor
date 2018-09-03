@@ -1,7 +1,7 @@
 import path from 'path'
-import { FileNode } from '../types'
-import { readdir } from '../filesystem/queries/readdir'
-import { stat } from '../filesystem/queries/stat'
+import { FileNode } from '../../types'
+import { readdir } from '../queries/readdir'
+import { stat } from '../queries/stat'
 import flatten from 'lodash/flatten'
 
 export async function getFilesTree (rootPath: string): Promise<string[]> {

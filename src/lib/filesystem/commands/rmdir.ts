@@ -1,6 +1,6 @@
 import fs from 'fs'
 import pify from 'pify'
-import { existsPath } from '../../utils/existsPath'
+import { existsPath } from '../utils'
 
 export async function rmdir (dirpath: string): Promise<void> {
   if (await existsPath(dirpath)) {

@@ -1,4 +1,4 @@
-import { isMd } from '../../../src/lib/utils/isMd'
+import { isMd } from '../../../src/lib/utils'
 
 describe('isMd', () => {
   it('checks a file extention is \".md\"', async () => {

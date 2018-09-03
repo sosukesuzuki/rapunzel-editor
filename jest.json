@@ -9,6 +9,9 @@
   },
   "testEnvironment": "node",
   "testRegex": "(/__tests__/.*|\\.spec)\\.ts$",
+  "setupFiles": [
+    "jest-localstorage-mock"
+  ],
   "moduleFileExtensions": [
     "ts",
     "js",
