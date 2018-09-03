@@ -44,14 +44,22 @@ const Container = styled(FileTreeLine)`
   .folderName {
     flex: 1;
     overflow: hidden;
+    font-size: 14px;
     i {
-      font-size: 5px;
+      font-size: 3px;
       margin-right: 7px;
     }
   }
   .icons {
-    svg {
-      padding: 0 1px;
+    button {
+      height: 25px;
+      div {
+        height: 25px;
+        line-height: 25px;
+        i {
+          font-size: 14px;
+        }
+      }
     }
   }
 `
@@ -61,12 +69,19 @@ const InputContainer = styled.div`
   margin-left: ${(props: ContainerProps) => props.paddingLeft}px;
 `
 
-const RenameInputContainer = styled(InputContainer)``
+const RenameInputContainer = styled(InputContainer)`
+  height: 25px;
+  div {
+    height: 25px;
+  }
+`
 
 const AddFileNodeContainer = styled(InputContainer)`
   width: 100%;
-  .addFileNodeInput {
-    width: 100%''
+  height: 25px;
+  div {
+    width: 100%;
+    height: 25px;
   }
 `
 

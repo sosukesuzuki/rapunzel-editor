@@ -101,6 +101,7 @@ export default class SearchModal extends React.Component<SearchModalProps, Searc
   render () {
     const { filePaths, searchQuery } = this.state
     const { closeModal, isOpen } = this.props
+
     return (
       <>
         <Modal

@@ -37,8 +37,10 @@ interface ContainerProps {
 
 const InputContainer = styled.div`
   width: 100%;
-  .addFileNodeInput {
-    width: 100%''
+  height: 25px;
+  div {
+    height: 25px;
+    width: 100%;
   }
 `
 
@@ -48,13 +50,21 @@ const Container = styled(FileTreeLine)`
   .names {
     flex: 1;
     overflow: hidden;
+    font-size: 14px;
     i {
       padding-right: 7px;
     }
   }
   .icons {
-    svg {
-      padding: 0 1px;
+    button {
+      height: 25px;
+      div {
+        height: 25px;
+        line-height: 25px;
+        i {
+          font-size: 14px;
+        }
+      }
     }
   }
 `
