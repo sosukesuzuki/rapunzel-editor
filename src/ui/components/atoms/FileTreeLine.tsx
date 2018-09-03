@@ -10,8 +10,10 @@ const FileTreeLine = styled.div`
   background-color: white;
   color: black;
   cursor: pointer;
+  transition: all 0.2s ease;
+  color: ${grey[6]};
   &:hover {
-    background-color: ${grey[1]};
+    background-color: ${grey[0]};
     color: black;
   }
 `
