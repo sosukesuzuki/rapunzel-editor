@@ -48,14 +48,18 @@ const Container = styled.div`
 export default class App extends React.Component<AppProps, AppState> {
   constructor (props) {
     super(props)
-    const sideNavWidth = getSideNavWidth()
     this.state = {
       isSliderFocused: false,
-      sideNavWidth: sideNavWidth || 250,
+      sideNavWidth: 250,
       isSearchModalShow: false
     }
 
     key('ctrl+p', this.handlePushCtrlP)
+  }
+
+  async componentDidMount () {
+    const sideNavWidth = await getSideNavWidth()
+    this.setSideNavWidth(sideNavWidth)
   }
 
   timer: NodeJS.Timer
