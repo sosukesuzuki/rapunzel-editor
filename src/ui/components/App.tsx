@@ -25,6 +25,7 @@ interface AppState {
 
 interface ContainerStyleProps {
   sideNavWidth: number
+  isSliderFocused: boolean
 }
 
 const Container = styled.div`
@@ -41,6 +42,7 @@ const Container = styled.div`
     &:hover {
       background-color: ${grey[3]}
     }
+    background-color: ${({ isSliderFocused }: ContainerStyleProps) => isSliderFocused && grey[3]}
   }
 }
 `
@@ -107,7 +109,7 @@ export default class App extends React.Component<AppProps, AppState> {
       fileTreeStore,
       currentFileStore
     } = this.props
-    const { sideNavWidth, isSearchModalShow } = this.state
+    const { sideNavWidth, isSearchModalShow, isSliderFocused } = this.state
 
     return (
       <Fabric>
@@ -117,6 +119,7 @@ export default class App extends React.Component<AppProps, AppState> {
           <>
             <Container
               sideNavWidth={sideNavWidth}
+              isSliderFocused={isSliderFocused}
               onMouseUp={this.handleMouseUp}
               onMouseMove={this.handleMouseMove}>
               <Header
