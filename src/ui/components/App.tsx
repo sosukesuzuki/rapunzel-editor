@@ -34,6 +34,7 @@ const Container = styled.div`
   grid-template-rows: 40px;
   grid-template-columns: ${({ sideNavWidth }: ContainerStyleProps) => sideNavWidth}px 1px 1fr;
   grid-auto-flow: dense;
+  overflow-y: hidden;
   .resize {
     cursor: col-resize;
     transition: all 0.3s ease;
