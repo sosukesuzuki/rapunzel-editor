@@ -1,1 +1,1 @@
-export * from './getSideNavWidth'
+export * from './sideNavWidth'

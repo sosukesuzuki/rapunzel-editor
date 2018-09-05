@@ -1,4 +1,4 @@
-import { getSideNavWidth } from '../../../src/lib/localStorage'
+import { getSideNavWidth, setSideNavWidth } from '../../../src/lib/localStorage'
 
 describe('getSideNavWidth', () => {
   afterEach(localStorage.clear)
@@ -21,5 +21,18 @@ describe('getSideNavWidth', () => {
     // Then
     expect(sideNavWidthPromise).rejects.toThrow()
     expect(sideNavWidthPromise).rejects.toThrow('Key of sideNavWidth does not exists in localStorage')
+  })
+})
+
+describe('setSideNavWidth', () => {
+  afterEach(localStorage.clear)
+
+  it('sets sideNavWidth', async () => {
+    // When
+    await setSideNavWidth(100)
+    const data = localStorage.getItem('sideNavWidth')
+
+    // Then
+    expect(data).toBe('100')
   })
 })

@@ -8,7 +8,7 @@ import SearchModal from './templates/SearchModal'
 import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 import key from 'keymaster'
-import { getSideNavWidth } from '../../lib/localStorage'
+import { getSideNavWidth, setSideNavWidth } from '../../lib/localStorage'
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
 import { grey } from '../../lib/colors'
 
@@ -73,8 +73,6 @@ export default class App extends React.Component<AppProps, AppState> {
 
   setIsSearchModalShow = (isSearchModalShow: boolean) => this.setState({ isSearchModalShow })
 
-  setSideNavWithToLocalstorage = (sideNavWidth: number) => localStorage.setItem('sideNavWidth', sideNavWidth.toString())
-
   handlePushCtrlP = () => {
     this.setIsSearchModalShow(true)
   }
@@ -101,7 +99,9 @@ export default class App extends React.Component<AppProps, AppState> {
     this.setSideNavWidth(newSideNavWidth)
 
     clearTimeout(this.timer)
-    this.timer = setTimeout(() => this.setSideNavWithToLocalstorage(newSideNavWidth), 100)
+    this.timer = setTimeout(async () => {
+      await setSideNavWidth(newSideNavWidth)
+    }, 100)
   }
 
   render () {
