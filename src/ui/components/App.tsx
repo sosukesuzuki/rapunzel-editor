@@ -8,18 +8,18 @@ import SearchModal from './templates/SearchModal'
 import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 import key from 'keymaster'
-import { getSideNavWidth, setSideNavWidth } from '../../lib/localStorage'
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
 import { grey } from '../../lib/colors'
+import { EditorStateStore } from '../../lib/stores/EditorStateStore'
 
 interface AppProps {
   fileTreeStore: FileTreeStore
   currentFileStore: CurrentFileStore
+  editorStateStore: EditorStateStore
 }
 
 interface AppState {
   isSliderFocused: boolean,
-  sideNavWidth: number
   isSearchModalShow: boolean
   isHiddenSideNav: boolean
 }
@@ -61,7 +61,6 @@ export default class App extends React.Component<AppProps, AppState> {
     super(props)
     this.state = {
       isSliderFocused: false,
-      sideNavWidth: 250,
       isSearchModalShow: false,
       isHiddenSideNav: false
     }
@@ -70,15 +69,12 @@ export default class App extends React.Component<AppProps, AppState> {
   }
 
   async componentDidMount () {
-    const sideNavWidth = await getSideNavWidth()
-    this.setSideNavWidth(sideNavWidth)
+    await this.props.editorStateStore.getSideNavWidthFormStorage()
   }
 
   timer: NodeJS.Timer
 
   setIsSliderFocused = (isSliderFocused: boolean) => this.setState({ isSliderFocused })
-
-  setSideNavWidth = (sideNavWidth: number) => this.setState({ sideNavWidth })
 
   setIsSearchModalShow = (isSearchModalShow: boolean) => this.setState({ isSearchModalShow })
 
@@ -99,6 +95,7 @@ export default class App extends React.Component<AppProps, AppState> {
   }
 
   handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { editorStateStore } = this.props
     e.preventDefault()
     if (!this.state.isSliderFocused) return
     let newSideNavWidth = e.pageX
@@ -107,25 +104,23 @@ export default class App extends React.Component<AppProps, AppState> {
     } else if (newSideNavWidth > 500) {
       newSideNavWidth = 500
     }
-    this.setSideNavWidth(newSideNavWidth)
 
-    clearTimeout(this.timer)
-    this.timer = setTimeout(async () => {
-      await setSideNavWidth(newSideNavWidth)
-    }, 100)
+    editorStateStore.setSideNavWidth(newSideNavWidth)
   }
 
   render () {
     const {
       fileTreeStore,
-      currentFileStore
+      currentFileStore,
+      editorStateStore
     } = this.props
     const {
-      sideNavWidth,
       isSearchModalShow,
       isSliderFocused,
       isHiddenSideNav
     } = this.state
+
+    const sideNavWidth = editorStateStore.sideNavWidth
 
     return (
       <Fabric>

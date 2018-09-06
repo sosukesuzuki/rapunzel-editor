@@ -5,6 +5,7 @@ import App from './ui/components/App'
 import fs from 'fs'
 import { FileTreeStore } from './lib/stores/FileTreeStore'
 import { CurrentFileStore } from './lib/stores/CurrentFileStore'
+import { EditorStateStore } from './lib/stores/EditorStateStore'
 import { readFileNode } from './lib/filesystem/utils'
 import { writeFile } from './lib/filesystem/commands'
 import { readFile } from './lib/filesystem/queries'
@@ -58,6 +59,14 @@ MIT
   }
 
   const fileTreeStore = new FileTreeStore(await readFileNode('.'))
+  const editorStateStore = new EditorStateStore({ sideNavWidth: 200, isHiddenSideNav: false })
 
-  ReactDOM.render(<App fileTreeStore={fileTreeStore} currentFileStore={currentFileStore} />, document.querySelector('.root'))
+  ReactDOM.render(
+    <App
+      fileTreeStore={fileTreeStore}
+      currentFileStore={currentFileStore}
+      editorStateStore={editorStateStore}
+    />,
+    document.querySelector('.root')
+  )
 })().catch(err => console.error(err))
