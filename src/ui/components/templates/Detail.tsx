@@ -20,6 +20,7 @@ interface DetailState {
 
 interface ContainerProps {
   sideNavWidth: number
+  isHiddenSideNav: boolean
 }
 
 const Container = styled.div`
@@ -27,7 +28,11 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 32px 1fr;
   .edit {
-    max-width: calc(100vw - ${({ sideNavWidth }: ContainerProps) => sideNavWidth}px - 1px);
+    max-width: calc(100vw - ${({ sideNavWidth, isHiddenSideNav }: ContainerProps) => (
+      !isHiddenSideNav
+        ? `${sideNavWidth}px - 1px`
+        : '0x'
+    )});
     max-height: calc(100vh - 65px);
     overflow-y: auto;
     .CodeMirror {
@@ -114,10 +119,12 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
   render () {
     const { currentFileStore, editorStateStore } = this.props
     const { type } = this.state
-    const { sideNavWidth } = editorStateStore
+    const { sideNavWidth, isHiddenSideNav } = editorStateStore
 
     return (
-      <Container sideNavWidth={sideNavWidth}>
+      <Container
+        sideNavWidth={sideNavWidth}
+        isHiddenSideNav={isHiddenSideNav}>
         {currentFileStore.currentFile != null &&
           <>
             <DetailHeader
