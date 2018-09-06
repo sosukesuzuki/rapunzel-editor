@@ -12,6 +12,7 @@ interface DetailHeaderProps {
   handleClickEditorButton: () => void,
   type: 'editor' | 'preview'
   fileContent: string
+  toggleIsHiddenSideNav: () => void
 }
 
 const Container = styled.div`
@@ -40,15 +41,25 @@ export default class DetailHeader extends React.Component<DetailHeaderProps> {
   }
 
   render () {
-    const { pathname, handleClickEditorButton, type } = this.props
+    const { pathname, handleClickEditorButton, type, toggleIsHiddenSideNav } = this.props
     const downloadTooltipIdentifier = `${pathname}_download_tooltip`
     const toEditTooltipIdentifer = `${pathname}_to_edit_tooltip`
     const toPreviewTooltipIdentifer = `${pathname}_to_preview_tooltip`
+    const fullScreenToolTipIdentifer = `${pathname}_fullscreen_tooltip`
 
     return (
       <Container>
         <span>{pathname}</span>
         <div className='icons'>
+          <TooltipHost content='fullscreen' id={fullScreenToolTipIdentifer}>
+            <IconButton
+              iconProps={{ iconName: 'FullScreen' }}
+              ariaLabel='FullScreen'
+              title='FullScreen'
+              onClick={toggleIsHiddenSideNav}
+              aria-describedby={fullScreenToolTipIdentifer}
+            />
+          </TooltipHost>
           <TooltipHost content='download' id={downloadTooltipIdentifier}>
             <IconButton
               iconProps={{ iconName: 'Download' }}
