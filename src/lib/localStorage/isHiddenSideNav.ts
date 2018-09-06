@@ -1,8 +1,9 @@
 import { getDataFromLocalStorage } from './getDataFromLocalStorage'
 import { setDataToLocalStorage } from './setDataToLocalStorage'
 import { stringToBoolean } from '../utils'
+import { localStorageKeys } from './localStorageKeys'
 
-const KEY = 'isHiddenSideNav'
+const KEY = localStorageKeys.isHiddenSideNav
 
 export async function getIsHiddenSideNav () {
   const data = await getDataFromLocalStorage(KEY)

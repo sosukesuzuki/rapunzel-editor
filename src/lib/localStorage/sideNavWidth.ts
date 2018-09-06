@@ -1,7 +1,8 @@
 import { getDataFromLocalStorage } from './getDataFromLocalStorage'
 import { setDataToLocalStorage } from './setDataToLocalStorage'
+import { localStorageKeys } from './localStorageKeys'
 
-const KEY = 'sideNavWidth'
+const KEY = localStorageKeys.sideNavWidth
 
 export async function getSideNavWidth () {
   const data = await getDataFromLocalStorage(KEY)
