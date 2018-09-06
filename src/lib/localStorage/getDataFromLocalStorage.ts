@@ -1,4 +1,4 @@
-export function getDataFromLocalStrage (key = '') {
+export function getDataFromLocalStorage (key = '') {
   return new Promise<string>((resolve, reject) => {
     const loaded = localStorage.getItem(key)
     if (loaded != null) {

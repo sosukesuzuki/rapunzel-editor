@@ -10,6 +10,7 @@ import CodeEditor from '../organisms/CodeEditor'
 interface DetaiProps {
   currentFileStore?: CurrentFileStore
   sideNavWidth: number
+  toggleIsHiddenSideNav: () => void
 }
 
 interface DetailState {
@@ -110,7 +111,7 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
   }
 
   render () {
-    const { currentFileStore, sideNavWidth } = this.props
+    const { currentFileStore, sideNavWidth, toggleIsHiddenSideNav } = this.props
     const { type } = this.state
     return (
       <Container sideNavWidth={sideNavWidth}>
@@ -119,6 +120,7 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
             <DetailHeader
               type={type}
               handleClickEditorButton={this.switchType.bind(this)}
+              toggleIsHiddenSideNav={toggleIsHiddenSideNav}
               fileContent={currentFileStore.currentFile == null
                 ? ''
                 : currentFileStore.currentFile.content}

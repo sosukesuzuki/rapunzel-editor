@@ -8,7 +8,7 @@ import SearchModal from './templates/SearchModal'
 import { FileTreeStore } from '../../lib/stores/FileTreeStore'
 import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
 import key from 'keymaster'
-import { getSideNavWidth } from '../../lib/localStorage'
+import { getSideNavWidth, setSideNavWidth } from '../../lib/localStorage'
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
 import { grey } from '../../lib/colors'
 
@@ -21,11 +21,13 @@ interface AppState {
   isSliderFocused: boolean,
   sideNavWidth: number
   isSearchModalShow: boolean
+  isHiddenSideNav: boolean
 }
 
 interface ContainerStyleProps {
   sideNavWidth: number
   isSliderFocused: boolean
+  isHiddenSideNav: boolean
 }
 
 const Container = styled.div`
@@ -33,7 +35,13 @@ const Container = styled.div`
   height: 100vh;
   width: 100vw;
   grid-template-rows: 40px;
-  grid-template-columns: ${({ sideNavWidth }: ContainerStyleProps) => sideNavWidth}px 1px 1fr;
+  grid-template-columns: ${({ sideNavWidth, isHiddenSideNav }: ContainerStyleProps) => {
+    if (!isHiddenSideNav) {
+      return `${sideNavWidth}px 1px 1fr`
+    } else {
+      return '1fr'
+    }
+  }};
   grid-auto-flow: dense;
   overflow-y: hidden;
   .resize {
@@ -54,7 +62,8 @@ export default class App extends React.Component<AppProps, AppState> {
     this.state = {
       isSliderFocused: false,
       sideNavWidth: 250,
-      isSearchModalShow: false
+      isSearchModalShow: false,
+      isHiddenSideNav: false
     }
 
     key('ctrl+p', this.handlePushCtrlP)
@@ -73,7 +82,7 @@ export default class App extends React.Component<AppProps, AppState> {
 
   setIsSearchModalShow = (isSearchModalShow: boolean) => this.setState({ isSearchModalShow })
 
-  setSideNavWithToLocalstorage = (sideNavWidth: number) => localStorage.setItem('sideNavWidth', sideNavWidth.toString())
+  setIsHiddenSideNav = (isHiddenSideNav: boolean) => this.setState({ isHiddenSideNav })
 
   handlePushCtrlP = () => {
     this.setIsSearchModalShow(true)
@@ -101,7 +110,9 @@ export default class App extends React.Component<AppProps, AppState> {
     this.setSideNavWidth(newSideNavWidth)
 
     clearTimeout(this.timer)
-    this.timer = setTimeout(() => this.setSideNavWithToLocalstorage(newSideNavWidth), 100)
+    this.timer = setTimeout(async () => {
+      await setSideNavWidth(newSideNavWidth)
+    }, 100)
   }
 
   render () {
@@ -109,7 +120,12 @@ export default class App extends React.Component<AppProps, AppState> {
       fileTreeStore,
       currentFileStore
     } = this.props
-    const { sideNavWidth, isSearchModalShow, isSliderFocused } = this.state
+    const {
+      sideNavWidth,
+      isSearchModalShow,
+      isSliderFocused,
+      isHiddenSideNav
+    } = this.state
 
     return (
       <Fabric>
@@ -120,14 +136,23 @@ export default class App extends React.Component<AppProps, AppState> {
             <Container
               sideNavWidth={sideNavWidth}
               isSliderFocused={isSliderFocused}
+              isHiddenSideNav={isHiddenSideNav}
               onMouseUp={this.handleMouseUp}
               onMouseMove={this.handleMouseMove}>
               <Header
                 openSearchModal={() => this.setIsSearchModalShow(true)}
               />
-              <SideNav />
-              <div className='resize' onMouseDown={this.handleMouseDown} />
-              <Detail sideNavWidth={sideNavWidth} />
+              {!isHiddenSideNav &&
+                <>
+                  <SideNav />
+                  <div className='resize' onMouseDown={this.handleMouseDown} />
+                </>
+              }
+              <Detail
+                sideNavWidth={sideNavWidth}
+                toggleIsHiddenSideNav={() => {
+                  this.setIsHiddenSideNav(!this.state.isHiddenSideNav)
+                }}/>
             </Container>
             <SearchModal
               isOpen={isSearchModalShow}
