@@ -21,7 +21,6 @@ interface AppProps {
 interface AppState {
   isSliderFocused: boolean,
   isSearchModalShow: boolean
-  isHiddenSideNav: boolean
 }
 
 interface ContainerStyleProps {
@@ -61,8 +60,7 @@ export default class App extends React.Component<AppProps, AppState> {
     super(props)
     this.state = {
       isSliderFocused: false,
-      isSearchModalShow: false,
-      isHiddenSideNav: false
+      isSearchModalShow: false
     }
 
     key('ctrl+p', this.handlePushCtrlP)
@@ -77,8 +75,6 @@ export default class App extends React.Component<AppProps, AppState> {
   setIsSliderFocused = (isSliderFocused: boolean) => this.setState({ isSliderFocused })
 
   setIsSearchModalShow = (isSearchModalShow: boolean) => this.setState({ isSearchModalShow })
-
-  setIsHiddenSideNav = (isHiddenSideNav: boolean) => this.setState({ isHiddenSideNav })
 
   handlePushCtrlP = () => {
     this.setIsSearchModalShow(true)
@@ -116,17 +112,17 @@ export default class App extends React.Component<AppProps, AppState> {
     } = this.props
     const {
       isSearchModalShow,
-      isSliderFocused,
-      isHiddenSideNav
+      isSliderFocused
     } = this.state
 
-    const sideNavWidth = editorStateStore.sideNavWidth
+    const { sideNavWidth, isHiddenSideNav } = editorStateStore
 
     return (
       <Fabric>
         <Provider
           fileTreeStore={fileTreeStore}
-          currentFileStore={currentFileStore}>
+          currentFileStore={currentFileStore}
+          editorStateStore={editorStateStore}>
           <>
             <Container
               sideNavWidth={sideNavWidth}
@@ -145,9 +141,7 @@ export default class App extends React.Component<AppProps, AppState> {
               }
               <Detail
                 sideNavWidth={sideNavWidth}
-                toggleIsHiddenSideNav={() => {
-                  this.setIsHiddenSideNav(!this.state.isHiddenSideNav)
-                }}/>
+              />
             </Container>
             <SearchModal
               isOpen={isSearchModalShow}
