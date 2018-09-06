@@ -1,18 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
 import path from 'path'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import fileDownload from 'js-file-download'
 import { grey } from '../../../lib/colors'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip'
+import { EditorStateStore } from '../../../lib/stores/EditorStateStore'
 
 interface DetailHeaderProps {
+  editorStateStore?: EditorStateStore
   pathname: string
   handleClickEditorButton: () => void,
   type: 'editor' | 'preview'
   fileContent: string
-  toggleIsHiddenSideNav: () => void
 }
 
 const Container = styled.div`
@@ -33,6 +34,7 @@ const Container = styled.div`
   }
 `
 
+@inject('editorStateStore')
 @observer
 export default class DetailHeader extends React.Component<DetailHeaderProps> {
   handleClickDownloadButton = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,11 +43,15 @@ export default class DetailHeader extends React.Component<DetailHeaderProps> {
   }
 
   render () {
-    const { pathname, handleClickEditorButton, type, toggleIsHiddenSideNav } = this.props
+    const { pathname, handleClickEditorButton, type, editorStateStore } = this.props
     const downloadTooltipIdentifier = `${pathname}_download_tooltip`
     const toEditTooltipIdentifer = `${pathname}_to_edit_tooltip`
     const toPreviewTooltipIdentifer = `${pathname}_to_preview_tooltip`
     const fullScreenToolTipIdentifer = `${pathname}_fullscreen_tooltip`
+    const toggleIsHiddenSideNav = async () => {
+      const currentIsHiddenSideNav = editorStateStore.isHiddenSideNav
+      await editorStateStore.setIsHiddenSideNav(!currentIsHiddenSideNav)
+    }
 
     return (
       <Container>
