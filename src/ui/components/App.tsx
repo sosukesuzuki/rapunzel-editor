@@ -139,9 +139,7 @@ export default class App extends React.Component<AppProps, AppState> {
                   <div className='resize' onMouseDown={this.handleMouseDown} />
                 </>
               }
-              <Detail
-                sideNavWidth={sideNavWidth}
-              />
+              <Detail />
             </Container>
             <SearchModal
               isOpen={isSearchModalShow}

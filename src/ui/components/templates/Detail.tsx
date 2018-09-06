@@ -6,10 +6,11 @@ import MarkdownRenderer from '../organisms/MarkdownRenderer'
 import DetailHeader from '../molecules/DetailHeader'
 import { writeFile } from '../../../lib/filesystem/commands'
 import CodeEditor from '../organisms/CodeEditor'
+import { EditorStateStore } from '../../../lib/stores/EditorStateStore'
 
 interface DetaiProps {
   currentFileStore?: CurrentFileStore
-  sideNavWidth: number
+  editorStateStore?: EditorStateStore
 }
 
 interface DetailState {
@@ -111,8 +112,10 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
   }
 
   render () {
-    const { currentFileStore, sideNavWidth } = this.props
+    const { currentFileStore, editorStateStore } = this.props
     const { type } = this.state
+    const { sideNavWidth } = editorStateStore
+
     return (
       <Container sideNavWidth={sideNavWidth}>
         {currentFileStore.currentFile != null &&
