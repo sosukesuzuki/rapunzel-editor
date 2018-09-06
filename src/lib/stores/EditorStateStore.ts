@@ -6,10 +6,9 @@ export class EditorStateStore {
   @observable public isHiddenSideNav: boolean
   timer: NodeJS.Timer
 
-  constructor ({ sideNavWidth, isHiddenSideNav }: { sideNavWidth: number
-    isHiddenSideNav: boolean}) {
-    this.sideNavWidth = sideNavWidth || 200
-    this.isHiddenSideNav = isHiddenSideNav || false
+  constructor () {
+    this.sideNavWidth = 250
+    this.isHiddenSideNav = false
   }
 
   @action getSideNavWidthFormStorage = async () => {

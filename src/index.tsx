@@ -59,7 +59,9 @@ MIT
   }
 
   const fileTreeStore = new FileTreeStore(await readFileNode('.'))
-  const editorStateStore = new EditorStateStore({ sideNavWidth: 200, isHiddenSideNav: false })
+  const editorStateStore = new EditorStateStore()
+  await editorStateStore.getIsHiddenSideNav()
+  await editorStateStore.getSideNavWidthFormStorage()
 
   ReactDOM.render(
     <App
