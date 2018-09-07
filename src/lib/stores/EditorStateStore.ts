@@ -12,11 +12,21 @@ export class EditorStateStore {
   }
 
   @action getSideNavWidthFormStorage = async () => {
-    this.sideNavWidth = await getSideNavWidth() || 200
+    try {
+      this.sideNavWidth = await getSideNavWidth()
+    } catch (error) {
+      this.sideNavWidth = 250
+      await setSideNavWidth(250)
+    }
   }
 
   @action getIsHiddenSideNav = async () => {
-    this.isHiddenSideNav = await getIsHiddenSideNav() || false
+    try {
+      this.isHiddenSideNav = await getIsHiddenSideNav()
+    } catch (error) {
+      this.isHiddenSideNav = false
+      await setIsHiddenSideNav(false)
+    }
   }
 
   @action setSideNavWidth = async (sideNavWidth: number) => {
