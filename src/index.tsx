@@ -20,11 +20,10 @@ g.fs = fs
 initializeIcons('../assets/fonts/office-ui-fabric/')
 
 ;(async () => {
-  const hasVisited = await getHasVisited()
-  await setHasVisited(true)
-
   let currentFileStore: CurrentFileStore
-  if (hasVisited) {
+
+  try {
+    await getHasVisited()
     try {
       const pathname = await getCurrentFile()
       const content = await readFile(pathname)
@@ -33,7 +32,7 @@ initializeIcons('../assets/fonts/office-ui-fabric/')
     } catch (error) {
       currentFileStore = new CurrentFileStore(null)
     }
-  } else {
+  } catch (error) {
     let initialFilePath = 'README.md'
     await writeFile(initialFilePath, READMEString)
     const content = await readFile(initialFilePath)
@@ -43,6 +42,8 @@ initializeIcons('../assets/fonts/office-ui-fabric/')
     }
     currentFileStore = new CurrentFileStore(readmeFile)
   }
+
+  await setHasVisited(true)
 
   const fileTreeStore = new FileTreeStore(await readFileNode('.'))
   const editorStateStore = new EditorStateStore()
