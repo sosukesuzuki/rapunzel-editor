@@ -1,4 +1,5 @@
 export const localStorageKeys = {
   isHiddenSideNav: 'isHiddenSideNav',
-  sideNavWidth: 'sideNavWidth'
+  sideNavWidth: 'sideNavWidth',
+  hasVisited: 'hasVisited'
 }

@@ -11,6 +11,7 @@ import { writeFile } from './lib/filesystem/commands'
 import { readFile } from './lib/filesystem/queries'
 import { File } from './lib/types'
 import { initializeIcons } from '@uifabric/icons'
+import { getHasVisited, setHasVisited } from './lib/localStorage'
 
 const g: any = global
 g.fs = fs
@@ -18,8 +19,8 @@ g.fs = fs
 initializeIcons('../assets/fonts/office-ui-fabric/')
 
 ;(async () => {
-  const hasVisited = !!localStorage.getItem('hasVisited')
-  localStorage.setItem('hasVisited', 'true')
+  const hasVisited = await getHasVisited()
+  await setHasVisited(true)
 
   let currentFileStore: CurrentFileStore
   if (hasVisited) {
