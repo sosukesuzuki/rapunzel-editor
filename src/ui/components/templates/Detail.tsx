@@ -49,6 +49,9 @@ const Container = styled.div`
     max-width: calc(100vw - ${({ sideNavWidth }: ContainerProps) => sideNavWidth}pxpx - 1px);
     .markdown-body {
       padding: 45px;
+      h1:first-child {
+        margin-top: 0;
+      }
       p {
         white-space: pre-wrap;
       }
