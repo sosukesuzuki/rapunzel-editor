@@ -14,10 +14,12 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
 import { TextField, ITextField } from 'office-ui-fabric-react/lib/TextField'
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip'
+import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
 
 interface DirectoryLineProps {
   directory: FileNode
   fileTreeStore?: FileTreeStore
+  currentFileStore?: CurrentFileStore
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
@@ -81,6 +83,7 @@ const AddFileNodeContainer = styled(InputContainer)`
   }
 `
 
+@inject('currentFileStore')
 @inject('fileTreeStore')
 @observer
 export default class DirectoryLine extends React.Component<DirectoryLineProps, DirectoryLineState> {
@@ -169,15 +172,20 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   }
 
   handleSubmitFile = async () => {
-    const { directory, fileTreeStore } = this.props
+    const { directory, fileTreeStore, currentFileStore } = this.props
     const { addInputContent } = this.state
     if (!isMd(addInputContent)) {
       alert('File extension must be "md".')
       throw Error('File extension must be "md".')
     }
-    await writeFile(`${directory.pathname}/${addInputContent}`, '')
+    const filePath = `${directory.pathname}/${addInputContent}`
+    await writeFile(filePath, '')
     const fileTree = await readFileNode('.')
     fileTreeStore.setFileTree(fileTree)
+    currentFileStore.setCurrentFile({
+      pathname: filePath,
+      content: ''
+    })
   }
 
   handleSubmitDir = async () => {
