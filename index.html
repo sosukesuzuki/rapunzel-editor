@@ -6,56 +6,73 @@
     <meta name="description" content="The fs based note-taking app focuses markdown.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://sosukesuzuki.github.io/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
-  <body style="background-color: #fafafa;">
-    <article>
-      <section>
-        <h1>Rapunzel</h1>
-        <p>Rapunzel is the fs based note-taking app focuses markdown.</p>
-        <img src="./img/Rapunzel.png" style="max-width: 500px;">
-      </section>
-      <section>
-        <h2>Three Goals</h2>
-        <ul>
-          <li>
-            We can use this on browsers.
-          </li>
-          <li>
-            We can use this in offline.
-          </li>
-          <li>
-            We can use the file-system based on NodeJS.fs in this.
-          </li>
-        </ul>
-      </section>
-      <section>
-        <h2>Tech Stack</h2>
-        <ul>
-          <li>Language: Typescript</li>
-          <li>Library: React, MobX, CodeMirror, Browserfs, Marked, office-ui-fabric</li>
-          <li>Bundler: Webpack</li>
-          <li>Linter: TSLint</li>
-          <li>Test: Jest</li>
-        </ul>
-      </section>
-      <section>
-        <h2>Links</h2>
-        <ul>
-          <li>
-            <a href="https://relaxed-benz-e7d524.netlify.com/">Try on Netlify</a>
-          </li>
-          <li>
-            <a href="https://github.com/sosukesuzuki/rapunzel-editor">GitHub</a>
-          </li>
-          <li>
-            <a href="https://sosukesuzuki.github.io">Author(sosukesuzuki)</a>
-          </li>
-        </ul>
-      </section>
-      <section>
-        <h2>Copyright</h2>
-        <p>(c) 2018 sosukesuzuki All Rights Reserved.</p>
+  <body>
+    <article class="container">
+      <h1>Rapunzel</h1>
+      <p>Rapunzel is the fs based note-taking app focuses markdown.</p>
+      <div class="profile">
+        <section>
+          <h2>Three Goals</h2>
+          <ul>
+            <li>
+              We can use this on browsers.
+            </li>
+            <li>
+              We can use this in offline.
+            </li>
+            <li>
+              We can use the file-system based on NodeJS.fs in this.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Tech Stack</h2>
+          <table>
+            <tbody>
+              <tr>
+                <td>Language</td>
+                <td>Typescript</td>
+              </tr>
+              <tr>
+                <td>Library</td>
+                <td>React, MobX, CodeMirror, Browserfs, Marked, office-ui-fabric</td>
+              </tr>
+              <tr>
+                <td>Bundler</td>
+                <td>Webpack</td>
+              </tr>
+              <tr>
+                <td>Linter</td>
+                <td>TSLint</td>
+              </tr>
+              <tr>
+                <td>Test</td>
+                <td>Jest</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h2>Links</h2>
+          <ul>
+            <li>
+              <a href="https://relaxed-benz-e7d524.netlify.com/">Try on Netlify</a>
+            </li>
+            <li>
+              <a href="https://github.com/sosukesuzuki/rapunzel-editor">GitHub</a>
+            </li>
+            <li>
+              <a href="https://sosukesuzuki.github.io">Author(sosukesuzuki)</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <section class="copyright">
+        Copyright (c) 2018 sosukesuzuki All Rights Reserved.
       </section>
     </article>
   </body>
