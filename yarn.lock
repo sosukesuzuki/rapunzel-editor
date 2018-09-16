@@ -6168,6 +6168,10 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
+tasklist.js@increments/tasklist.js:
+  version "0.0.3"
+  resolved "https://codeload.github.com/increments/tasklist.js/tar.gz/98caa0d46347ca5cd0df2d29181410c967ada151"
+
 term-size@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/term-size/-/term-size-1.2.0.tgz#458b83887f288fc56d6fffbfad262e26638efa69"
