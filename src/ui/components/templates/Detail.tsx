@@ -99,6 +99,17 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
     }, 1000)
   }
 
+  handleClickCheckbox = async (content) => {
+    const { currentFileStore } = this.props
+    const { currentFile } = currentFileStore
+
+    await writeFile(currentFile.pathname, content)
+    currentFileStore.setCurrentFile({
+      pathname: currentFile.pathname,
+      content: content
+    })
+  }
+
   setType = (type: 'editor' | 'preview') => {
     this.setState({ type })
   }
@@ -142,6 +153,7 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
             { type === 'preview'
               ? <div className='preview' onContextMenu={this.hanldeOnContextMenu}>
                 <MarkdownRenderer
+                  onClickCheckbox={this.handleClickCheckbox}
                   content={currentFileStore.currentFile == null
                     ? ''
                     : currentFileStore.currentFile.content} />
