@@ -1,13 +1,34 @@
 import React from 'react'
+import styled from 'styled-components'
 import 'github-markdown-css'
 import remark from 'remark'
 import reactRenderer from 'remark-react'
 import { convert } from 'tasklist.js'
+import { grey } from '../../../lib/colors'
 
 interface MarkdownRendererProps {
   content: string
   onClickCheckbox: (content: string) => Promise<void>
 }
+
+interface ProgressBarProps {
+  percentage: number
+}
+
+const ProgressBar = styled.div`
+  width: 100%;
+  height: 20px;
+  color: white;
+  line-height: 20px;
+  background-color: ${grey[2]};
+  .inside {
+    transition: 0.3s;
+    width: ${({ percentage }: ProgressBarProps) => percentage}%;
+    background-color: ${grey[5]};
+    font-weight: bold;
+    text-align: center;
+  }
+`
 
 export default class MarkdownRenderer extends React.Component<MarkdownRendererProps> {
   static defaultProps: MarkdownRendererProps = {
@@ -68,13 +89,26 @@ export default class MarkdownRenderer extends React.Component<MarkdownRendererPr
 
   render () {
     const { content } = this.props
+    const tasks = this.getTaskObjects()
+    const countOfTasks = tasks.length
+    const countOfCompletedTasks = tasks.filter(obj => obj.checked).length
+    const percentageOfCompletedTasks = Math.floor(countOfCompletedTasks / countOfTasks * 100)
 
     return (
-      <div className='markdown-body'>
-        {remark().use(reactRenderer, {
-          sanitize: false
-        }).processSync(content).contents}
-      </div>
+      <>
+        {countOfTasks > 0 &&
+          <ProgressBar percentage={percentageOfCompletedTasks}>
+            <div className='inside'>
+              {percentageOfCompletedTasks}%
+            </div>
+          </ProgressBar>
+        }
+        <div className='markdown-body'>
+          {remark().use(reactRenderer, {
+            sanitize: false
+          }).processSync(content).contents}
+        </div>
+      </>
     )
   }
 }
