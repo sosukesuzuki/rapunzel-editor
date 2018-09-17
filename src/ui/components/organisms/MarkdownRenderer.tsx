@@ -5,6 +5,7 @@ import remark from 'remark'
 import reactRenderer from 'remark-react'
 import { convert } from 'tasklist.js'
 import { grey } from '../../../lib/colors'
+import emoji from 'remark-emoji'
 
 interface MarkdownRendererProps {
   content: string
@@ -104,9 +105,12 @@ export default class MarkdownRenderer extends React.Component<MarkdownRendererPr
           </ProgressBar>
         }
         <div className='markdown-body'>
-          {remark().use(reactRenderer, {
-            sanitize: false
-          }).processSync(content).contents}
+          {remark()
+            .use(reactRenderer, {
+              sanitize: false
+            })
+            .use(emoji)
+            .processSync(content).contents}
         </div>
       </>
     )
