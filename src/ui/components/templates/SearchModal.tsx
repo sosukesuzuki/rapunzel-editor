@@ -4,14 +4,15 @@ import { observer, inject } from 'mobx-react'
 import FileTreeLine from '../atoms/FileTreeLine'
 import { grey } from '../../../lib/colors'
 import { getFilesTree } from '../../../lib/filesystem/utils'
-import { CurrentFileStore } from '../../../lib/stores'
+import { Stores } from '../../../lib/stores'
 import { readFile } from '../../../lib/filesystem/queries'
 import { Modal } from 'office-ui-fabric-react/lib/Modal'
 import { SearchBox, ISearchBox } from 'office-ui-fabric-react/lib/SearchBox'
 import key from 'keymaster'
+import { File } from '../../../lib/types'
 
 interface SearchModalProps {
-  currentFileStore?: CurrentFileStore
+  setCurrentFile?: (input: File) => Promise<void>
   closeModal: () => void
   isOpen: boolean
 }
@@ -40,7 +41,9 @@ const ModalInner = styled.div`
   padding: 30px;
 `
 
-@inject('currentFileStore')
+@inject((s: Stores) => ({
+  setCurrentFile: s.currentFileStore.setCurrentFile
+}))
 @observer
 export default class SearchModal extends React.Component<SearchModalProps, SearchModalState> {
   constructor (props) {
@@ -83,9 +86,9 @@ export default class SearchModal extends React.Component<SearchModalProps, Searc
   }
 
   handleClickFileLine = async (filePath: string) => {
-    const { currentFileStore, closeModal } = this.props
+    const { setCurrentFile, closeModal } = this.props
     const fileContent = await readFile(filePath)
-    currentFileStore.setCurrentFile({
+    setCurrentFile({
       pathname: filePath,
       content: fileContent
     })
