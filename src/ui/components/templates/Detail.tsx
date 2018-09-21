@@ -1,15 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
 import { observer, inject } from 'mobx-react'
-import { CurrentFileStore, EditorStateStore } from '../../../lib/stores'
+import { Stores } from '../../../lib/stores'
 import MarkdownRenderer from '../organisms/MarkdownRenderer'
 import DetailHeader from '../molecules/DetailHeader'
 import { writeFile } from '../../../lib/filesystem/commands'
 import CodeEditor from '../organisms/CodeEditor'
+import { File } from '../../../lib/types'
 
-interface DetaiProps {
-  currentFileStore?: CurrentFileStore
-  editorStateStore?: EditorStateStore
+interface DetailProps {
+  currentFile?: File
+  setCurrentFile: (input: File) => Promise<void>
+  sideNavWidth?: number
+  isHiddenSideNav?: boolean
 }
 
 interface DetailState {
@@ -61,26 +64,27 @@ const Container = styled.div`
   }
 `
 
-@inject('editorStateStore')
-@inject('currentFileStore')
+@inject((s: Stores) => ({
+  currentFile: s.currentFileStore.currentFile,
+  setCurrentFile: s.currentFileStore.setCurrentFile,
+  sideNavWidth: s.editorStateStore.sideNavWidth,
+  isHiddenSideNav: s.editorStateStore.isHiddenSideNav
+}))
 @observer
-export default class Detail extends React.Component<DetaiProps, DetailState> {
-  constructor (props) {
+export default class Detail extends React.Component<DetailProps, DetailState> {
+  constructor (props: DetailProps) {
     super(props)
-    const { currentFileStore } = props
+    const { currentFile } = props
     this.state = {
       type: 'preview',
-      content: currentFileStore.currentFile == null
-        ? ''
-        : currentFileStore.currentFile.content
+      content: currentFile != null ? currentFile.content : ''
     }
   }
 
   timer: NodeJS.Timer
 
   handleOnChange = (e: { target: any }) => {
-    const { currentFileStore } = this.props
-    const { currentFile } = currentFileStore
+    const { setCurrentFile, currentFile } = this.props
 
     clearTimeout(this.timer)
 
@@ -90,7 +94,7 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
       const { content } = this.state
       await writeFile(currentFile.pathname, content)
       console.info('Saved!')
-      currentFileStore.setCurrentFile({
+      setCurrentFile({
         pathname: currentFile.pathname,
         content: content
       })
@@ -98,11 +102,10 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
   }
 
   handleClickCheckbox = async (content) => {
-    const { currentFileStore } = this.props
-    const { currentFile } = currentFileStore
+    const { currentFile, setCurrentFile } = this.props
 
     await writeFile(currentFile.pathname, content)
-    currentFileStore.setCurrentFile({
+    setCurrentFile({
       pathname: currentFile.pathname,
       content: content
     })
@@ -129,38 +132,37 @@ export default class Detail extends React.Component<DetaiProps, DetailState> {
   }
 
   render () {
-    const { currentFileStore, editorStateStore } = this.props
+    const { currentFile, sideNavWidth, isHiddenSideNav } = this.props
     const { type } = this.state
-    const { sideNavWidth, isHiddenSideNav } = editorStateStore
 
     return (
       <Container
         sideNavWidth={sideNavWidth}
         isHiddenSideNav={isHiddenSideNav}>
-        {currentFileStore.currentFile != null &&
+        {currentFile != null &&
           <>
             <DetailHeader
               type={type}
               handleClickEditorButton={this.switchType.bind(this)}
-              fileContent={currentFileStore.currentFile == null
+              fileContent={currentFile == null
                 ? ''
-                : currentFileStore.currentFile.content}
-              pathname={currentFileStore.currentFile == null
+                : currentFile.content}
+              pathname={currentFile == null
                 ? ''
-                : currentFileStore.currentFile.pathname} />
+                : currentFile.pathname} />
             { type === 'preview'
               ? <div className='preview' onContextMenu={this.hanldeOnContextMenu}>
                 <MarkdownRenderer
                   onClickCheckbox={this.handleClickCheckbox}
-                  content={currentFileStore.currentFile == null
+                  content={currentFile == null
                     ? ''
-                    : currentFileStore.currentFile.content} />
+                    : currentFile.content} />
               </div>
               : <div className='edit' onContextMenu={this.hanldeOnContextMenu}>
                 <CodeEditor
-                  value={currentFileStore.currentFile == null
+                  value={currentFile == null
                     ? ''
-                    : currentFileStore.currentFile.content}
+                    : currentFile.content}
                   onChange={(e: { target: any }) => this.handleOnChange(e)} />
               </div>
             }
