@@ -10,7 +10,7 @@ import { File } from '../../../lib/types'
 
 interface DetailProps {
   currentFile?: File
-  setCurrentFile: (input: File) => Promise<void>
+  setCurrentFile?: (input: File) => Promise<void>
   sideNavWidth?: number
   isHiddenSideNav?: boolean
 }
