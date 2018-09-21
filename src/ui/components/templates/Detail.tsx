@@ -1,12 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { observer, inject } from 'mobx-react'
-import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
+import { CurrentFileStore, EditorStateStore } from '../../../lib/stores'
 import MarkdownRenderer from '../organisms/MarkdownRenderer'
 import DetailHeader from '../molecules/DetailHeader'
 import { writeFile } from '../../../lib/filesystem/commands'
 import CodeEditor from '../organisms/CodeEditor'
-import { EditorStateStore } from '../../../lib/stores/EditorStateStore'
 
 interface DetaiProps {
   currentFileStore?: CurrentFileStore

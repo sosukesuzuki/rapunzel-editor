@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { observer, inject } from 'mobx-react'
-import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
+import { CurrentFileStore } from '../../../lib/stores'
 import { FileNode } from '../../../lib/types'
 import DirectoryLine from '../molecules/DirectoryLine'
 import FileLine from '../molecules/FileLine'

@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import path from 'path'
 import { FileNode } from '../../../lib/types'
 import { observer, inject } from 'mobx-react'
-import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
 import { mkdir, rename, writeFile } from '../../../lib/filesystem/commands'
 import { readFileNode, removeDirectory } from '../../../lib/filesystem/utils'
 import { fileNodePadding, isMd } from '../../../lib/utils'
@@ -14,7 +13,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
 import { TextField, ITextField } from 'office-ui-fabric-react/lib/TextField'
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip'
-import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
+import { CurrentFileStore, FileTreeStore } from '../../../lib/stores'
 
 interface DirectoryLineProps {
   directory: FileNode
