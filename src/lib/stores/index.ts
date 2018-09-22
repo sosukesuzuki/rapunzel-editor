@@ -6,7 +6,7 @@ export * from './CurrentFileStore'
 export * from './EditorStateStore'
 export * from './FileTreeStore'
 
-export interface Stores {
+export default interface Stores {
   currentFileStore: CurrentFileStore
   editorStateStore: EditorStateStore
   fileTreeStore: FileTreeStore

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { observer, inject } from 'mobx-react'
-import { Stores } from '../../../lib/stores'
+import Stores from '../../../lib/stores'
 import MarkdownRenderer from '../organisms/MarkdownRenderer'
 import DetailHeader from '../molecules/DetailHeader'
 import { writeFile } from '../../../lib/filesystem/commands'
