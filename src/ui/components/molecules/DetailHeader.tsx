@@ -6,10 +6,11 @@ import fileDownload from 'js-file-download'
 import { grey } from '../../../lib/colors'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip'
-import { EditorStateStore } from '../../../lib/stores/EditorStateStore'
+import Stores from '../../../lib/stores'
 
 interface DetailHeaderProps {
-  editorStateStore?: EditorStateStore
+  isHiddenSideNav?: boolean
+  setIsHiddenSideNav?: (isHiddenSideNav: boolean) => Promise<void>
   pathname: string
   handleClickEditorButton: () => void,
   type: 'editor' | 'preview'
@@ -34,7 +35,10 @@ const Container = styled.div`
   }
 `
 
-@inject('editorStateStore')
+@inject((s: Stores) => ({
+  isHiddenSideNav: s.editorStateStore.isHiddenSideNav,
+  setIsHiddenSideNav: s.editorStateStore.setIsHiddenSideNav
+}))
 @observer
 export default class DetailHeader extends React.Component<DetailHeaderProps> {
   handleClickDownloadButton = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -43,14 +47,14 @@ export default class DetailHeader extends React.Component<DetailHeaderProps> {
   }
 
   render () {
-    const { pathname, handleClickEditorButton, type, editorStateStore } = this.props
+    const { pathname, handleClickEditorButton, type, isHiddenSideNav, setIsHiddenSideNav } = this.props
     const downloadTooltipIdentifier = `${pathname}_download_tooltip`
     const toEditTooltipIdentifer = `${pathname}_to_edit_tooltip`
     const toPreviewTooltipIdentifer = `${pathname}_to_preview_tooltip`
     const fullScreenToolTipIdentifer = `${pathname}_fullscreen_tooltip`
     const toggleIsHiddenSideNav = async () => {
-      const currentIsHiddenSideNav = editorStateStore.isHiddenSideNav
-      await editorStateStore.setIsHiddenSideNav(!currentIsHiddenSideNav)
+      const currentIsHiddenSideNav = isHiddenSideNav
+      await setIsHiddenSideNav(!currentIsHiddenSideNav)
     }
 
     return (

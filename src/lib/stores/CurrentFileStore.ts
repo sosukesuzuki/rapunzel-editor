@@ -13,4 +13,9 @@ export class CurrentFileStore {
     this.currentFile = input
     await setCurrentFile(input.pathname)
   }
+
+  @action setNullAsCurrentFile = async () => {
+    this.currentFile = null
+    await setCurrentFile('')
+  }
 }

@@ -1,13 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { observer, inject } from 'mobx-react'
-import { CurrentFileStore } from '../../../lib/stores'
+import { observer } from 'mobx-react'
 import { FileNode } from '../../../lib/types'
 import DirectoryLine from '../molecules/DirectoryLine'
 import FileLine from '../molecules/FileLine'
 
 interface FileTreeProps {
-  currentFileStore?: CurrentFileStore
   directory: FileNode
 }
 
@@ -18,7 +16,6 @@ interface FileTreeState {
 const Container = styled.div`
 `
 
-@inject('currentFileStore')
 @observer
 export default class FileTree extends React.Component<FileTreeProps, FileTreeState> {
   constructor (props) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import path from 'path'
-import { FileNode } from '../../../lib/types'
+import { FileNode, File } from '../../../lib/types'
 import { observer, inject } from 'mobx-react'
 import { mkdir, rename, writeFile } from '../../../lib/filesystem/commands'
 import { readFileNode, removeDirectory } from '../../../lib/filesystem/utils'
@@ -13,12 +13,12 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { IconButton } from 'office-ui-fabric-react/lib/Button'
 import { TextField, ITextField } from 'office-ui-fabric-react/lib/TextField'
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip'
-import { CurrentFileStore, FileTreeStore } from '../../../lib/stores'
+import Stores from '../../../lib/stores'
 
 interface DirectoryLineProps {
   directory: FileNode
-  fileTreeStore?: FileTreeStore
-  currentFileStore?: CurrentFileStore
+  setFileTree?: (fileTree: FileNode) => void
+  setCurrentFile?: (input: File) => Promise<void>
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
@@ -82,8 +82,10 @@ const AddFileNodeContainer = styled(InputContainer)`
   }
 `
 
-@inject('currentFileStore')
-@inject('fileTreeStore')
+@inject((s: Stores) => ({
+  setCurrentFile: s.currentFileStore.setCurrentFile,
+  setFileTree: s.fileTreeStore.setFileTree
+}))
 @observer
 export default class DirectoryLine extends React.Component<DirectoryLineProps, DirectoryLineState> {
   constructor (props) {
@@ -124,12 +126,12 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
   }
 
   handleRemove = async () => {
-    const { directory, fileTreeStore } = this.props
+    const { directory, setFileTree } = this.props
     const result = window.confirm(`Remove ${directory.pathname}.`)
     if (result) {
       await removeDirectory(directory.pathname)
       const fileTree = await readFileNode('.')
-      fileTreeStore.setFileTree(fileTree)
+      setFileTree(fileTree)
     }
   }
 
@@ -163,15 +165,15 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
 
   rename = async () => {
     const { renameInputContent } = this.state
-    const { directory, fileTreeStore } = this.props
+    const { directory, setFileTree } = this.props
     const newPathname = `${path.dirname(directory.pathname)}/${renameInputContent}`
     await rename(directory.pathname, newPathname)
     const fileTree = await readFileNode('.')
-    fileTreeStore.setFileTree(fileTree)
+    setFileTree(fileTree)
   }
 
   handleSubmitFile = async () => {
-    const { directory, fileTreeStore, currentFileStore } = this.props
+    const { directory, setFileTree, setCurrentFile } = this.props
     const { addInputContent } = this.state
     if (!isMd(addInputContent)) {
       alert('File extension must be "md".')
@@ -180,19 +182,19 @@ export default class DirectoryLine extends React.Component<DirectoryLineProps, D
     const filePath = `${directory.pathname}/${addInputContent}`
     await writeFile(filePath, '')
     const fileTree = await readFileNode('.')
-    fileTreeStore.setFileTree(fileTree)
-    currentFileStore.setCurrentFile({
+    setFileTree(fileTree)
+    setCurrentFile({
       pathname: filePath,
       content: ''
     })
   }
 
   handleSubmitDir = async () => {
-    const { directory, fileTreeStore } = this.props
+    const { directory, setFileTree } = this.props
     const { addInputContent } = this.state
     await mkdir(`${directory.pathname}/${addInputContent}`)
     const fileTree = await readFileNode('.')
-    fileTreeStore.setFileTree(fileTree)
+    setFileTree(fileTree)
   }
 
   handleClickRename = () => {
