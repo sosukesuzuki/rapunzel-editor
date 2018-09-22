@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import path from 'path'
-import { FileNode } from '../../../lib/types'
+import { FileNode, File } from '../../../lib/types'
 import { observer, inject } from 'mobx-react'
 import { grey } from '../../../lib/colors'
 import { fileNodePadding } from '../../../lib/utils'
 import { readFileNode } from '../../../lib/filesystem/utils'
-import { FileTreeStore } from '../../../lib/stores/FileTreeStore'
-import { CurrentFileStore } from '../../../lib/stores/CurrentFileStore'
+import Stores from '../../../lib/stores'
 import { readFile } from '../../../lib/filesystem/queries'
 import { ContextMenuProvider } from 'react-contexify'
 import { rename, unlink } from '../../../lib/filesystem/commands'
@@ -20,8 +19,10 @@ import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip'
 
 interface FileLineProps {
   file: FileNode
-  fileTreeStore?: FileTreeStore
-  currentFileStore?: CurrentFileStore
+  setFileTree?: (fileTree: FileNode) => void
+  currentFile?: File
+  setNullAsCurrentFile?: () => Promise<void>
+  setCurrentFile?: (input: File) => void
 }
 
 interface FileLineState {
@@ -69,8 +70,12 @@ const Container = styled(FileTreeLine)`
   }
 `
 
-@inject('currentFileStore')
-@inject('fileTreeStore')
+@inject((s: Stores) => ({
+  currentFile: s.currentFileStore.currentFile,
+  setCurrentFile: s.currentFileStore.setCurrentFile,
+  setFileTree: s.fileTreeStore.setFileTree,
+  setNullAsCurrentFile: s.currentFileStore.setNullAsCurrentFile
+}))
 @observer
 export default class FileLine extends React.Component<FileLineProps, FileLineState> {
   constructor (props: FileLineProps) {
@@ -89,25 +94,24 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
   setRenameInputContent = (renameInputContent: string) => this.setState({ renameInputContent })
 
   handleClickFileLine = async (e: React.MouseEvent<HTMLDivElement>) => {
-    const { currentFileStore, file } = this.props
+    const { setCurrentFile, file } = this.props
     const { pathname } = file
     const fileContent = await readFile(pathname)
-    currentFileStore.setCurrentFile({
+    setCurrentFile({
       pathname,
       content: fileContent
     })
   }
 
   handleClickTrashButton = async () => {
-    const { file, fileTreeStore, currentFileStore } = this.props
+    const { file, setFileTree, currentFile, setNullAsCurrentFile } = this.props
     const result = window.confirm(`Remove ${file.pathname}.`)
     if (result) {
       await unlink(file.pathname)
       const fileTree = await readFileNode('.')
-      fileTreeStore.setFileTree(fileTree)
-      const { currentFile } = currentFileStore
+      setFileTree(fileTree)
       if (currentFile != null && currentFile.pathname === file.pathname) {
-        currentFileStore.setCurrentFile(null)
+        await setNullAsCurrentFile()
       }
     }
   }
@@ -126,17 +130,16 @@ export default class FileLine extends React.Component<FileLineProps, FileLineSta
 
   rename = async () => {
     const { renameInputContent } = this.state
-    const { file, fileTreeStore } = this.props
+    const { file, setFileTree } = this.props
     const newPathname = `${path.dirname(file.pathname)}/${renameInputContent}`
     await rename(file.pathname, newPathname)
     const fileTree = await readFileNode('.')
-    fileTreeStore.setFileTree(fileTree)
+    setFileTree(fileTree)
   }
 
   render () {
-    const { file, currentFileStore } = this.props
+    const { file, currentFile } = this.props
     const { isRenaming, renameInputContent } = this.state
-    const { currentFile } = currentFileStore
     const isSelected = currentFile != null && file.pathname === currentFile.pathname
     const contextIdentifier = `${file.pathname}_context_menu`
     const fileDeleteIdentifier = `${file.pathname}_delete_tooltop`

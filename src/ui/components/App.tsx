@@ -5,12 +5,10 @@ import Header from './templates/Header'
 import SideNav from './templates/SideNav'
 import Detail from './templates/Detail'
 import SearchModal from './templates/SearchModal'
-import { FileTreeStore } from '../../lib/stores/FileTreeStore'
-import { CurrentFileStore } from '../../lib/stores/CurrentFileStore'
+import { FileTreeStore, CurrentFileStore, EditorStateStore } from '../../lib/stores'
 import key from 'keymaster'
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
 import { grey } from '../../lib/colors'
-import { EditorStateStore } from '../../lib/stores/EditorStateStore'
 
 interface AppProps {
   fileTreeStore: FileTreeStore
