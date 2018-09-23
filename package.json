@@ -1,0 +1,14 @@
+{
+  "name": "rapunzel-editor-docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "ssh://git@github.com/sosukesuzuki/rapunzel-editor.git",
+  "author": "Sosuke Suzuki <aosukeke@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "run:book": "gitbook serve"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.0"
+  }
+}
