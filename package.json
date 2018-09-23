@@ -8,8 +8,8 @@
     "dev": "webpack-serve --no-reload --port 3333",
     "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'",
     "build": "rimraf dist && NODE_ENV=production webpack",
-    "test": "NODE_ENV=test jest --forceExit -i -c jest.jso",
-    "test:watch": "NODE_ENV=test jest --forceExit -i -c jest.json --watch"
+    "test": "NODE_ENV=test jest --detectOpenHandles --forceExit -i -c jest.json",
+    "test:watch": "NODE_ENV=test jest --detectOpenHandles --forceExit -i -c jest.json --watch"
   },
   "dependencies": {
     "browserfs": "^1.4.3",
