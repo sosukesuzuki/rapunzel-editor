@@ -28,10 +28,12 @@ initializeIcons('../assets/fonts/office-ui-fabric/')
       const file = { pathname, content }
       currentFileStore = new CurrentFileStore(file)
     } catch (error) {
+      if (error.message !== 'Key of currentFile does not exists in localStorage') throw error
       currentFileStore = new CurrentFileStore(null)
     }
   } catch (error) {
-    let initialFilePath = 'README.md'
+    if (error.message !== 'Key of hasVisited does not exists in localStorage') throw error
+    const initialFilePath = 'README.md'
     await writeFile(initialFilePath, READMEString)
     const content = await readFile(initialFilePath)
     const readmeFile: File = {
