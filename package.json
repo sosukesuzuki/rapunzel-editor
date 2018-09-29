@@ -21,6 +21,8 @@
     "lodash": "^4.17.10",
     "mobx": "^5.0.3",
     "mobx-react": "^5.2.3",
+    "monaco-editor": "^0.14.3",
+    "monaco-editor-webpack-plugin": "^1.5.4",
     "normalize.css": "^8.0.0",
     "office-ui-fabric-react": "^6.54.0",
     "pify": "^3.0.0",
