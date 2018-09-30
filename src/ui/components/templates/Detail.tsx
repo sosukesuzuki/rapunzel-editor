@@ -13,6 +13,8 @@ interface DetailProps {
   setCurrentFile?: (input: File) => Promise<void>
   sideNavWidth?: number
   isHiddenSideNav?: boolean
+  setScrollY?: (scrollY: number) => void
+  scrollY?: number
 }
 
 interface DetailState {
@@ -68,7 +70,9 @@ const Container = styled.div`
   currentFile: s.currentFileStore.currentFile,
   setCurrentFile: s.currentFileStore.setCurrentFile,
   sideNavWidth: s.editorStateStore.sideNavWidth,
-  isHiddenSideNav: s.editorStateStore.isHiddenSideNav
+  isHiddenSideNav: s.editorStateStore.isHiddenSideNav,
+  setScrollY: s.editorStateStore.setScrollY,
+  scrollY: s.editorStateStore.scrollY
 }))
 @observer
 export default class Detail extends React.Component<DetailProps, DetailState> {
@@ -82,6 +86,7 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
   }
 
   timer: NodeJS.Timer
+  previewElement: HTMLDivElement
 
   handleOnChange = (e: { target: any }) => {
     const { setCurrentFile, currentFile } = this.props
@@ -111,16 +116,17 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
     })
   }
 
-  setType = (type: 'editor' | 'preview') => {
-    this.setState({ type })
+  setType = (type: 'editor' | 'preview', callBack: () => void = () => { return }) => {
+    this.setState({ type }, callBack)
   }
 
   setContent = (content: string) => this.setState({ content })
 
   switchType = () => {
     const { type } = this.state
+    const { scrollY } = this.props
     if (type === 'editor') {
-      this.setType('preview')
+      this.setType('preview', () => this.previewElement.scrollTop = scrollY)
     } else {
       this.setType('editor')
     }
@@ -129,6 +135,11 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
   hanldeOnContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
     this.switchType()
+  }
+
+  handlePreviewScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { setScrollY } = this.props
+    setScrollY((e.target as HTMLDivElement).scrollTop)
   }
 
   render () {
@@ -151,20 +162,29 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
                 ? ''
                 : currentFile.pathname} />
             { type === 'preview'
-              ? <div className='preview' onContextMenu={this.hanldeOnContextMenu}>
-                <MarkdownRenderer
-                  onClickCheckbox={this.handleClickCheckbox}
-                  content={currentFile == null
-                    ? ''
-                    : currentFile.content} />
-              </div>
-              : <div className='edit' onContextMenu={this.hanldeOnContextMenu}>
-                <CodeEditor
-                  value={currentFile == null
-                    ? ''
-                    : currentFile.content}
-                  onChange={(e: { target: any }) => this.handleOnChange(e)} />
-              </div>
+              ? (
+                <div
+                  ref={element => this.previewElement = element}
+                  className='preview'
+                  onContextMenu={this.hanldeOnContextMenu}
+                  onScroll={this.handlePreviewScroll}
+                >
+                  <MarkdownRenderer
+                    onClickCheckbox={this.handleClickCheckbox}
+                    content={currentFile == null
+                      ? ''
+                      : currentFile.content} />
+                </div>
+              )
+              : (
+                <div className='edit' onContextMenu={this.hanldeOnContextMenu}>
+                  <CodeEditor
+                    value={currentFile == null
+                      ? ''
+                      : currentFile.content}
+                    onChange={(e: { target: any }) => this.handleOnChange(e)} />
+                </div>
+              )
             }
           </>
         }

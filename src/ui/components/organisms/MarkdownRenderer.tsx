@@ -37,8 +37,6 @@ export default class MarkdownRenderer extends React.Component<MarkdownRendererPr
     onClickCheckbox: null
   }
 
-  element: HTMLDivElement
-
   componentDidMount () {
     this.prepareCheckbox()
     this.setDefaultCheckbox()
@@ -104,7 +102,9 @@ export default class MarkdownRenderer extends React.Component<MarkdownRendererPr
             </div>
           </ProgressBar>
         }
-        <div className='markdown-body'>
+        <div
+          className='markdown-body'
+        >
           {remark()
             .use(reactRenderer, {
               sanitize: false
