@@ -11,6 +11,7 @@ describe('EditorStateStore', () => {
     // Then
     expect(store.isHiddenSideNav).toBeFalsy()
     expect(store.sideNavWidth).toBe(250)
+    expect(store.scrollY).toBe(0)
   })
 
   it('gets sideNavWidth from localStorage', async () => {
@@ -87,5 +88,16 @@ describe('EditorStateStore', () => {
     expect(store.isHiddenSideNav).toBeTruthy()
     const data = await getIsHiddenSideNav()
     expect(data).toBeTruthy()
+  })
+
+  it('sets scrollY', () => {
+    // Given
+    const store = new EditorStateStore()
+
+    // When
+    store.setScrollY(100)
+
+    // Then
+    expect(store.scrollY).toBe(100)
   })
 })

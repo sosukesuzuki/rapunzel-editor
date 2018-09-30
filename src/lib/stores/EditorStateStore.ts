@@ -4,11 +4,13 @@ import { getSideNavWidth, getIsHiddenSideNav, setSideNavWidth, setIsHiddenSideNa
 export class EditorStateStore {
   @observable public sideNavWidth: number
   @observable public isHiddenSideNav: boolean
+  @observable public scrollY: number
   timer: NodeJS.Timer
 
   constructor () {
     this.sideNavWidth = 250
     this.isHiddenSideNav = false
+    this.scrollY = 0
   }
 
   @action getSideNavWidthFormStorage = async () => {
@@ -41,5 +43,9 @@ export class EditorStateStore {
   @action setIsHiddenSideNav = async (isHiddenSideNav: boolean) => {
     this.isHiddenSideNav = isHiddenSideNav
     await setIsHiddenSideNav(isHiddenSideNav)
+  }
+
+  @action setScrollY = (scrollY: number) => {
+    this.scrollY = scrollY
   }
 }
