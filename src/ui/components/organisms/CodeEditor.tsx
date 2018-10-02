@@ -1,71 +1,53 @@
 import React from 'react'
-import CodeMirror from 'codemirror'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/addon/edit/continuelist'
-import 'codemirror/mode/gfm/gfm'
-import 'codemirror/keymap/vim'
+import * as monaco from 'monaco-editor'
 
-const options = {
-  lineNumbers: true,
-  mode: 'markdown',
-  theme: 'github-light',
-  lineWrapping: true,
-  keyMap: 'vim',
-  extraKeys: {
-    'Enter': 'newlineAndIndentContinueMarkdownList'
-  }
-}
+const options = {}
 
 interface CodeEditorProps {
   value: string
-  onChange: (e: { target: any }) => void
+  onChange: (value: string) => void
 }
 
 export default class CodeEditor extends React.Component<CodeEditorProps> {
-  cm: CodeMirror.EditorFromTextArea = null
-  textarea: HTMLTextAreaElement = null
+  containerElement: HTMLDivElement
   disableHandleChange: boolean = false
+  editor: monaco.editor.IStandaloneCodeEditor
 
   get value () {
-    return this.cm.getDoc().getValue()
+    return this.editor.getValue()
   }
 
   componentDidMount () {
-    this.cm = CodeMirror.fromTextArea(this.textarea, options)
-
-    this.disableHandleChange = false
-    this.cm.getDoc().setValue(this.props.value)
-    this.cm.on('change', this.handleChange)
+    this.initMoncao()
   }
 
-  componentWillUnmount () {
-    this.cm.off('change', this.handleChange)
-    this.cm.toTextArea()
+  editorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
+    editor.onDidChangeModelContent((event: any) => {
+      const value = editor.getValue()
+      this.handleChange(value)
+    })
   }
 
-  componentDidUpdate () {
-    const doc = this.cm.getDoc()
-    const currentValue = this.props.value
-    const isValueChanged = currentValue !== doc.getValue()
-
-    if (isValueChanged && !this.disableHandleChange) {
-      doc.setValue(currentValue)
-    }
+  initMoncao = () => {
+    const { value } = this.props
+    if (this.containerElement == null) return
+    this.editor = monaco.editor.create(this.containerElement, {
+      value,
+      ...options
+    })
+    this.editorDidMount(this.editor)
   }
 
-  handleChange = (cm: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeLinkedList) => {
+  handleChange = (value: string) => {
     const { onChange } = this.props
-    this.disableHandleChange = true
-
-    onChange({ target: this })
-
-    this.disableHandleChange = false
+    onChange(value)
   }
 
   render () {
     return (
-      <textarea
-        ref={textarea => (this.textarea = textarea)}
+      <div
+        ref={element => (this.containerElement = element)}
+        className='monaco-editor-container'
       />
     )
   }

@@ -39,7 +39,7 @@ const Container = styled.div`
     )});
     max-height: calc(100vh - 65px);
     overflow-y: auto;
-    .CodeMirror {
+    .monaco-editor-container {
       bottom: 0;
       z-index: 0;
       font-family: 'mono';
@@ -88,12 +88,12 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
   timer: NodeJS.Timer
   previewElement: HTMLDivElement
 
-  handleOnChange = (e: { target: any }) => {
+  handleOnChange = (value: string) => {
     const { setCurrentFile, currentFile } = this.props
 
     clearTimeout(this.timer)
 
-    this.setContent(e.target.value)
+    this.setContent(value)
 
     this.timer = setTimeout(async () => {
       const { content } = this.state
@@ -182,7 +182,7 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
                     value={currentFile == null
                       ? ''
                       : currentFile.content}
-                    onChange={(e: { target: any }) => this.handleOnChange(e)} />
+                    onChange={(value: string) => this.handleOnChange(value)} />
                 </div>
               )
             }
