@@ -145,6 +145,8 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
   render () {
     const { currentFile, sideNavWidth, isHiddenSideNav } = this.props
     const { type } = this.state
+    const content = currentFile && currentFile.content
+    const pathname = currentFile && currentFile.pathname
 
     return (
       <Container
@@ -155,12 +157,9 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
             <DetailHeader
               type={type}
               handleClickEditorButton={this.switchType.bind(this)}
-              fileContent={currentFile == null
-                ? ''
-                : currentFile.content}
-              pathname={currentFile == null
-                ? ''
-                : currentFile.pathname} />
+              fileContent={content}
+              pathname={pathname}
+            />
             { type === 'preview'
               ? (
                 <div
@@ -171,18 +170,19 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
                 >
                   <MarkdownRenderer
                     onClickCheckbox={this.handleClickCheckbox}
-                    content={currentFile == null
-                      ? ''
-                      : currentFile.content} />
+                    content={content}
+                  />
                 </div>
               )
               : (
-                <div className='edit' onContextMenu={this.hanldeOnContextMenu}>
+                <div
+                  className='edit'
+                  onContextMenu={this.hanldeOnContextMenu}
+                >
                   <CodeEditor
-                    value={currentFile == null
-                      ? ''
-                      : currentFile.content}
-                    onChange={(e: { target: any }) => this.handleOnChange(e)} />
+                    value={content}
+                    onChange={(e: { target: any }) => this.handleOnChange(e)}
+                  />
                 </div>
               )
             }
