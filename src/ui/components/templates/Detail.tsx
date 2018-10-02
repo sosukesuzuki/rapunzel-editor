@@ -132,7 +132,7 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
     }
   }
 
-  hanldeOnContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+  handleOnContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
     this.switchType()
   }
@@ -162,22 +162,17 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
             />
             { type === 'preview'
               ? (
-                <div
-                  ref={element => this.previewElement = element}
-                  className='preview'
-                  onContextMenu={this.hanldeOnContextMenu}
-                  onScroll={this.handlePreviewScroll}
-                >
-                  <MarkdownRenderer
-                    onClickCheckbox={this.handleClickCheckbox}
-                    content={content}
-                  />
-                </div>
+                <MarkdownRenderer
+                  innerRef={element => this.previewElement = element}
+                  onContextMenu={this.handleOnContextMenu}
+                  onClickCheckbox={this.handleClickCheckbox}
+                  content={content}
+                />
               )
               : (
                 <div
                   className='edit'
-                  onContextMenu={this.hanldeOnContextMenu}
+                  onContextMenu={this.handleOnContextMenu}
                 >
                   <CodeEditor
                     value={content}

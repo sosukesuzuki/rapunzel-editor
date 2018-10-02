@@ -6,15 +6,23 @@ import reactRenderer from 'remark-react'
 import { convert } from 'tasklist.js'
 import { grey } from '../../../lib/colors'
 import emoji from 'remark-emoji'
+import { observer, inject } from 'mobx-react'
+import Stores from '../../../lib/stores'
 
 interface MarkdownRendererProps {
   content: string
   onClickCheckbox: (content: string) => Promise<void>
+  setScrollY?: (scrollY: number) => void
+  scrollY?: number
+  onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void
+  innerRef: (element: HTMLDivElement) => void
 }
 
 interface ProgressBarProps {
   percentage: number
 }
+
+const Container = styled.div``
 
 const ProgressBar = styled.div`
   width: 100%;
@@ -31,10 +39,17 @@ const ProgressBar = styled.div`
   }
 `
 
+@inject((s: Stores) => ({
+  setScrollY: s.editorStateStore.setScrollY,
+  scrollY: s.editorStateStore.scrollY
+}))
+@observer
 export default class MarkdownRenderer extends React.Component<MarkdownRendererProps> {
   static defaultProps: MarkdownRendererProps = {
     content: '',
-    onClickCheckbox: null
+    onClickCheckbox: null,
+    onContextMenu: null,
+    innerRef: null
   }
 
   componentDidMount () {
@@ -86,15 +101,25 @@ export default class MarkdownRenderer extends React.Component<MarkdownRendererPr
     this.setDefaultCheckbox()
   }
 
+  handlePreviewScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { setScrollY } = this.props
+    setScrollY((e.target as HTMLDivElement).scrollTop)
+  }
+
   render () {
-    const { content } = this.props
+    const { content, innerRef, onContextMenu } = this.props
     const tasks = this.getTaskObjects()
     const countOfTasks = tasks.length
     const countOfCompletedTasks = tasks.filter(obj => obj.checked).length
     const percentageOfCompletedTasks = Math.floor(countOfCompletedTasks / countOfTasks * 100)
 
     return (
-      <>
+      <Container
+        className='preview'
+        onScroll={this.handlePreviewScroll}
+        onContextMenu={onContextMenu}
+        innerRef={innerRef}
+      >
         {countOfTasks > 0 &&
           <ProgressBar percentage={percentageOfCompletedTasks}>
             <div className='inside'>
@@ -112,7 +137,7 @@ export default class MarkdownRenderer extends React.Component<MarkdownRendererPr
             .use(emoji)
             .processSync(content).contents}
         </div>
-      </>
+      </Container>
     )
   }
 }
