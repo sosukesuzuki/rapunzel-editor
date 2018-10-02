@@ -1,9 +1,12 @@
 import React from 'react'
+import styled from 'styled-components'
 import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/edit/continuelist'
 import 'codemirror/mode/gfm/gfm'
 import 'codemirror/keymap/vim'
+import { inject, observer } from 'mobx-react'
+import Stores from '../../../lib/stores'
 
 const options = {
   lineNumbers: true,
@@ -16,11 +19,40 @@ const options = {
   }
 }
 
+interface ContainerProps {
+  sideNavWidth: number
+  isHiddenSideNav: boolean
+}
+
+const Container = styled.div`
+  max-width: calc(100vw - ${({ sideNavWidth, isHiddenSideNav }: ContainerProps) => (
+    !isHiddenSideNav
+      ? `${sideNavWidth}px - 1px`
+      : '0x'
+  )});
+  max-height: calc(100vh - 65px);
+  overflow-y: auto;
+  .CodeMirror {
+    bottom: 0;
+    z-index: 0;
+    font-family: 'mono';
+    min-height: calc(100vh - 65px);
+  }
+`
+
 interface CodeEditorProps {
   value: string
   onChange: (e: { target: any }) => void
+  onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void
+  sideNavWidth?: number
+  isHiddenSideNav?: boolean
 }
 
+@inject((s: Stores) => ({
+  sideNavWidth: s.editorStateStore.sideNavWidth,
+  isHiddenSideNav: s.editorStateStore.isHiddenSideNav
+}))
+@observer
 export default class CodeEditor extends React.Component<CodeEditorProps> {
   cm: CodeMirror.EditorFromTextArea = null
   textarea: HTMLTextAreaElement = null
@@ -63,10 +95,19 @@ export default class CodeEditor extends React.Component<CodeEditorProps> {
   }
 
   render () {
+    const { onContextMenu, sideNavWidth, isHiddenSideNav } = this.props
+
     return (
-      <textarea
-        ref={textarea => (this.textarea = textarea)}
-      />
+      <Container
+        sideNavWidth={sideNavWidth}
+        isHiddenSideNav={isHiddenSideNav}
+        className='edit'
+        onContextMenu={onContextMenu}
+      >
+        <textarea
+          ref={textarea => (this.textarea = textarea)}
+        />
+      </Container>
     )
   }
 }
