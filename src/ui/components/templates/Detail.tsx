@@ -170,15 +170,11 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
                 />
               )
               : (
-                <div
-                  className='edit'
+                <CodeEditor
+                  value={content}
+                  onChange={(e: { target: any }) => this.handleOnChange(e)}
                   onContextMenu={this.handleOnContextMenu}
-                >
-                  <CodeEditor
-                    value={content}
-                    onChange={(e: { target: any }) => this.handleOnChange(e)}
-                  />
-                </div>
+                />
               )
             }
           </>

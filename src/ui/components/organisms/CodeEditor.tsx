@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/edit/continuelist'
@@ -16,9 +17,12 @@ const options = {
   }
 }
 
+const Container = styled.div``
+
 interface CodeEditorProps {
   value: string
   onChange: (e: { target: any }) => void
+  onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
 export default class CodeEditor extends React.Component<CodeEditorProps> {
@@ -63,10 +67,17 @@ export default class CodeEditor extends React.Component<CodeEditorProps> {
   }
 
   render () {
+    const { onContextMenu } = this.props
+
     return (
-      <textarea
-        ref={textarea => (this.textarea = textarea)}
-      />
+      <Container
+        className='edit'
+        onContextMenu={onContextMenu}
+      >
+        <textarea
+          ref={textarea => (this.textarea = textarea)}
+        />
+      </Container>
     )
   }
 }
