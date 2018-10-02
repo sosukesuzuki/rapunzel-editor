@@ -16,6 +16,7 @@ interface MarkdownRendererProps {
   scrollY?: number
   onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void
   innerRef: (element: HTMLDivElement) => void
+  sideNavWidth?: number
 }
 
 interface ProgressBarProps {
@@ -62,7 +63,8 @@ const ProgressBar = styled.div`
 
 @inject((s: Stores) => ({
   setScrollY: s.editorStateStore.setScrollY,
-  scrollY: s.editorStateStore.scrollY
+  scrollY: s.editorStateStore.scrollY,
+  sideNavWidth: s.editorStateStore.sideNavWidth
 }))
 @observer
 export default class MarkdownRenderer extends React.Component<MarkdownRendererProps> {
@@ -128,7 +130,7 @@ export default class MarkdownRenderer extends React.Component<MarkdownRendererPr
   }
 
   render () {
-    const { content, innerRef, onContextMenu } = this.props
+    const { content, innerRef, onContextMenu, sideNavWidth } = this.props
     const tasks = this.getTaskObjects()
     const countOfTasks = tasks.length
     const countOfCompletedTasks = tasks.filter(obj => obj.checked).length
@@ -136,6 +138,7 @@ export default class MarkdownRenderer extends React.Component<MarkdownRendererPr
 
     return (
       <Container
+        sideNavWidth={sideNavWidth}
         className='preview'
         onScroll={this.handlePreviewScroll}
         onContextMenu={onContextMenu}

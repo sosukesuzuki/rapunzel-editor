@@ -5,6 +5,8 @@ import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/edit/continuelist'
 import 'codemirror/mode/gfm/gfm'
 import 'codemirror/keymap/vim'
+import { inject, observer } from 'mobx-react'
+import Stores from '../../../lib/stores'
 
 const options = {
   lineNumbers: true,
@@ -42,8 +44,15 @@ interface CodeEditorProps {
   value: string
   onChange: (e: { target: any }) => void
   onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void
+  sideNavWidth?: number
+  isHiddenSideNav?: boolean
 }
 
+@inject((s: Stores) => ({
+  sideNavWidth: s.editorStateStore.sideNavWidth,
+  isHiddenSideNav: s.editorStateStore.isHiddenSideNav
+}))
+@observer
 export default class CodeEditor extends React.Component<CodeEditorProps> {
   cm: CodeMirror.EditorFromTextArea = null
   textarea: HTMLTextAreaElement = null
@@ -86,10 +95,12 @@ export default class CodeEditor extends React.Component<CodeEditorProps> {
   }
 
   render () {
-    const { onContextMenu } = this.props
+    const { onContextMenu, sideNavWidth, isHiddenSideNav } = this.props
 
     return (
       <Container
+        sideNavWidth={sideNavWidth}
+        isHiddenSideNav={isHiddenSideNav}
         className='edit'
         onContextMenu={onContextMenu}
       >

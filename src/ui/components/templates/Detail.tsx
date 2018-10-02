@@ -11,8 +11,6 @@ import { File } from '../../../lib/types'
 interface DetailProps {
   currentFile?: File
   setCurrentFile?: (input: File) => Promise<void>
-  sideNavWidth?: number
-  isHiddenSideNav?: boolean
   setScrollY?: (scrollY: number) => void
   scrollY?: number
 }
@@ -31,8 +29,6 @@ const Container = styled.div`
 @inject((s: Stores) => ({
   currentFile: s.currentFileStore.currentFile,
   setCurrentFile: s.currentFileStore.setCurrentFile,
-  sideNavWidth: s.editorStateStore.sideNavWidth,
-  isHiddenSideNav: s.editorStateStore.isHiddenSideNav,
   setScrollY: s.editorStateStore.setScrollY,
   scrollY: s.editorStateStore.scrollY
 }))
@@ -105,7 +101,7 @@ export default class Detail extends React.Component<DetailProps, DetailState> {
   }
 
   render () {
-    const { currentFile, sideNavWidth, isHiddenSideNav } = this.props
+    const { currentFile } = this.props
     const { type } = this.state
     const content = currentFile && currentFile.content
     const pathname = currentFile && currentFile.pathname
