@@ -17,7 +17,26 @@ const options = {
   }
 }
 
-const Container = styled.div``
+interface ContainerProps {
+  sideNavWidth: number
+  isHiddenSideNav: boolean
+}
+
+const Container = styled.div`
+  max-width: calc(100vw - ${({ sideNavWidth, isHiddenSideNav }: ContainerProps) => (
+    !isHiddenSideNav
+      ? `${sideNavWidth}px - 1px`
+      : '0x'
+  )});
+  max-height: calc(100vh - 65px);
+  overflow-y: auto;
+  .CodeMirror {
+    bottom: 0;
+    z-index: 0;
+    font-family: 'mono';
+    min-height: calc(100vh - 65px);
+  }
+`
 
 interface CodeEditorProps {
   value: string

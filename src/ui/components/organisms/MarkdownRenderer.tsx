@@ -22,7 +22,28 @@ interface ProgressBarProps {
   percentage: number
 }
 
-const Container = styled.div``
+interface ContainerProps {
+  sideNavWidth: number
+}
+
+const Container = styled.div`
+  overflow-y: auto;
+  max-height: calc(100vh - 65px);
+  max-width: calc(100vw - ${({ sideNavWidth }: ContainerProps) => sideNavWidth}pxpx - 1px);
+  .markdown-body {
+    padding: 45px;
+    h1:first-child {
+      margin-top: 0;
+    }
+    p {
+      white-space: pre-wrap;
+    }
+    pre code {
+      white-space: pre;
+      font-family: 'mono';
+    }
+  }
+`
 
 const ProgressBar = styled.div`
   width: 100%;
