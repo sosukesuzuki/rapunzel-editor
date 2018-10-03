@@ -1,24 +1,15 @@
-# Rapunzel
+# README
 
-The fs based note-taking app focuses markdown.
+- 「Rapunzel」はブラウザ上で動作するMarkdownエディタです。
 
-![Rapunzel ScreenShot](https://raw.githubusercontent.com/sosukesuzuki/rapunzel-editor/src/resources/Rapunzel.jpg)
+## 機能
 
-## How to develop?
+次の３つの機能がほしいがために開発しています。
 
-```
-$ yarn
-$ yarn run dev
-```
+1. ブラウザ上で動く。Electronは嫌。
+2. オフラインでも使える。ServiceWorker。
+3. BrowserFS。楽にFolder in Folderを実現する。
 
-## Author
+## 作者
 
-- [sosukesuzuki](https://github.com/sosukesuzuki)
-
-## Attention
-
-You can use Rapunzel on the modern browser only.
-
-## Licence
-
-MIT
+- [sosukesuzuki](https://sosukesuzuki.github.io)
