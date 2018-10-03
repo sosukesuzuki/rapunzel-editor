@@ -1,6 +1,5 @@
 # Summary
 
-* [Introduction](README.md)
+* [README](README.md)
 
-* UI
-  * [App Layout Overview](./UI/AppLayoutOverview.md)
+* [使っている技術](./techs.md)
