@@ -1,48 +1,48 @@
 # 使っている技術
 
 Rapunzelは主に次の技術を使って開発されています。
+その他のライブラリ等については`package.json`を見てください。
 
-## Typescript
+## TypeScript
 
-Javascriptが嫌いだが、その資産は使いたいのでTypescriptを採用。静的型付、しゅき。
-Flowを使わなかった理由として、VSCodeの支援を受けやすいというのがある。
+JavaScriptで開発するのはしんどいが、その資産は使いたいのでTypeScriptを採用しました。
 
 ## React
 
-使い慣れているので採用。
+最も使い慣れているので採用しました。
 
-## Styled-Components
+## Styled Components
 
-使い慣れているので採用。
+最も使い慣れているので採用しました。他の候補としてはStylus/CSSModulesがありました。
 
 ## MobX
 
-Reduxでもよかったが、なんとなく試してみたかったのでMobXを採用。
+Reduxでもよかったのですが、なんとなく試してみたかったのでMobXを採用しました。
 
 ## BrowserFS
 
-開発コストを他に依存しつつ多階層ファイルシステムを使うために採用。
+開発コストを他に依存しつつ多階層ファイルシステムを使うために採用しました。
 
 ## Remark
 
-使いなれているので採用。型定義ファイルがないのが惜しい。
+使いなれているので採用しました。型定義ファイルがないのが惜しいですが。
 
 ## CodeMirror
 
-使い慣れているので採用。MonacoEditorに変えようか検討している。
+使い慣れているので採用しました。MonacoEditorに変えようか検討しています。
 
 ## Microsoft Office Ui Fabric
 
-UIデザインが苦手なのでなんらかのCSSフレームワークを使いたかった。GitHubのPrimerやMaterialUIも候補に入っていたが、ちょっと使ってみたかったので特に強い理由はないがOffice-ui-fabricを採用。
+UIデザインが苦手なのでなんらかのCSSフレームワークを使いたかった。GitHubのPrimerやMaterialUIも候補に入っていたが、ちょっと使ってみたかったので特に強い理由はないがOffice-ui-fabricを採用しました。
 
 ## Webpack
 
-他に特に選択肢もなく採用。ちなみに、始めてWebpack4を使ったが、そこまで新しい知識は必要なかった。
+他に特に選択肢もなく採用しました。ちなみに、始めてWebpack4を使ったが、そこまで新しい知識は必要なかった。
 
 ## ServiceWorker
 
-WorkboxPluginを使ってキャッシュするために使用。
+WorkboxPluginを使ってキャッシュするために使用しました。
 
 ## Jest
 
-他のテストフレームワークをあまり使えないので採用。
+他のテストフレームワークをあまり使えないので採用しました。
